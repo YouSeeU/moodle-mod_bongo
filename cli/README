@@ -1,0 +1,7 @@
+It is a convention in the Moodle code that all CLI scripts are put into the cli/ folder inside the plugin directory.
+Make sure all these files declare themselves as CLI scripts properly (the constant must be defined prior to loading
+the config.php):
+
+define('CLI_SCRIPT', true);
+require(__DIR__.'/../../../config.php');
+require_once($CFG->libdir.'/clilib.php');
