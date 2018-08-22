@@ -1,4 +1,0 @@
-If the file CHANGES.md (or CHANGES.txt, CHANGES.html or just CHANGES alternatively) is found when uploading a new plugin
-version into the Plugins directory, then the contents of this file is used to pre-fill the release notes field for the
-new version.
-

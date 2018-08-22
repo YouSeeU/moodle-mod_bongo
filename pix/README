@@ -1,5 +1,0 @@
-
-The plugin's icon. Activity modules should provide 24 x 24 px colour icons. All other plugin files should be represented
-by 16 x 16 px monochrome icon. There should be a fallback pix/icon.png version of the icon for legacy browsers.
-
-Moodle icons provides icons design guidelines
