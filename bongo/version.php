@@ -31,14 +31,27 @@ if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
 }
 
+// YYYYMMDDXX where XX is an incremental counter for the given year.
 $plugin->version = 2017102000;
 
 // Moodle 2.7.0 is required. This is because the mod_lti plugin was not available until 2.7.0.
 $plugin->requires = 2014051200;
+
+// Name of the plugin inside of moodle.
 $plugin->component = 'tool_bongo';
+
+// How stable the plugin is: MATURITY_ALPHA, MATURITY_BETA, MATURITY_RC or MATURITY_STABLE
 $plugin->maturity = MATURITY_ALPHA;
-$plugin->release = 'moodle_3.5_r1-a';
+
+// This is the first revision for Bongo 1.6.
+$plugin->release = 'v1.6-r1';
+
 
 $plugin->dependencies = [
+    // Bongo depends on an LTI tool to be installed.
+    // It doesn't matter which version because Bongo doesn't do anything out of standard.
     'mod_lti' => ANY_VERSION
+
+    // While Bongo relies on the course module, it is built into Moodle and is assumed to exist in every Moodle install.
+    // 'course'
 ];

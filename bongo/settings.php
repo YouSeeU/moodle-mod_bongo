@@ -40,6 +40,7 @@ if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
 }
 
+// Add the Bongo configuration page to the main Admin Tree.
 $ADMIN->add('tools',
     new admin_externalpage(
         'tool_bongo_settings',

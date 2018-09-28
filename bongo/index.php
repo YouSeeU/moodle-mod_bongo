@@ -73,8 +73,7 @@ if ($form->is_cancelled()) {
         );
     }
 
-    // Call the AWS lambda.
-    $registrationresponse = tool_bongo_request_registration($dbobject);
+    $registrationresponse = tool_bongo_set_up_bongo($dbobject);
 
     $dbobject->hostname = $registrationresponse->url;
     $dbobject->key = $registrationresponse->key;

@@ -67,10 +67,17 @@ function tool_bongo_regions() {
 
 
 /**
+ * Set up everything necessary to connect to Bongo
+ * - Create Course
+ * - Create LTI Type (Connector on Moodle side)
+ * - Create activity in Course
+ * - Register with Bongo
+ * - Create Activity in Course and attach Activity to LTI Type
+ *
  * @param stdClass $requestobject
  * @return stdClass
  */
-function tool_bongo_request_registration($requestobject) {
+function tool_bongo_set_up_bongo($requestobject) {
     $courseid = tool_bongo_create_mod_course();
     $coursesection = tool_bongo_get_course_section_id($courseid);
     $ltimoduleid = tool_bongo_get_lti_module_id();
@@ -78,14 +85,8 @@ function tool_bongo_request_registration($requestobject) {
     // Bongo will need the ID of the course that was created for linking.
     $requestobject->course_id = $courseid;
 
-    $requestfields = constants::TOOL_BONGO_TIMEZONE . '=' . $requestobject->timezone
-        . '&' . constants::TOOL_BONGO_NAME . '=' . $requestobject->school_name
-        . '&' . constants::TOOL_BONGO_REGION . '=' . $requestobject->region
-        . '&' . constants::TOOL_BONGO_PREMIUM_KEY . '=' . $requestobject->premium_key
-        . '&' . constants::TOOL_BONGO_COURSE_ID . '=' . $requestobject->course_id
-        . '&' . constants::TOOL_BONGO_REST_CALL_TYPE . '=' . constants::TOOL_BONGO_REST_CALL_TYPE_INSTALL;
-    $resultresponse = tool_bongo_execute_rest_call(constants::TOOL_BONGO_MOODLE_LAMBDA_ADDRESS, $requestfields);
-    $parsedresponse = tool_bongo_parse_response($resultresponse);
+    // Format and execute rest call to Bongo to register
+    $parsedresponse = tool_bongo_register_with_bongo($requestobject);
 
     $ltitypeid = tool_bongo_create_lti_tool($parsedresponse->secret, $parsedresponse->key, $parsedresponse->url);
     $coursemoduleid = tool_bongo_create_course_module($courseid, $coursesection, $ltitypeid, $ltimoduleid);
@@ -97,6 +98,27 @@ function tool_bongo_request_registration($requestobject) {
 }
 
 /**
+ * Format a rest request and send to Bongo for registration
+ *
+ * @param stdClass $requestobject
+ * @return stdClass
+ */
+function tool_bongo_register_with_bongo($requestobject){
+    $requestfields = constants::TOOL_BONGO_TIMEZONE . '=' . $requestobject->timezone
+        . '&' . constants::TOOL_BONGO_NAME . '=' . $requestobject->school_name
+        . '&' . constants::TOOL_BONGO_REGION . '=' . $requestobject->region
+        . '&' . constants::TOOL_BONGO_PREMIUM_KEY . '=' . $requestobject->premium_key
+        . '&' . constants::TOOL_BONGO_COURSE_ID . '=' . $requestobject->course_id
+        . '&' . constants::TOOL_BONGO_REST_CALL_TYPE . '=' . constants::TOOL_BONGO_REST_CALL_TYPE_INSTALL;
+    $resultresponse = tool_bongo_execute_rest_call(constants::TOOL_BONGO_MOODLE_LAMBDA_ADDRESS, $requestfields);
+    $parsedresponse = tool_bongo_parse_response($resultresponse);
+
+    return $parsedresponse;
+}
+
+/**
+ * Curl call to supplied address using the supplied post fields
+ *
  * @param string $urladdress
  * @param string $postfields
  * @return stdClass
@@ -124,6 +146,8 @@ function tool_bongo_execute_rest_call($urladdress, $postfields) {
 }
 
 /**
+ * Parse the JSON response that came from the curl call
+ *
  * @param string $jsonresult
  * @return stdClass
  */
@@ -145,6 +169,8 @@ function tool_bongo_parse_response($jsonresult) {
 }
 
 /**
+ * Creates the Moodle LTI Type (External Tool)
+ *
  * @param string $secret
  * @param string $key
  * @param string $url
@@ -194,6 +220,8 @@ function tool_bongo_create_lti_tool($secret, $key, $url) {
 }
 
 /**
+ * Gets the internal id of "lti" from the modules table
+ *
  * @return int id
  */
 function tool_bongo_get_lti_module_id() {
@@ -204,6 +232,8 @@ function tool_bongo_get_lti_module_id() {
 }
 
 /**
+ * Creates a course to be used as an example of using Bongo
+ *
  * @return int
  */
 function tool_bongo_create_mod_course() {
@@ -247,6 +277,8 @@ function tool_bongo_get_course_section_id($courseid) {
 }
 
 /**
+ * Create Activity inside of new course so we can launch directly into Bongo in the example
+ *
  * @param int $courseid
  * @param int $sectionid
  * @param int $ltitypeid
@@ -289,6 +321,11 @@ function tool_bongo_create_course_module($courseid, $sectionid, $ltitypeid, $lti
     return $coursemodule->coursemodule;
 }
 
+/**
+ * Notify Bongo that plugin was uninstalled.
+ *
+ * This allows Bongo to cleanup unwanted installations and de-provision them.
+ */
 function unregister_bongo_integration(){
     $bongoconfig = get_config('tool_bongo');
 

@@ -17,6 +17,9 @@
 /**
  * Executes PHP code before Bongo's database tables and data are dropped during the plugin uninstallation.
  *
+ * - Removes the LTI Type
+ * - Notifies Bongo of uninstall
+ *
  * File         uninstall.php
  * Encoding     UTF-8
  *
