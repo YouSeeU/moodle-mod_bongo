@@ -51,7 +51,7 @@ $string['pluginsettingscanceled'] = 'Bongo configuration canceled';
 
 // Form info.
 $string['bongochangessaved'] = 'Changes saved!';
-$string['bongopremiumkey'] = 'Bongo Premium Key';
+$string['bongopremiumkey'] = 'Bongo Access Key';
 $string['bongopremiumkey_help'] = 'Key supplied by Bongo that enables premium features.'.
     ' If you do not have a key please <a href="mailto:sales@youseeu.com">Contact Us</a>.';
 $string['bongoschoolname'] = 'Moodle School Name';
@@ -69,4 +69,5 @@ $string['bongosa'] = 'South America';
 // Course Strings.
 $string['bongoexamplecourse'] = 'Bongo Example Course';
 $string['bongocontinue'] = 'Take me to Bongo';
+$string['bongoactivity'] = 'Bongo Activity';
 

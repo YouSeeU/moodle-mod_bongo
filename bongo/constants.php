@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Executes PHP code before Bongo's database tables and data are dropped during the plugin uninstallation.
+ * Internal constants, never to be seen by a user
  *
- * File         uninstall.php
+ * File         constants.php
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
@@ -26,18 +26,16 @@
  *
  */
 
-if (!defined('MOODLE_INTERNAL')) {
-    die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
-}
-
-global $CFG, $DB;
-require_once($CFG->dirroot . '/mod/lti/locallib.php');
-require_once($CFG->dirroot . '/admin/tool/bongo/locallib.php');
-
-$bongorows = $DB->get_records('tool_bongo', array());
-foreach ($bongorows as $bongorow) {
-    $ltitype = $bongorow->lti_type_id;
-    lti_delete_type($ltitype);
-
-
+class constants{
+    const TOOL_BONGO_MOODLE_LAMBDA_ADDRESS = 'https://z6yyes4sc0.execute-api.us-east-1.amazonaws.com/dev/register';
+    const TOOL_BONGO_FAVICON_URL = 'https://s3.amazonaws.com/ysumisc/Bongo_Favicon.png';
+    const TOOL_BONGO_SECRET = 'secret';
+    const TOOL_BONGO_KEY = 'key';
+    const TOOL_BONGO_URL = 'url';
+    const TOOL_BONGO_REGION = 'region';
+    const TOOL_BONGO_TIMEZONE = 'timezone';
+    const TOOL_BONGO_NAME = 'name';
+    const TOOL_BONGO_PREMIUM_KEY = 'premiumkey';
+    const TOOL_BONGO_COURSE_ID = 'courseid';
+    const TOOL_BONGO_LTI = 'lti';
 }

@@ -42,19 +42,20 @@ global $CFG, $DB;
 require_once($CFG->dirroot . '/mod/lti/locallib.php');
 require_once($CFG->dirroot . '/course/lib.php');
 require_once($CFG->dirroot . '/course/modlib.php');
+require_once($CFG->dirroot . '/admin/tool/bongo/constants.php');
 
 require_login();
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
 }
 
-// Add class constants.
-define('TOOL_BONGO_OVERVIEW_SHOWCATEGORIES_NONE', '0');
-
 /**
+ * Creates an array of Bongo regions to show to the user on the configuration page
+ *
  * @return array
  */
 function tool_bongo_regions() {
+    // These are not string constants because this array is shown to the user
     return array(
         get_string('bongona', 'tool_bongo'),
         get_string('bongoca', 'tool_bongo'),
@@ -77,13 +78,12 @@ function tool_bongo_request_registration($requestobject) {
     // Bongo will need the ID of the course that was created for linking.
     $requestobject->courseid = $courseid;
 
-    $lambdaaddress = 'https://z6yyes4sc0.execute-api.us-east-1.amazonaws.com/dev/register';
-    $requestfields = 'timezone=' . $requestobject->timezone
-        . '&name=' . $requestobject->school_name
-        . '&region=' . $requestobject->region
-        . '&premiumkey=' . $requestobject->premium_key
-        . '&courseid=' . $requestobject->courseid;
-    $resultresponse = tool_bongo_execute_rest_call($lambdaaddress, $requestfields);
+    $requestfields = constants::TOOL_BONGO_TIMEZONE . '=' . $requestobject->timezone
+        . '&' . constants::TOOL_BONGO_NAME . '=' . $requestobject->school_name
+        . '&' . constants::TOOL_BONGO_REGION . '=' . $requestobject->region
+        . '&' . constants::TOOL_BONGO_PREMIUM_KEY . '=' . $requestobject->premium_key
+        . '&' . constants::TOOL_BONGO_COURSE_ID . '=' . $requestobject->courseid;
+    $resultresponse = tool_bongo_execute_rest_call(constants::TOOL_BONGO_MOODLE_LAMBDA_ADDRESS, $requestfields);
     $parsedresponse = tool_bongo_parse_response($resultresponse);
 
     $ltitypeid = tool_bongo_create_lti_tool($parsedresponse->secret, $parsedresponse->key, $parsedresponse->url);
@@ -129,10 +129,10 @@ function tool_bongo_execute_rest_call($urladdress, $postfields) {
 function tool_bongo_parse_response($jsonresult) {
     $jsonresponse = json_decode($jsonresult, true, 512);
     $body = $jsonresponse;
-    $secret = $body['secret'];
-    $key = $body['key'];
-    $url = $body['url'];
-    $region = $body['region'];
+    $secret = $body[constants::TOOL_BONGO_SECRET];
+    $key = $body[constants::TOOL_BONGO_KEY];
+    $url = $body[constants::TOOL_BONGO_URL];
+    $region = $body[constants::TOOL_BONGO_REGION];
 
     $parsedresponse = new stdClass();
     $parsedresponse->secret = $secret;
@@ -151,7 +151,6 @@ function tool_bongo_parse_response($jsonresult) {
  */
 function tool_bongo_create_lti_tool($secret, $key, $url) {
     global $DB;
-    $bongofavicon = 'https://s3.amazonaws.com/ysumisc/Bongo_Favicon.png';
 
     // If the lti tool has already been inserted, use the previous one.
     $ltitypes = $DB->get_records('lti_types', array('name' => get_string('pluginname', 'tool_bongo')));
@@ -171,8 +170,8 @@ function tool_bongo_create_lti_tool($secret, $key, $url) {
     $config->lti_typename = get_string('pluginname', 'tool_bongo');
     $config->lti_description = get_string('plugindescription', 'tool_bongo');
     $config->lti_coursevisible = 2;
-    $config->lti_icon = $bongofavicon;
-    $config->lti_secureicon = $bongofavicon;
+    $config->lti_icon = constants::TOOL_BONGO_FAVICON_URL;
+    $config->lti_secureicon = constants::TOOL_BONGO_FAVICON_URL;
     $config->lti_state = 1;
     $config->lti_resourcekey = $key;
     $config->lti_password = $secret;
@@ -255,7 +254,7 @@ function tool_bongo_get_course_section_id($courseid) {
  */
 function tool_bongo_create_course_module($courseid, $sectionid, $ltitypeid, $ltimoduleid) {
     global $CFG;
-    $name = 'Bongo Activity';
+    $name = get_string('bongoactivity', 'tool_bongo');
 
     // Module test values.
     $moduleinfo = new stdClass();
@@ -276,9 +275,9 @@ function tool_bongo_create_course_module($courseid, $sectionid, $ltitypeid, $lti
     $moduleinfo->course = $courseid;
     $moduleinfo->section = $sectionid; // This is the section number in the course. Not the section id in the database.
     $moduleinfo->module = $ltimoduleid;
-    $moduleinfo->modulename = 'lti';
+    $moduleinfo->modulename = constants::TOOL_BONGO_LTI;
     $moduleinfo->instance = $ltitypeid;
-    $moduleinfo->add = 'lti';
+    $moduleinfo->add = constants::TOOL_BONGO_LTI;
     $moduleinfo->update = 0;
     $moduleinfo->return = 0;
 
@@ -287,4 +286,10 @@ function tool_bongo_create_course_module($courseid, $sectionid, $ltitypeid, $lti
     $coursemodule = add_moduleinfo($moduleinfo, $course);
 
     return $coursemodule->coursemodule;
+}
+
+function unregister_bongo_integration(){
+    $bongoconfig = get_config();
+
+
 }

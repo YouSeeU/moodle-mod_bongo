@@ -40,8 +40,8 @@ $context = context_system::instance();
 $PAGE->set_context($context);
 
 $PAGE->set_url('/tool/bongo/view.php');
-$PAGE->set_title('Bongo');
-$PAGE->set_heading('Bongo');
+$PAGE->set_title(get_string('pluginname', 'tool_bongo'));
+$PAGE->set_heading(get_string('pluginname', 'tool_bongo'));
 
 // Moodle 2.2 and greater is required to use this.
 $PAGE->set_context(context_system::instance());

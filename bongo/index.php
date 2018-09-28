@@ -47,8 +47,8 @@ if (
 
 $PAGE->set_context($context);
 $PAGE->set_url('/tool/bongo/index.php');
-$PAGE->set_title('Bongo Configuration');
-$PAGE->set_heading('Bongo Configuration');
+$PAGE->set_title(get_string('pluginsettings', 'tool_bongo'));
+$PAGE->set_heading(get_string('pluginsettings', 'tool_bongo'));
 $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('standard');
 
