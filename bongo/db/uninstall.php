@@ -39,5 +39,5 @@ foreach ($bongorows as $bongorow) {
     $ltitype = $bongorow->lti_type_id;
     lti_delete_type($ltitype);
 
-
 }
+unregister_bongo_integration();

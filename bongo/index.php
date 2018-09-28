@@ -86,7 +86,7 @@ if ($form->is_cancelled()) {
     $DB->insert_record('tool_bongo', $dbobject);
 
     // Save plugin config.
-    foreach ($data as $name => $value) {
+    foreach ($dbobject as $name => $value) {
         set_config($name, $value, 'tool_bongo');
     }
     redirect(

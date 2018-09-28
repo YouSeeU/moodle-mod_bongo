@@ -15,7 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * English strings for the plugin are defined here. At least $string['pluginname'] must be present.
+ * English strings for the plugin are defined here. Only string that appear to the user are listed. For internal strings
+ * see the constants.php file.
+ * At least $string['pluginname'] must be present.
  * String API provides information about the string files.
  *
  * Usage: get_string('pluginname', 'tool_bongo')
@@ -40,7 +42,7 @@ $string['bongoinfo'] = 'For more information on Bongo and how it works see: <a h
 $string['plugindescription'] = 'Bongo';
 $string['pluginname'] = 'Bongo';
 $string['plugininformation'] = '<b>Thank you for installing Bongo!</b>'.
-    '</p>To use Bongo in any class, add it from the \'Add and activity resource\' menu in the class main page. Then, simply'.
+    '</p>To use Bongo in any class, add it from the \'Add and activity resource\' menu in the class main page. Then,'.
     ' click on the Bongo activity to be taken directly to Bongo!'.
     '</p>We are so excited to show you Bongo and we would love with talk to you about extending your 2 week trial.'.
     '</p>Now, get ready to <b>Feel The Beat</b>, with Bongo! Click below to check out our demo course.';

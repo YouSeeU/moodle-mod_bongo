@@ -76,21 +76,22 @@ function tool_bongo_request_registration($requestobject) {
     $ltimoduleid = tool_bongo_get_lti_module_id();
 
     // Bongo will need the ID of the course that was created for linking.
-    $requestobject->courseid = $courseid;
+    $requestobject->course_id = $courseid;
 
     $requestfields = constants::TOOL_BONGO_TIMEZONE . '=' . $requestobject->timezone
         . '&' . constants::TOOL_BONGO_NAME . '=' . $requestobject->school_name
         . '&' . constants::TOOL_BONGO_REGION . '=' . $requestobject->region
         . '&' . constants::TOOL_BONGO_PREMIUM_KEY . '=' . $requestobject->premium_key
-        . '&' . constants::TOOL_BONGO_COURSE_ID . '=' . $requestobject->courseid;
+        . '&' . constants::TOOL_BONGO_COURSE_ID . '=' . $requestobject->course_id
+        . '&' . constants::TOOL_BONGO_REST_CALL_TYPE . '=' . constants::TOOL_BONGO_REST_CALL_TYPE_INSTALL;
     $resultresponse = tool_bongo_execute_rest_call(constants::TOOL_BONGO_MOODLE_LAMBDA_ADDRESS, $requestfields);
     $parsedresponse = tool_bongo_parse_response($resultresponse);
 
     $ltitypeid = tool_bongo_create_lti_tool($parsedresponse->secret, $parsedresponse->key, $parsedresponse->url);
     $coursemoduleid = tool_bongo_create_course_module($courseid, $coursesection, $ltitypeid, $ltimoduleid);
     $parsedresponse->lti_type_id = $ltitypeid;
-    $parsedresponse->course_id = $courseid;
     $parsedresponse->module_id = $coursemoduleid;
+    $parsedresponse->course_id = $courseid;
 
     return $parsedresponse;
 }
@@ -289,7 +290,9 @@ function tool_bongo_create_course_module($courseid, $sectionid, $ltitypeid, $lti
 }
 
 function unregister_bongo_integration(){
-    $bongoconfig = get_config();
+    $bongoconfig = get_config('tool_bongo');
 
-
+    $requestfields = constants::TOOL_BONGO_KEY . '=' . $bongoconfig->key
+        . '&' . constants::TOOL_BONGO_REST_CALL_TYPE . '=' . constants::TOOL_BONGO_REST_CALL_TYPE_UNINSTALL;
+    $resultresponse = tool_bongo_execute_rest_call(constants::TOOL_BONGO_MOODLE_LAMBDA_ADDRESS, $requestfields);
 }
