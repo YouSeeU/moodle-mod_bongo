@@ -40,11 +40,11 @@ $plugin->requires = 2014051200;
 // Name of the plugin inside of moodle.
 $plugin->component = 'tool_bongo';
 
-// How stable the plugin is: MATURITY_ALPHA, MATURITY_BETA, MATURITY_RC or MATURITY_STABLE
+// How stable the plugin is: MATURITY_ALPHA, MATURITY_BETA, MATURITY_RC or MATURITY_STABLE.
 $plugin->maturity = MATURITY_ALPHA;
 
 // This is the first revision for Bongo 1.6.
-$plugin->release = 'v1.6-r1';
+$plugin->release = '1.6-r1';
 
 
 $plugin->dependencies = [
@@ -53,5 +53,4 @@ $plugin->dependencies = [
     'mod_lti' => ANY_VERSION
 
     // While Bongo relies on the course module, it is built into Moodle and is assumed to exist in every Moodle install.
-    // 'course'
 ];

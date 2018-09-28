@@ -26,6 +26,10 @@
  *
  */
 
+if (!defined('MOODLE_INTERNAL')) {
+    die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
+}
+
 class constants{
     const TOOL_BONGO_MOODLE_LAMBDA_ADDRESS = 'https://z6yyes4sc0.execute-api.us-east-1.amazonaws.com/dev/register';
     const TOOL_BONGO_FAVICON_URL = 'https://s3.amazonaws.com/ysumisc/Bongo_Favicon.png';

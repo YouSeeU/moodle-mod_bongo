@@ -68,7 +68,12 @@ class bongosetupform extends \moodleform {
         $mform->addRule('bongo_premium_key', null, 'required', null, 'client');
         $mform->setType('bongo_premium_key', PARAM_ALPHANUM);
 
-        $mform->addElement('static', get_string('bongopremiumkey_help', 'tool_bongo'), '', get_string('bongopremiumkey_help', 'tool_bongo'));
+        $mform->addElement(
+            'static',
+            get_string('bongopremiumkey_help', 'tool_bongo'),
+            '',
+            get_string('bongopremiumkey_help', 'tool_bongo')
+        );
 
         // Bongo Region selection.
         $regions = tool_bongo_regions();

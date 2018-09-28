@@ -55,7 +55,7 @@ if (!defined('MOODLE_INTERNAL')) {
  * @return array
  */
 function tool_bongo_regions() {
-    // These are not string constants because this array is shown to the user
+    // These are not string constants because this array is shown to the user.
     return array(
         get_string('bongona', 'tool_bongo'),
         get_string('bongoca', 'tool_bongo'),
@@ -85,7 +85,7 @@ function tool_bongo_set_up_bongo($requestobject) {
     // Bongo will need the ID of the course that was created for linking.
     $requestobject->course_id = $courseid;
 
-    // Format and execute rest call to Bongo to register
+    // Format and execute rest call to Bongo to register.
     $parsedresponse = tool_bongo_register_with_bongo($requestobject);
 
     $ltitypeid = tool_bongo_create_lti_tool($parsedresponse->secret, $parsedresponse->key, $parsedresponse->url);
@@ -103,7 +103,7 @@ function tool_bongo_set_up_bongo($requestobject) {
  * @param stdClass $requestobject
  * @return stdClass
  */
-function tool_bongo_register_with_bongo($requestobject){
+function tool_bongo_register_with_bongo($requestobject) {
     $requestfields = constants::TOOL_BONGO_TIMEZONE . '=' . $requestobject->timezone
         . '&' . constants::TOOL_BONGO_NAME . '=' . $requestobject->school_name
         . '&' . constants::TOOL_BONGO_REGION . '=' . $requestobject->region
@@ -326,7 +326,7 @@ function tool_bongo_create_course_module($courseid, $sectionid, $ltitypeid, $lti
  *
  * This allows Bongo to cleanup unwanted installations and de-provision them.
  */
-function unregister_bongo_integration(){
+function unregister_bongo_integration() {
     $bongoconfig = get_config('tool_bongo');
 
     $requestfields = constants::TOOL_BONGO_KEY . '=' . $bongoconfig->key
