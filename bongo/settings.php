@@ -31,7 +31,7 @@
  */
 
 require_once(__DIR__ . '/../../../config.php');
-global $CFG, $ADMIN;
+global $CFG;
 require_once($CFG->libdir . '/adminlib.php');
 
 require_login();
