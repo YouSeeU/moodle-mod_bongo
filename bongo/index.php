@@ -57,7 +57,7 @@ admin_externalpage_setup('tool_bongo_settings');
 $form = new \tool_bongo\forms\bongosetupform();
 
 if ($form->is_cancelled()) {
-    redirect(new moodle_url('/admin/search.php'), get_string('bongochangessaved', 'tool_bongo'));
+    redirect(new moodle_url('/admin/search.php'));
 } else if ($data = $form->get_data()) {
     $dbobject = new stdClass();
     $dbobject->school_name = $data->bongo_school_name;
@@ -74,6 +74,14 @@ if ($form->is_cancelled()) {
     }
 
     $registrationresponse = tool_bongo_set_up_bongo($dbobject);
+
+    // If there was an error in the call to Bongo, display the parsed error and redirect the page
+    if($registrationresponse->errorexists == true){
+        redirect(
+            new moodle_url('/admin/tool/bongo/index.php'),
+            $registrationresponse->errormessage
+        );
+    }
 
     $dbobject->hostname = $registrationresponse->url;
     $dbobject->key = $registrationresponse->key;

@@ -37,10 +37,11 @@ global $CFG, $DB;
 require_once($CFG->dirroot . '/mod/lti/locallib.php');
 require_once($CFG->dirroot . '/admin/tool/bongo/locallib.php');
 
+
+// Needs error handling around not configured instance.
 $bongorows = $DB->get_records('tool_bongo', array());
 foreach ($bongorows as $bongorow) {
     $ltitype = $bongorow->lti_type_id;
     lti_delete_type($ltitype);
-
 }
-unregister_bongo_integration();
+tool_bongo_unregister_bongo_integration();

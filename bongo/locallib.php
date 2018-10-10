@@ -87,12 +87,13 @@ function tool_bongo_set_up_bongo($requestobject) {
 
     // Format and execute rest call to Bongo to register.
     $parsedresponse = tool_bongo_register_with_bongo($requestobject);
-
-    $ltitypeid = tool_bongo_create_lti_tool($parsedresponse->secret, $parsedresponse->key, $parsedresponse->url);
-    $coursemoduleid = tool_bongo_create_course_module($courseid, $coursesection, $ltitypeid, $ltimoduleid);
-    $parsedresponse->lti_type_id = $ltitypeid;
-    $parsedresponse->module_id = $coursemoduleid;
-    $parsedresponse->course_id = $courseid;
+    if($parsedresponse->errorexists == false){
+        $ltitypeid = tool_bongo_create_lti_tool($parsedresponse->secret, $parsedresponse->key, $parsedresponse->url);
+        $coursemoduleid = tool_bongo_create_course_module($courseid, $coursesection, $ltitypeid, $ltimoduleid);
+        $parsedresponse->lti_type_id = $ltitypeid;
+        $parsedresponse->module_id = $coursemoduleid;
+        $parsedresponse->course_id = $courseid;
+    }
 
     return $parsedresponse;
 }
@@ -112,6 +113,10 @@ function tool_bongo_register_with_bongo($requestobject) {
         . '&' . constants::TOOL_BONGO_REST_CALL_TYPE . '=' . constants::TOOL_BONGO_REST_CALL_TYPE_INSTALL;
     $resultresponse = tool_bongo_execute_rest_call(constants::TOOL_BONGO_MOODLE_LAMBDA_ADDRESS, $requestfields);
     $parsedresponse = tool_bongo_parse_response($resultresponse);
+
+    $errorresponse = tool_bongo_handle_rest_errors($parsedresponse);
+    $parsedresponse->errorexists = $errorresponse->errorexists;
+    $parsedresponse->errormessage = $errorresponse->errormessage;
 
     return $parsedresponse;
 }
@@ -154,16 +159,18 @@ function tool_bongo_execute_rest_call($urladdress, $postfields) {
 function tool_bongo_parse_response($jsonresult) {
     $jsonresponse = json_decode($jsonresult, true, 512);
     $body = $jsonresponse;
-    $secret = $body[constants::TOOL_BONGO_SECRET];
-    $key = $body[constants::TOOL_BONGO_KEY];
-    $url = $body[constants::TOOL_BONGO_URL];
-    $region = $body[constants::TOOL_BONGO_REGION];
+    $message = (array_key_exists(constants::TOOL_BONGO_MESSAGE, $body) ? $body[constants::TOOL_BONGO_MESSAGE] : null);
+    $secret = (array_key_exists(constants::TOOL_BONGO_SECRET, $body) ? $body[constants::TOOL_BONGO_SECRET] : null);
+    $key = (array_key_exists(constants::TOOL_BONGO_KEY, $body) ? $body[constants::TOOL_BONGO_KEY] : null);
+    $url = (array_key_exists(constants::TOOL_BONGO_URL, $body) ? $body[constants::TOOL_BONGO_URL] : null);
+    $region = (array_key_exists(constants::TOOL_BONGO_REGION, $body) ? $body[constants::TOOL_BONGO_REGION] : null);
 
     $parsedresponse = new stdClass();
     $parsedresponse->secret = $secret;
     $parsedresponse->key = $key;
     $parsedresponse->url = $url;
     $parsedresponse->region = $region;
+    $parsedresponse->message = $message;
 
     return $parsedresponse;
 }
@@ -326,10 +333,40 @@ function tool_bongo_create_course_module($courseid, $sectionid, $ltitypeid, $lti
  *
  * This allows Bongo to cleanup unwanted installations and de-provision them.
  */
-function unregister_bongo_integration() {
+function tool_bongo_unregister_bongo_integration() {
     $bongoconfig = get_config('tool_bongo');
 
-    $requestfields = constants::TOOL_BONGO_KEY . '=' . $bongoconfig->key
-        . '&' . constants::TOOL_BONGO_REST_CALL_TYPE . '=' . constants::TOOL_BONGO_REST_CALL_TYPE_UNINSTALL;
-    $resultresponse = tool_bongo_execute_rest_call(constants::TOOL_BONGO_MOODLE_LAMBDA_ADDRESS, $requestfields);
+    // If the plugin was not configured, don't bother with a rest call
+    if(isset($bongoconfig->key)){
+        $requestfields = constants::TOOL_BONGO_KEY . '=' . $bongoconfig->key
+            . '&' . constants::TOOL_BONGO_REST_CALL_TYPE . '=' . constants::TOOL_BONGO_REST_CALL_TYPE_UNINSTALL;
+        $resultresponse = tool_bongo_execute_rest_call(constants::TOOL_BONGO_MOODLE_LAMBDA_ADDRESS, $requestfields);
+    }
+}
+
+/**
+ * Takes a parsed response object and handles the errors that came back from the REST call
+ * @param stdClass $parsedresponse
+ * @return stdClass if there was an error in the rest response
+ */
+function tool_bongo_handle_rest_errors($parsedresponse){
+    $moodleerror = new stdClass();
+    $errorexists = false;
+    $errormessage = false;
+    if(!is_null($parsedresponse->message)){
+        $message = $parsedresponse->message;
+        switch ($message) {
+            case 'Internal server error':
+                $errorexists = true;
+                $errormessage = get_string('bongoresterror', 'tool_bongo');
+                break;
+            default:
+                // No errors were found!
+                break;
+        }
+    }
+    $moodleerror->errorexists = $errorexists;
+    $moodleerror->errormessage = $errormessage;
+
+    return $moodleerror;
 }

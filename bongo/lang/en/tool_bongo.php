@@ -76,3 +76,7 @@ $string['bongoexamplecourse'] = 'Bongo Example Course';
 $string['bongocontinue'] = 'Take me to Bongo';
 $string['bongoactivity'] = 'Bongo Activity';
 
+// Error Strings.
+$string['bongoresterror'] = 'An error occurred while contacting Bongo';
+
+
