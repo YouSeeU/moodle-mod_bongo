@@ -60,6 +60,9 @@ $string['bongoschoolname'] = 'Moodle School Name';
 $string['bongoschoolname_help'] = 'Name of the school you are associated with.';
 $string['bongoregion'] = 'Region';
 $string['bongoregion_help'] = 'What area of the world are you installing this plugin to?';
+$string['bongoemail'] = 'Email Address';
+$string['bongoemail_help'] = 'Email Address that Bongo can use to contact you about your trial';
+
 
 // Regions.
 $string['bongoau'] = 'Australia';
