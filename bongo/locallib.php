@@ -65,7 +65,6 @@ function tool_bongo_regions() {
     );
 }
 
-
 /**
  * Set up everything necessary to connect to Bongo
  * - Create Course
@@ -102,7 +101,7 @@ function tool_bongo_set_up_bongo($requestobject) {
  * Format a rest request and send to Bongo for registration
  *
  * @param stdClass $requestobject
- * @return stdClass
+ * @return stdClass Bongo's response, parsed to extract errors, key, secret, url and any other messages for the Bongo plugin
  */
 function tool_bongo_register_with_bongo($requestobject) {
     $requestfields = constants::TOOL_BONGO_TIMEZONE . '=' . $requestobject->timezone
@@ -198,6 +197,27 @@ function tool_bongo_create_lti_tool($secret, $key, $url) {
         return $id;
     }
 
+    $config = tool_bongo_create_lti_type_config($url, $key, $secret);
+
+    $type = new \stdClass();
+    $type->state = LTI_TOOL_STATE_CONFIGURED;
+
+    lti_add_type($type, $config);
+    $ltitype = $DB->get_record('lti_types', array('name' => get_string('pluginname', 'tool_bongo')));
+    $id = $ltitype->id;
+
+    return $id;
+}
+
+/**
+ * Build the object necessary to insert the Bongo LTI type into the database
+ *
+ * @param String $url URL of the Bongo LTI endpoint
+ * @param String $key unique key to identify Moodle installation
+ * @param String $secret unique secret to authenticate to Bongo
+ * @return stdClass database-ready object containing necessary fields for persisting
+ */
+function tool_bongo_create_lti_type_config($url, $key, $secret){
     // Create built in LTI tool.
     $config = new \stdClass();
     $config->lti_toolurl = $url;
@@ -216,14 +236,7 @@ function tool_bongo_create_lti_tool($secret, $key, $url) {
     $config->lti_acceptgrades = 1;
     $config->lti_launchcontainer = 3;
 
-    $type = new \stdClass();
-    $type->state = LTI_TOOL_STATE_CONFIGURED;
-
-    lti_add_type($type, $config);
-    $ltitype = $DB->get_record('lti_types', array('name' => get_string('pluginname', 'tool_bongo')));
-    $id = $ltitype->id;
-
-    return $id;
+    return $config;
 }
 
 /**
@@ -256,6 +269,16 @@ function tool_bongo_create_mod_course() {
         return $id;
     }
 
+    $config = tool_bongo_create_course_object();
+
+    create_course($config);
+    $course = $DB->get_record('course', array('fullname' => get_string('bongoexamplecourse', 'tool_bongo')));
+    $id = $course->id;
+
+    return $id;
+}
+
+function tool_bongo_create_course_object(){
     $config = new stdClass();
     $config->fullname = get_string('bongoexamplecourse', 'tool_bongo');
     $config->shortname = get_string('bongoexamplecourse', 'tool_bongo');
@@ -265,11 +288,7 @@ function tool_bongo_create_mod_course() {
     $config->timecreated = time();
     $config->timemodified = time();
 
-    create_course($config);
-    $course = $DB->get_record('course', array('fullname' => get_string('bongoexamplecourse', 'tool_bongo')));
-    $id = $course->id;
-
-    return $id;
+    return $config;
 }
 
 /**
@@ -293,14 +312,30 @@ function tool_bongo_get_course_section_id($courseid) {
  * @return int coursemodule id
  */
 function tool_bongo_create_course_module($courseid, $sectionid, $ltitypeid, $ltimoduleid) {
-    global $CFG;
-    $name = get_string('bongoactivity', 'tool_bongo');
+    $moduleinfo = tool_bongo_create_course_module_object($ltitypeid, $courseid, $sectionid, $ltimoduleid);
 
+    $course = new stdClass();
+    $course->id = $courseid;
+    $coursemodule = add_moduleinfo($moduleinfo, $course);
+
+    return $coursemodule->coursemodule;
+}
+
+/**
+ * Create a database persist-ready object to be passed into
+ *
+ * @param int $ltitypeid database id of the lti type that was created
+ * @param int $courseid database id of the course that was created
+ * @param int $sectionid database id of the course section that was created
+ * @param int $ltimoduleid database id of the lti module that was created
+ * @return stdClass database persist-ready object
+ */
+function tool_bongo_create_course_module_object($ltitypeid, $courseid, $sectionid, $ltimoduleid){
     // Module test values.
     $moduleinfo = new stdClass();
 
     // Always mandatory generic values to any module.
-    $moduleinfo->name = $name;
+    $moduleinfo->name = get_string('bongoactivity', 'tool_bongo');;
     $moduleinfo->showdescription = 0;
     $moduleinfo->showtitlelaunch = 1;
     $moduleinfo->typeid = $ltitypeid;
@@ -321,11 +356,7 @@ function tool_bongo_create_course_module($courseid, $sectionid, $ltitypeid, $lti
     $moduleinfo->update = 0;
     $moduleinfo->return = 0;
 
-    $course = new stdClass();
-    $course->id = $courseid;
-    $coursemodule = add_moduleinfo($moduleinfo, $course);
-
-    return $coursemodule->coursemodule;
+    return $moduleinfo;
 }
 
 /**

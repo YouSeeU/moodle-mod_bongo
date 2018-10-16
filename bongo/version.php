@@ -44,7 +44,7 @@ $plugin->component = 'tool_bongo';
 $plugin->maturity = MATURITY_ALPHA;
 
 // This is the first revision for Bongo 1.6.
-$plugin->release = '1.6-r1';
+$plugin->release = '1.0-r1';
 
 
 $plugin->dependencies = [
