@@ -104,8 +104,7 @@ function tool_bongo_set_up_bongo($requestobject) {
  * @return stdClass Bongo's response, parsed to extract errors, key, secret, url and any other messages for the Bongo plugin
  */
 function tool_bongo_register_with_bongo($requestobject) {
-    $requestfields = constants::TOOL_BONGO_TIMEZONE . '=' . $requestobject->timezone
-        . '&' . constants::TOOL_BONGO_NAME . '=' . $requestobject->school_name
+    $requestfields = constants::TOOL_BONGO_NAME . '=' . $requestobject->school_name
         . '&' . constants::TOOL_BONGO_REGION . '=' . $requestobject->region
         . '&' . constants::TOOL_BONGO_PREMIUM_KEY . '=' . $requestobject->premium_key
         . '&' . constants::TOOL_BONGO_COURSE_ID . '=' . $requestobject->course_id
