@@ -43,8 +43,9 @@ class constants{
     const TOOL_BONGO_COURSE_ID = 'courseid';
     const TOOL_BONGO_LTI = 'lti';
     const TOOL_BONGO_MESSAGE = 'message';
+    const TOOL_BONGO_CODE = 'code';
 
     const TOOL_BONGO_REST_CALL_TYPE = 'type';
-    const TOOL_BONGO_REST_CALL_TYPE_INSTALL = '0';
-    const TOOL_BONGO_REST_CALL_TYPE_UNINSTALL = '1';
+    const TOOL_BONGO_REST_CALL_TYPE_INSTALL = 'install';
+    const TOOL_BONGO_REST_CALL_TYPE_UNINSTALL = 'uninstall';
 }

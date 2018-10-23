@@ -78,5 +78,7 @@ $string['bongoactivity'] = 'Bongo Activity';
 
 // Error Strings.
 $string['bongoresterror'] = 'An error occurred while contacting Bongo';
+$string['bongoresterrorinvalidtoken'] = 'That token is invalid. Please contact Bongo for a new key.';
+$string['bongoresterrorexpiredtoken'] = 'That token is expired. Please contact Bongo for a new key.';
 
 

@@ -75,8 +75,8 @@ if ($form->is_cancelled()) {
 
     $registrationresponse = tool_bongo_set_up_bongo($dbobject);
 
-    // If there was an error in the call to Bongo, display the parsed error and redirect the page
-    if($registrationresponse->errorexists == true){
+    // If there was an error in the call to Bongo, display the parsed error and redirect the page.
+    if ($registrationresponse->errorexists == true || is_null($registrationresponse->url)) {
         redirect(
             new moodle_url('/admin/tool/bongo/index.php'),
             $registrationresponse->errormessage

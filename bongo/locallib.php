@@ -86,7 +86,7 @@ function tool_bongo_set_up_bongo($requestobject) {
 
     // Format and execute rest call to Bongo to register.
     $parsedresponse = tool_bongo_register_with_bongo($requestobject);
-    if($parsedresponse->errorexists == false){
+    if ($parsedresponse->errorexists == false && !is_null($parsedresponse->url)) {
         $ltitypeid = tool_bongo_create_lti_tool($parsedresponse->secret, $parsedresponse->key, $parsedresponse->url);
         $coursemoduleid = tool_bongo_create_course_module($courseid, $coursesection, $ltitypeid, $ltimoduleid);
         $parsedresponse->lti_type_id = $ltitypeid;
@@ -104,13 +104,15 @@ function tool_bongo_set_up_bongo($requestobject) {
  * @return stdClass Bongo's response, parsed to extract errors, key, secret, url and any other messages for the Bongo plugin
  */
 function tool_bongo_register_with_bongo($requestobject) {
-    $requestfields =
-        '{"'.constants::TOOL_BONGO_NAME . '": "' . $requestobject->school_name . '",'
-        . '"'. constants::TOOL_BONGO_REGION . '": "' . $requestobject->region . '",'
-        . '"'. constants::TOOL_BONGO_ACCESS_CODE . '": "' . $requestobject->access_code. '",'
-        . '"'. constants::TOOL_BONGO_COURSE_ID . '": "' . $requestobject->course_id . '",'
-        . '"'. constants::TOOL_BONGO_REST_CALL_TYPE . '": "' . 'install"}';
-    $resultresponse = tool_bongo_execute_rest_call(constants::TOOL_BONGO_MOODLE_LAMBDA_ADDRESS, $requestfields);
+    $array = array(
+        constants::TOOL_BONGO_NAME => $requestobject->school_name,
+        constants::TOOL_BONGO_REGION => $requestobject->region,
+        constants::TOOL_BONGO_ACCESS_CODE => $requestobject->access_code,
+        constants::TOOL_BONGO_COURSE_ID => $requestobject->course_id,
+        constants::TOOL_BONGO_REST_CALL_TYPE => constants::TOOL_BONGO_REST_CALL_TYPE_INSTALL
+    );
+
+    $resultresponse = tool_bongo_execute_rest_call(constants::TOOL_BONGO_MOODLE_LAMBDA_ADDRESS, json_encode($array));
     $parsedresponse = tool_bongo_parse_response($resultresponse);
 
     $errorresponse = tool_bongo_handle_rest_errors($parsedresponse);
@@ -158,6 +160,7 @@ function tool_bongo_execute_rest_call($urladdress, $postfields) {
 function tool_bongo_parse_response($jsonresult) {
     $jsonresponse = json_decode($jsonresult, true, 512);
     $body = $jsonresponse;
+    $code = (array_key_exists(constants::TOOL_BONGO_CODE, $body) ? $body[constants::TOOL_BONGO_CODE] : null);
     $message = (array_key_exists(constants::TOOL_BONGO_MESSAGE, $body) ? $body[constants::TOOL_BONGO_MESSAGE] : null);
     $secret = (array_key_exists(constants::TOOL_BONGO_SECRET, $body) ? $body[constants::TOOL_BONGO_SECRET] : null);
     $key = (array_key_exists(constants::TOOL_BONGO_KEY, $body) ? $body[constants::TOOL_BONGO_KEY] : null);
@@ -170,6 +173,7 @@ function tool_bongo_parse_response($jsonresult) {
     $parsedresponse->url = $url;
     $parsedresponse->region = $region;
     $parsedresponse->message = $message;
+    $parsedresponse->code = $code;
 
     return $parsedresponse;
 }
@@ -217,7 +221,7 @@ function tool_bongo_create_lti_tool($secret, $key, $url) {
  * @param String $secret unique secret to authenticate to Bongo
  * @return stdClass database-ready object containing necessary fields for persisting
  */
-function tool_bongo_create_lti_type_config($url, $key, $secret){
+function tool_bongo_create_lti_type_config($url, $key, $secret) {
     // Create built in LTI tool.
     $config = new \stdClass();
     $config->lti_toolurl = $url;
@@ -278,7 +282,7 @@ function tool_bongo_create_mod_course() {
     return $id;
 }
 
-function tool_bongo_create_course_object(){
+function tool_bongo_create_course_object() {
     $config = new stdClass();
     $config->fullname = get_string('bongoexamplecourse', 'tool_bongo');
     $config->shortname = get_string('bongoexamplecourse', 'tool_bongo');
@@ -330,7 +334,7 @@ function tool_bongo_create_course_module($courseid, $sectionid, $ltitypeid, $lti
  * @param int $ltimoduleid database id of the lti module that was created
  * @return stdClass database persist-ready object
  */
-function tool_bongo_create_course_module_object($ltitypeid, $courseid, $sectionid, $ltimoduleid){
+function tool_bongo_create_course_module_object($ltitypeid, $courseid, $sectionid, $ltimoduleid) {
     // Module test values.
     $moduleinfo = new stdClass();
 
@@ -367,8 +371,8 @@ function tool_bongo_create_course_module_object($ltitypeid, $courseid, $sectioni
 function tool_bongo_unregister_bongo_integration() {
     $bongoconfig = get_config('tool_bongo');
 
-    // If the plugin was not configured, don't bother with a rest call
-    if(isset($bongoconfig->key)){
+    // If the plugin was not configured, don't bother with a rest call.
+    if (isset($bongoconfig->key)) {
         $requestfields = constants::TOOL_BONGO_KEY . '=' . $bongoconfig->key
             . '&' . constants::TOOL_BONGO_REST_CALL_TYPE . '=' . constants::TOOL_BONGO_REST_CALL_TYPE_UNINSTALL;
         $resultresponse = tool_bongo_execute_rest_call(constants::TOOL_BONGO_MOODLE_LAMBDA_ADDRESS, $requestfields);
@@ -380,21 +384,43 @@ function tool_bongo_unregister_bongo_integration() {
  * @param stdClass $parsedresponse
  * @return stdClass if there was an error in the rest response
  */
-function tool_bongo_handle_rest_errors($parsedresponse){
+function tool_bongo_handle_rest_errors($parsedresponse) {
     $moodleerror = new stdClass();
     $errorexists = false;
     $errormessage = false;
-    if(!is_null($parsedresponse->message)){
+    if (!is_null($parsedresponse->message)) {
         $message = $parsedresponse->message;
         switch ($message) {
             case 'Internal server error':
+            case 'POST body missing accessCode':
+            case 'POST body missing region':
+            case 'POST body missing Institution Name':
+            case 'POST body missing Class lms code':
+            case 'POST body missing timezone':
+            case 'No Token': // For contacting Bongo, not the GSS.
+            case 'Institution not created':
+            case 'Invalid backend':
+            case '':
                 $errorexists = true;
                 $errormessage = get_string('bongoresterror', 'tool_bongo');
                 break;
+            case 'Invalid accessCode':
+                $errorexists = true;
+                $errormessage = get_string('bongoresterrorinvalidtoken', 'tool_bongo');
+                break;
+            case 'Expired accessCode':
+                $errorexists = true;
+                $errormessage = get_string('bongoresterrorexpiredtoken', 'tool_bongo');
+                break;
             default:
-                // No errors were found!
+                // No known errors were found! Give a generic error.
+                $errorexists = true;
+                $errormessage = get_string('bongoresterror', 'tool_bongo');
                 break;
         }
+    } else if (is_null($parsedresponse->url)) {
+        $errorexists = true;
+        $errormessage = get_string('bongoresterror', 'tool_bongo');
     }
     $moodleerror->errorexists = $errorexists;
     $moodleerror->errormessage = $errormessage;
