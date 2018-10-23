@@ -26,9 +26,9 @@
  *
  */
 
-if (!defined('MOODLE_INTERNAL')) {
-    die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
-}
+//if (!defined('MOODLE_INTERNAL')) {
+//    die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
+//}
 
 class constants{
     const TOOL_BONGO_MOODLE_LAMBDA_ADDRESS = 'https://890qn4pzv5.execute-api.us-west-2.amazonaws.com/bongo17stable/api/provision';
@@ -36,11 +36,12 @@ class constants{
     const TOOL_BONGO_SECRET = 'secret';
     const TOOL_BONGO_KEY = 'key';
     const TOOL_BONGO_URL = 'url';
-    const TOOL_BONGO_REGION = 'region';
+    const TOOL_BONGO_REGION = 'bongoRegion';
     const TOOL_BONGO_TIMEZONE = 'timezone';
     const TOOL_BONGO_NAME = 'institutionName';
     const TOOL_BONGO_ACCESS_CODE = 'accessCode';
-    const TOOL_BONGO_COURSE_ID = 'courseid';
+    const TOOL_BONGO_CUSTOMER_EMAIL = 'customerEmail';
+    const TOOL_BONGO_LMS_CODE = 'lmsCode';
     const TOOL_BONGO_LTI = 'lti';
     const TOOL_BONGO_MESSAGE = 'message';
     const TOOL_BONGO_CODE = 'code';

@@ -108,7 +108,8 @@ function tool_bongo_register_with_bongo($requestobject) {
         constants::TOOL_BONGO_NAME => $requestobject->school_name,
         constants::TOOL_BONGO_REGION => $requestobject->region,
         constants::TOOL_BONGO_ACCESS_CODE => $requestobject->access_code,
-        constants::TOOL_BONGO_COURSE_ID => $requestobject->course_id,
+        constants::TOOL_BONGO_CUSTOMER_EMAIL => $requestobject->customer_email,
+        constants::TOOL_BONGO_LMS_CODE => $requestobject->course_id,
         constants::TOOL_BONGO_REST_CALL_TYPE => constants::TOOL_BONGO_REST_CALL_TYPE_INSTALL
     );
 
@@ -159,7 +160,7 @@ function tool_bongo_execute_rest_call($urladdress, $postfields) {
  */
 function tool_bongo_parse_response($jsonresult) {
     $jsonresponse = json_decode($jsonresult, true, 512);
-    $body = $jsonresponse;
+    $body = $jsonresponse['data'];
     $code = (array_key_exists(constants::TOOL_BONGO_CODE, $body) ? $body[constants::TOOL_BONGO_CODE] : null);
     $message = (array_key_exists(constants::TOOL_BONGO_MESSAGE, $body) ? $body[constants::TOOL_BONGO_MESSAGE] : null);
     $secret = (array_key_exists(constants::TOOL_BONGO_SECRET, $body) ? $body[constants::TOOL_BONGO_SECRET] : null);
