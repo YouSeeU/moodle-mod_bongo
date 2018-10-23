@@ -42,7 +42,7 @@ $string['bongoinfo'] = 'For more information on Bongo and how it works see: <a h
 $string['plugindescription'] = 'Bongo';
 $string['pluginname'] = 'Bongo';
 $string['plugininformation'] = '<b>Thank you for installing Bongo!</b>'.
-    '</p>To use Bongo in any class, add it from the \'Add and activity resource\' menu in the class main page. Then,'.
+    '</p>To use Bongo in any class, add it from the \'Add an activity resource\' menu in the class main page. Then,'.
     ' click on the Bongo activity to be taken directly to Bongo!'.
     '</p>We are so excited to show you Bongo and we would love with talk to you about extending your 2 week trial.'.
     '</p>Now, get ready to <b>Feel The Beat</b>, with Bongo! Click below to check out our demo course.';
@@ -54,8 +54,7 @@ $string['pluginsettingscanceled'] = 'Bongo configuration canceled';
 // Form info.
 $string['bongochangessaved'] = 'Changes saved!';
 $string['bongopremiumkey'] = 'Bongo Access Code';
-$string['bongopremiumkey_help'] = 'Key supplied by Bongo that enables premium features.'.
-    ' If you do not have a key please <a href="https://www.bongolearn.com/activation-key">Visit Our Site</a>.';
+$string['bongopremiumkey_help'] = ' If you do not have a key please <a href="https://www.bongolearn.com/activation-code">Visit Our Site</a>.';
 $string['bongoschoolname'] = 'Moodle School Name';
 $string['bongoschoolname_help'] = 'Name of the school you are associated with.';
 $string['bongoregion'] = 'Region';

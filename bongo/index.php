@@ -64,7 +64,10 @@ if ($form->is_cancelled()) {
     $dbobject->customer_email = $data->bongo_email;
     $dbobject->access_code = $data->bongo_access_code;
     $dbobject->timezone = date_default_timezone_get();
-    $dbobject->region = $data->bongo_region;
+
+//    Hard coded for Moodle Moot. Only the NA region will be used
+//    $dbobject->region = $data->bongo_region;
+    $dbobject->region = '0';
 
     $bongorecords = $DB->get_records('tool_bongo', array('school_name' => $dbobject->school_name));
     if (!empty($bongorecords)) {

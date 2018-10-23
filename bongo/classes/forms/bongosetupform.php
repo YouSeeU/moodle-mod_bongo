@@ -79,17 +79,20 @@ class bongosetupform extends \moodleform {
             get_string('bongopremiumkey_help', 'tool_bongo')
         );
 
+//        REMOVED FOR MOODLE MOOT. Only the NA Region will be used
+
         // Bongo Region selection.
-        $regions = tool_bongo_regions();
-        $radioarray = array();
-        for ($i = 0; $i < count($regions); $i++) {
-            $radioarray[] =& $mform->createElement('radio', 'bongo_region', '', $regions[$i], $i);
-        }
+//        $regions = tool_bongo_regions();
+//        $radioarray = array();
+//        for ($i = 0; $i < count($regions); $i++) {
+//            $radioarray[] =& $mform->createElement('radio', 'bongo_region', '', $regions[$i], $i);
+//        }
 
         // Add Bongo regions to form.
-        $mform->addGroup($radioarray, 'bongo_region_radio_array', get_string('bongoregion', 'tool_bongo'), array('</p>'), false);
-        $mform->addHelpButton('bongo_region_radio_array', 'bongoregion', 'tool_bongo');
-        $mform->addRule('bongo_region_radio_array', null, 'required', null, 'client');
+
+//        $mform->addGroup($radioarray, 'bongo_region_radio_array', get_string('bongoregion', 'tool_bongo'), array('</p>'), false);
+//        $mform->addHelpButton('bongo_region_radio_array', 'bongoregion', 'tool_bongo');
+//        $mform->addRule('bongo_region_radio_array', null, 'required', null, 'client');
 
         $this->add_action_buttons(true);
     }
