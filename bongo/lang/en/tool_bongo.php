@@ -38,7 +38,7 @@ if (!defined('MOODLE_INTERNAL')) {
 
 $string['bongoaccessdenied'] = 'You are not allowed to configure the Bongo Plugin.'.
     ' Please see an administrator for more information.';
-$string['bongoinfo'] = 'For more information on Bongo and how it works see: <a href="http://www.youseeu.com">www.YouSeeU.com</a>';
+$string['bongoinfo'] = 'For more information on Bongo and how it works see: <a href="http://www.bongolearn.com">www.bongolearn.com</a>';
 $string['plugindescription'] = 'Bongo';
 $string['pluginname'] = 'Bongo';
 $string['plugininformation'] = '<b>Thank you for installing Bongo!</b>'.
@@ -53,9 +53,9 @@ $string['pluginsettingscanceled'] = 'Bongo configuration canceled';
 
 // Form info.
 $string['bongochangessaved'] = 'Changes saved!';
-$string['bongopremiumkey'] = 'Bongo Access Key';
+$string['bongopremiumkey'] = 'Bongo Access Code';
 $string['bongopremiumkey_help'] = 'Key supplied by Bongo that enables premium features.'.
-    ' If you do not have a key please <a href="mailto:sales@youseeu.com">Contact Us</a>.';
+    ' If you do not have a key please <a href="https://www.bongolearn.com/activation-key">Visit Our Site</a>.';
 $string['bongoschoolname'] = 'Moodle School Name';
 $string['bongoschoolname_help'] = 'Name of the school you are associated with.';
 $string['bongoregion'] = 'Region';
