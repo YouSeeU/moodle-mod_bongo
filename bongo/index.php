@@ -61,7 +61,7 @@ if ($form->is_cancelled()) {
 } else if ($data = $form->get_data()) {
     $dbobject = new stdClass();
     $dbobject->school_name = $data->bongo_school_name;
-    $dbobject->premium_key = $data->bongo_premium_key;
+    $dbobject->access_code = $data->bongo_access_code;
     $dbobject->timezone = date_default_timezone_get();
     $dbobject->region = $data->bongo_region;
 

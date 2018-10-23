@@ -31,15 +31,15 @@ if (!defined('MOODLE_INTERNAL')) {
 }
 
 class constants{
-    const TOOL_BONGO_MOODLE_LAMBDA_ADDRESS = 'https://z6yyes4sc0.execute-api.us-east-1.amazonaws.com/dev/register';
+    const TOOL_BONGO_MOODLE_LAMBDA_ADDRESS = 'https://890qn4pzv5.execute-api.us-west-2.amazonaws.com/bongo17stable/api/provision';
     const TOOL_BONGO_FAVICON_URL = 'https://s3.amazonaws.com/ysumisc/Bongo_Favicon.png';
     const TOOL_BONGO_SECRET = 'secret';
     const TOOL_BONGO_KEY = 'key';
     const TOOL_BONGO_URL = 'url';
     const TOOL_BONGO_REGION = 'region';
     const TOOL_BONGO_TIMEZONE = 'timezone';
-    const TOOL_BONGO_NAME = 'name';
-    const TOOL_BONGO_PREMIUM_KEY = 'premiumkey';
+    const TOOL_BONGO_NAME = 'institutionName';
+    const TOOL_BONGO_ACCESS_CODE = 'accessCode';
     const TOOL_BONGO_COURSE_ID = 'courseid';
     const TOOL_BONGO_LTI = 'lti';
     const TOOL_BONGO_MESSAGE = 'message';

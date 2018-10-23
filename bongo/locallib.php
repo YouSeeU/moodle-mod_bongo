@@ -104,11 +104,12 @@ function tool_bongo_set_up_bongo($requestobject) {
  * @return stdClass Bongo's response, parsed to extract errors, key, secret, url and any other messages for the Bongo plugin
  */
 function tool_bongo_register_with_bongo($requestobject) {
-    $requestfields = constants::TOOL_BONGO_NAME . '=' . $requestobject->school_name
-        . '&' . constants::TOOL_BONGO_REGION . '=' . $requestobject->region
-        . '&' . constants::TOOL_BONGO_PREMIUM_KEY . '=' . $requestobject->premium_key
-        . '&' . constants::TOOL_BONGO_COURSE_ID . '=' . $requestobject->course_id
-        . '&' . constants::TOOL_BONGO_REST_CALL_TYPE . '=' . constants::TOOL_BONGO_REST_CALL_TYPE_INSTALL;
+    $requestfields =
+        '{"'.constants::TOOL_BONGO_NAME . '": "' . $requestobject->school_name . '",'
+        . '"'. constants::TOOL_BONGO_REGION . '": "' . $requestobject->region . '",'
+        . '"'. constants::TOOL_BONGO_ACCESS_CODE . '": "' . $requestobject->access_code. '",'
+        . '"'. constants::TOOL_BONGO_COURSE_ID . '": "' . $requestobject->course_id . '",'
+        . '"'. constants::TOOL_BONGO_REST_CALL_TYPE . '": "' . 'install"}';
     $resultresponse = tool_bongo_execute_rest_call(constants::TOOL_BONGO_MOODLE_LAMBDA_ADDRESS, $requestfields);
     $parsedresponse = tool_bongo_parse_response($resultresponse);
 
