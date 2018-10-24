@@ -34,6 +34,10 @@ if (!defined('MOODLE_INTERNAL')) {
 }
 global $CFG;
 
+// Prevent JS caching
+$CFG->cachejs = false;
+$PAGE->requires->js_call_amd('mod_bongo/app', 'init');
+
 require_once($CFG->libdir . '/formslib.php');
 require_once($CFG->dirroot . '/mod/bongo/locallib.php');
 
