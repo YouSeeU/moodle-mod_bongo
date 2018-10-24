@@ -82,4 +82,6 @@ $string['bongoresterror'] = 'An error occurred while contacting Bongo';
 $string['bongoresterrorinvalidtoken'] = 'That token is invalid. Please contact Bongo for a new key.';
 $string['bongoresterrorexpiredtoken'] = 'That token is expired. Please contact Bongo for a new key.';
 
-
+// Form Actions
+$string['bongosubmitbutton_label'] = 'Create';
+$string['bongosubmitting_label'] = 'Please wait while your Bongo instance is being created. Do not navigate away from this page.';
