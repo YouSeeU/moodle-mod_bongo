@@ -1,0 +1,13 @@
+{
+  "env": {
+    "browser": true,
+    "amd": true
+  },
+  "globals": {
+    "M": true,
+    "Y": true
+  },
+  "rules": {
+
+  }
+}

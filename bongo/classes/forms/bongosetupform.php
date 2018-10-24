@@ -32,7 +32,11 @@ namespace mod_bongo\forms;
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
 }
-global $CFG;
+global $CFG, $PAGE;
+
+// Prevent JS caching
+// $CFG->cachejs = false;
+$PAGE->requires->js_call_amd('mod_bongo/app', 'init');
 
 require_once($CFG->libdir . '/formslib.php');
 require_once($CFG->dirroot . '/mod/bongo/locallib.php');
@@ -94,6 +98,7 @@ class bongosetupform extends \moodleform {
 //        $mform->addHelpButton('bongo_region_radio_array', 'bongoregion', 'mod_bongo');
 //        $mform->addRule('bongo_region_radio_array', null, 'required', null, 'client');
 
-        $this->add_action_buttons(true);
+        $this->add_action_buttons(true, get_string('bongosubmitbutton_label', 'mod_bongo'));
+        $mform->addElement('html', '<div id=\'bongo-submitting-loader\' style=\'display:none\'><div id=\'bongo-submitting-loader-icon\'/></div><span id=\'bongo-submitting-loader-text\'>' . get_string('bongosubmitting_label', 'mod_bongo') . '</span></div>');
     }
 }

@@ -35,6 +35,7 @@ if (!defined('MOODLE_INTERNAL')) {
 $plugin->version = 2017102000;
 
 // Moodle 2.7.0 is required. This is because the mod_lti plugin was not available until 2.7.0.
+// Moodle 2.9.0 is required. This is because the AJAX support was not enabled until 2.9.0.
 $plugin->requires = 2014051200;
 
 // Name of the plugin inside of moodle.
