@@ -2,8 +2,6 @@
   "name": "moodle-mod_bongo",
   "devDependencies": {
     "grunt": "^1.0.3",
-    "grunt-contrib-less": "^2.0.0",
-    "grunt-contrib-watch": "^1.1.0",
     "grunt-load-gruntfile": "0.0.2"
   }
 }
