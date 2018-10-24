@@ -2,7 +2,7 @@ define(['jquery'], function ($) {
 
   return {
     init: function () {
-      $('<style type=\'text/css\'>@keyframes load { 0% { transform: translateX(-50%) translateY(-50%) rotate(0deg); }' +
+      $('<style type=\'text/css\'>@keyframes bongo-load { 0% { transform: translateX(-50%) translateY(-50%) rotate(0deg); }' +
         '100% { transform: translateX(-50%) translateY(-50%) rotate(360deg); } } </style>').appendTo('head');
 
       var form = $('#mform1');
