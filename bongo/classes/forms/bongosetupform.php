@@ -99,6 +99,6 @@ class bongosetupform extends \moodleform {
 //        $mform->addRule('bongo_region_radio_array', null, 'required', null, 'client');
 
         $this->add_action_buttons(true, get_string('bongosubmitbutton_label', 'mod_bongo'));
-        $mform->addElement('html', '<div id=\'bongo-submitting-loader\' style=\'display:none\'><div id=\'bongo-submitting-loader-icon\'/></div><div id=\'bongo-submitting-loader-text\' style=\'display:inline-block\'>' . get_string('bongosubmitting_label', 'mod_bongo') . '</div></div>');
+        $mform->addElement('html', '<div id=\'bongo-submitting-loader\' style=\'display:none\'><div id=\'bongo-submitting-loader-icon\'/></div><span id=\'bongo-submitting-loader-text\' style=\'display:inline-block\'>' . get_string('bongosubmitting_label', 'mod_bongo') . '</span></div>');
     }
 }
