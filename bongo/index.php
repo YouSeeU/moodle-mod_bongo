@@ -59,51 +59,51 @@ $form = new \mod_bongo\forms\bongosetupform();
 if ($form->is_cancelled()) {
     redirect(new moodle_url('/admin/search.php'));
 } else if ($data = $form->get_data()) {
-    $dbobject = new stdClass();
-    $dbobject->school_name = $data->bongo_school_name;
-    $dbobject->customer_email = $data->bongo_email;
-    $dbobject->access_code = $data->bongo_access_code;
-    $dbobject->timezone = date_default_timezone_get();
-
-//    Hard coded for Moodle Moot. Only the NA region will be used
-//    $dbobject->region = $data->bongo_region;
-    $dbobject->region = '0';
-
-    $bongorecords = $DB->get_records('mod_bongo', array('school_name' => $dbobject->school_name));
-    if (!empty($bongorecords)) {
-        redirect(
-            new moodle_url('/mod/bongo/index.php'),
-            get_string('pluginsettingsalreadyconfigured', 'mod_bongo')
-        );
-    }
-
-    $registrationresponse = mod_bongo_set_up_bongo($dbobject);
-
-    // If there was an error in the call to Bongo, display the parsed error and redirect the page.
-    if ($registrationresponse->errorexists == true || is_null($registrationresponse->url)) {
-        redirect(
-            new moodle_url('/mod/bongo/index.php'),
-            $registrationresponse->errormessage
-        );
-    }
-
-    $dbobject->hostname = $registrationresponse->url;
-    $dbobject->key = $registrationresponse->key;
-    $dbobject->secret = $registrationresponse->secret;
-    $dbobject->secret = $registrationresponse->secret;
-    $dbobject->lti_type_id = $registrationresponse->lti_type_id;
-    $dbobject->course_id = $registrationresponse->course_id;
-
-    $DB->insert_record('mod_bongo', $dbobject);
-
-    // Save plugin config.
-    foreach ($dbobject as $name => $value) {
-        set_config($name, $value, 'mod_bongo');
-    }
-    redirect(
-        new moodle_url('/mod/bongo/view.php?moduleid=' . $registrationresponse->module_id),
-        get_string('bongochangessaved', 'mod_bongo')
-    );
+//    $dbobject = new stdClass();
+//    $dbobject->school_name = $data->bongo_school_name;
+//    $dbobject->customer_email = $data->bongo_email;
+//    $dbobject->access_code = $data->bongo_access_code;
+//    $dbobject->timezone = date_default_timezone_get();
+//
+////    Hard coded for Moodle Moot. Only the NA region will be used
+////    $dbobject->region = $data->bongo_region;
+//    $dbobject->region = '0';
+//
+//    $bongorecords = $DB->get_records('mod_bongo', array('school_name' => $dbobject->school_name));
+//    if (!empty($bongorecords)) {
+//        redirect(
+//            new moodle_url('/mod/bongo/index.php'),
+//            get_string('pluginsettingsalreadyconfigured', 'mod_bongo')
+//        );
+//    }
+//
+//    $registrationresponse = mod_bongo_set_up_bongo($dbobject);
+//
+//    // If there was an error in the call to Bongo, display the parsed error and redirect the page.
+//    if ($registrationresponse->errorexists == true || is_null($registrationresponse->url)) {
+//        redirect(
+//            new moodle_url('/mod/bongo/index.php'),
+//            $registrationresponse->errormessage
+//        );
+//    }
+//
+//    $dbobject->hostname = $registrationresponse->url;
+//    $dbobject->key = $registrationresponse->key;
+//    $dbobject->secret = $registrationresponse->secret;
+//    $dbobject->secret = $registrationresponse->secret;
+//    $dbobject->lti_type_id = $registrationresponse->lti_type_id;
+//    $dbobject->course_id = $registrationresponse->course_id;
+//
+//    $DB->insert_record('mod_bongo', $dbobject);
+//
+//    // Save plugin config.
+//    foreach ($dbobject as $name => $value) {
+//        set_config($name, $value, 'mod_bongo');
+//    }
+//    redirect(
+//        new moodle_url('/mod/bongo/view.php?moduleid=' . $registrationresponse->module_id),
+//        get_string('bongochangessaved', 'mod_bongo')
+//    );
 }
 
 // Build the page output.
