@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <XMLDB
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        PATH="tool/bongo/db"
+        PATH="mod/bongo/db"
         VERSION="2018080100"
         COMMENT="Tables for Bongo configurations."
         xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
     <TABLES>
-        <TABLE NAME="tool_bongo" COMMENT="Storage for Bongo configurations">
+        <TABLE NAME="mod_bongo" COMMENT="Storage for Bongo configurations">
             <FIELDS>
                 <FIELD NAME="id" TYPE="int" LENGTH="9" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
                 <FIELD NAME="school_name" TYPE="char" NOTNULL="false" SEQUENCE="false" COMMENT="Name of school"/>

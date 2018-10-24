@@ -33,13 +33,11 @@
  *
  */
 
-require_once(__DIR__ . '/../../../config.php');
-
 require_login();
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
 }
 
-function tool_bongo_extend_navigation(\global_navigation $nav) {
+function mod_bongo_extend_navigation(\global_navigation $nav) {
     return;
 }

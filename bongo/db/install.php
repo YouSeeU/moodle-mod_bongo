@@ -33,7 +33,7 @@ if (!defined('MOODLE_INTERNAL')) {
 require_once($CFG->dirroot . '/mod/lti/locallib.php');
 
 // Overrides global function. Required for all plugins.
-function xmldb_tool_bongo_install() {
+function xmldb_bongo_install() {
     global $DB;
 
     // Turning on Bongo in Moodle.

@@ -31,22 +31,23 @@
 //}
 
 class constants{
-    const TOOL_BONGO_MOODLE_LAMBDA_ADDRESS = 'https://890qn4pzv5.execute-api.us-west-2.amazonaws.com/bongo17stable/api/provision';
-    const TOOL_BONGO_FAVICON_URL = 'https://s3.amazonaws.com/ysumisc/Bongo_Favicon.png';
-    const TOOL_BONGO_SECRET = 'secret';
-    const TOOL_BONGO_KEY = 'key';
-    const TOOL_BONGO_URL = 'url';
-    const TOOL_BONGO_REGION = 'bongoRegion';
-    const TOOL_BONGO_TIMEZONE = 'timezone';
-    const TOOL_BONGO_NAME = 'institutionName';
-    const TOOL_BONGO_ACCESS_CODE = 'accessCode';
-    const TOOL_BONGO_CUSTOMER_EMAIL = 'customerEmail';
-    const TOOL_BONGO_LMS_CODE = 'lmsCode';
-    const TOOL_BONGO_LTI = 'lti';
-    const TOOL_BONGO_MESSAGE = 'message';
-    const TOOL_BONGO_CODE = 'code';
+//    const MOD_BONGO_MOODLE_LAMBDA_ADDRESS = 'https://890qn4pzv5.execute-api.us-west-2.amazonaws.com/bongo17stable/api/provision';
+    const MOD_BONGO_MOODLE_LAMBDA_ADDRESS = 'https://bongo-gss.youseeu.com/api/provision';
+    const MOD_BONGO_FAVICON_URL = 'https://s3.amazonaws.com/ysumisc/Bongo_Favicon.png';
+    const MOD_BONGO_SECRET = 'secret';
+    const MOD_BONGO_KEY = 'key';
+    const MOD_BONGO_URL = 'url';
+    const MOD_BONGO_REGION = 'bongoRegion';
+    const MOD_BONGO_TIMEZONE = 'timezone';
+    const MOD_BONGO_NAME = 'institutionName';
+    const MOD_BONGO_ACCESS_CODE = 'accessCode';
+    const MOD_BONGO_CUSTOMER_EMAIL = 'customerEmail';
+    const MOD_BONGO_LMS_CODE = 'lmsCode';
+    const MOD_BONGO_LTI = 'lti';
+    const MOD_BONGO_MESSAGE = 'message';
+    const MOD_BONGO_CODE = 'code';
 
-    const TOOL_BONGO_REST_CALL_TYPE = 'type';
-    const TOOL_BONGO_REST_CALL_TYPE_INSTALL = 'install';
-    const TOOL_BONGO_REST_CALL_TYPE_UNINSTALL = 'uninstall';
+    const MOD_BONGO_REST_CALL_TYPE = 'type';
+    const MOD_BONGO_REST_CALL_TYPE_INSTALL = 'install';
+    const MOD_BONGO_REST_CALL_TYPE_UNINSTALL = 'uninstall';
 }

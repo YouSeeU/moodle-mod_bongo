@@ -37,12 +37,11 @@
  *
  */
 
-require_once(__DIR__ . '/../../../config.php');
 global $CFG, $DB;
 require_once($CFG->dirroot . '/mod/lti/locallib.php');
 require_once($CFG->dirroot . '/course/lib.php');
 require_once($CFG->dirroot . '/course/modlib.php');
-require_once($CFG->dirroot . '/admin/tool/bongo/constants.php');
+require_once($CFG->dirroot . '/mod/bongo/constants.php');
 
 require_login();
 if (!defined('MOODLE_INTERNAL')) {
@@ -54,14 +53,14 @@ if (!defined('MOODLE_INTERNAL')) {
  *
  * @return array
  */
-function tool_bongo_regions() {
+function mod_bongo_regions() {
     // These are not string constants because this array is shown to the user.
     return array(
-        get_string('bongona', 'tool_bongo'),
-        get_string('bongoca', 'tool_bongo'),
-        get_string('bongosa', 'tool_bongo'),
-        get_string('bongoeu', 'tool_bongo'),
-        get_string('bongoau', 'tool_bongo')
+        get_string('bongona', 'mod_bongo'),
+        get_string('bongoca', 'mod_bongo'),
+        get_string('bongosa', 'mod_bongo'),
+        get_string('bongoeu', 'mod_bongo'),
+        get_string('bongoau', 'mod_bongo')
     );
 }
 
@@ -76,19 +75,19 @@ function tool_bongo_regions() {
  * @param stdClass $requestobject
  * @return stdClass
  */
-function tool_bongo_set_up_bongo($requestobject) {
-    $courseid = tool_bongo_create_mod_course();
-    $coursesection = tool_bongo_get_course_section_id($courseid);
-    $ltimoduleid = tool_bongo_get_lti_module_id();
+function mod_bongo_set_up_bongo($requestobject) {
+    $courseid = mod_bongo_create_mod_course();
+    $coursesection = mod_bongo_get_course_section_id($courseid);
+    $ltimoduleid = mod_bongo_get_lti_module_id();
 
     // Bongo will need the ID of the course that was created for linking.
     $requestobject->course_id = $courseid;
 
     // Format and execute rest call to Bongo to register.
-    $parsedresponse = tool_bongo_register_with_bongo($requestobject);
+    $parsedresponse = mod_bongo_register_with_bongo($requestobject);
     if ($parsedresponse->errorexists == false && !is_null($parsedresponse->url)) {
-        $ltitypeid = tool_bongo_create_lti_tool($parsedresponse->secret, $parsedresponse->key, $parsedresponse->url);
-        $coursemoduleid = tool_bongo_create_course_module($courseid, $coursesection, $ltitypeid, $ltimoduleid);
+        $ltitypeid = mod_bongo_create_lti_tool($parsedresponse->secret, $parsedresponse->key, $parsedresponse->url);
+        $coursemoduleid = mod_bongo_create_course_module($courseid, $coursesection, $ltitypeid, $ltimoduleid);
         $parsedresponse->lti_type_id = $ltitypeid;
         $parsedresponse->module_id = $coursemoduleid;
         $parsedresponse->course_id = $courseid;
@@ -103,20 +102,20 @@ function tool_bongo_set_up_bongo($requestobject) {
  * @param stdClass $requestobject
  * @return stdClass Bongo's response, parsed to extract errors, key, secret, url and any other messages for the Bongo plugin
  */
-function tool_bongo_register_with_bongo($requestobject) {
+function mod_bongo_register_with_bongo($requestobject) {
     $array = array(
-        constants::TOOL_BONGO_NAME => $requestobject->school_name,
-        constants::TOOL_BONGO_REGION => $requestobject->region,
-        constants::TOOL_BONGO_ACCESS_CODE => $requestobject->access_code,
-        constants::TOOL_BONGO_CUSTOMER_EMAIL => $requestobject->customer_email,
-        constants::TOOL_BONGO_LMS_CODE => $requestobject->course_id,
-        constants::TOOL_BONGO_REST_CALL_TYPE => constants::TOOL_BONGO_REST_CALL_TYPE_INSTALL
+        constants::MOD_BONGO_NAME => $requestobject->school_name,
+        constants::MOD_BONGO_REGION => $requestobject->region,
+        constants::MOD_BONGO_ACCESS_CODE => $requestobject->access_code,
+        constants::MOD_BONGO_CUSTOMER_EMAIL => $requestobject->customer_email,
+        constants::MOD_BONGO_LMS_CODE => $requestobject->course_id,
+        constants::MOD_BONGO_REST_CALL_TYPE => constants::MOD_BONGO_REST_CALL_TYPE_INSTALL
     );
 
-    $resultresponse = tool_bongo_execute_rest_call(constants::TOOL_BONGO_MOODLE_LAMBDA_ADDRESS, json_encode($array));
-    $parsedresponse = tool_bongo_parse_response($resultresponse);
+    $resultresponse = mod_bongo_execute_rest_call(constants::MOD_BONGO_MOODLE_LAMBDA_ADDRESS, json_encode($array));
+    $parsedresponse = mod_bongo_parse_response($resultresponse);
 
-    $errorresponse = tool_bongo_handle_rest_errors($parsedresponse);
+    $errorresponse = mod_bongo_handle_rest_errors($parsedresponse);
     $parsedresponse->errorexists = $errorresponse->errorexists;
     $parsedresponse->errormessage = $errorresponse->errormessage;
 
@@ -130,7 +129,7 @@ function tool_bongo_register_with_bongo($requestobject) {
  * @param string $postfields
  * @return stdClass
  */
-function tool_bongo_execute_rest_call($urladdress, $postfields) {
+function mod_bongo_execute_rest_call($urladdress, $postfields) {
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $urladdress);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -158,15 +157,15 @@ function tool_bongo_execute_rest_call($urladdress, $postfields) {
  * @param string $jsonresult
  * @return stdClass
  */
-function tool_bongo_parse_response($jsonresult) {
+function mod_bongo_parse_response($jsonresult) {
     $jsonresponse = json_decode($jsonresult, true, 512);
     $body = $jsonresponse['data'];
-    $code = (array_key_exists(constants::TOOL_BONGO_CODE, $body) ? $body[constants::TOOL_BONGO_CODE] : null);
-    $message = (array_key_exists(constants::TOOL_BONGO_MESSAGE, $body) ? $body[constants::TOOL_BONGO_MESSAGE] : null);
-    $secret = (array_key_exists(constants::TOOL_BONGO_SECRET, $body) ? $body[constants::TOOL_BONGO_SECRET] : null);
-    $key = (array_key_exists(constants::TOOL_BONGO_KEY, $body) ? $body[constants::TOOL_BONGO_KEY] : null);
-    $url = (array_key_exists(constants::TOOL_BONGO_URL, $body) ? $body[constants::TOOL_BONGO_URL] : null);
-    $region = (array_key_exists(constants::TOOL_BONGO_REGION, $body) ? $body[constants::TOOL_BONGO_REGION] : null);
+    $code = (array_key_exists(constants::MOD_BONGO_CODE, $body) ? $body[constants::MOD_BONGO_CODE] : null);
+    $message = (array_key_exists(constants::MOD_BONGO_MESSAGE, $body) ? $body[constants::MOD_BONGO_MESSAGE] : null);
+    $secret = (array_key_exists(constants::MOD_BONGO_SECRET, $body) ? $body[constants::MOD_BONGO_SECRET] : null);
+    $key = (array_key_exists(constants::MOD_BONGO_KEY, $body) ? $body[constants::MOD_BONGO_KEY] : null);
+    $url = (array_key_exists(constants::MOD_BONGO_URL, $body) ? $body[constants::MOD_BONGO_URL] : null);
+    $region = (array_key_exists(constants::MOD_BONGO_REGION, $body) ? $body[constants::MOD_BONGO_REGION] : null);
 
     $parsedresponse = new stdClass();
     $parsedresponse->secret = $secret;
@@ -187,11 +186,11 @@ function tool_bongo_parse_response($jsonresult) {
  * @param string $url
  * @return int id
  */
-function tool_bongo_create_lti_tool($secret, $key, $url) {
+function mod_bongo_create_lti_tool($secret, $key, $url) {
     global $DB;
 
     // If the lti tool has already been inserted, use the previous one.
-    $ltitypes = $DB->get_records('lti_types', array('name' => get_string('pluginname', 'tool_bongo')));
+    $ltitypes = $DB->get_records('lti_types', array('name' => get_string('pluginname', 'mod_bongo')));
     if (!empty($ltitypes)) {
         $id = -1;
         foreach ($ltitypes as $type) {
@@ -202,13 +201,13 @@ function tool_bongo_create_lti_tool($secret, $key, $url) {
         return $id;
     }
 
-    $config = tool_bongo_create_lti_type_config($url, $key, $secret);
+    $config = mod_bongo_create_lti_type_config($url, $key, $secret);
 
     $type = new \stdClass();
     $type->state = LTI_TOOL_STATE_CONFIGURED;
 
     lti_add_type($type, $config);
-    $ltitype = $DB->get_record('lti_types', array('name' => get_string('pluginname', 'tool_bongo')));
+    $ltitype = $DB->get_record('lti_types', array('name' => get_string('pluginname', 'mod_bongo')));
     $id = $ltitype->id;
 
     return $id;
@@ -222,15 +221,15 @@ function tool_bongo_create_lti_tool($secret, $key, $url) {
  * @param String $secret unique secret to authenticate to Bongo
  * @return stdClass database-ready object containing necessary fields for persisting
  */
-function tool_bongo_create_lti_type_config($url, $key, $secret) {
+function mod_bongo_create_lti_type_config($url, $key, $secret) {
     // Create built in LTI tool.
     $config = new \stdClass();
     $config->lti_toolurl = $url;
-    $config->lti_typename = get_string('pluginname', 'tool_bongo');
-    $config->lti_description = get_string('plugindescription', 'tool_bongo');
+    $config->lti_typename = get_string('pluginname', 'mod_bongo');
+    $config->lti_description = get_string('plugindescription', 'mod_bongo');
     $config->lti_coursevisible = 2;
-    $config->lti_icon = constants::TOOL_BONGO_FAVICON_URL;
-    $config->lti_secureicon = constants::TOOL_BONGO_FAVICON_URL;
+    $config->lti_icon = constants::MOD_BONGO_FAVICON_URL;
+    $config->lti_secureicon = constants::MOD_BONGO_FAVICON_URL;
     $config->lti_state = 1;
     $config->lti_resourcekey = $key;
     $config->lti_password = $secret;
@@ -249,7 +248,7 @@ function tool_bongo_create_lti_type_config($url, $key, $secret) {
  *
  * @return int id
  */
-function tool_bongo_get_lti_module_id() {
+function mod_bongo_get_lti_module_id() {
     global $DB;
     $module = $DB->get_record('modules', array('name' => 'lti'));
 
@@ -261,11 +260,11 @@ function tool_bongo_get_lti_module_id() {
  *
  * @return int
  */
-function tool_bongo_create_mod_course() {
+function mod_bongo_create_mod_course() {
     global $DB;
 
     // If the course has already been inserted, use the previous one.
-    $courses = $DB->get_records('course', array('fullname' => get_string('bongoexamplecourse', 'tool_bongo')));
+    $courses = $DB->get_records('course', array('fullname' => get_string('bongoexamplecourse', 'mod_bongo')));
     if (!empty($courses)) {
         $id = -1;
         foreach ($courses as $course) {
@@ -274,20 +273,20 @@ function tool_bongo_create_mod_course() {
         return $id;
     }
 
-    $config = tool_bongo_create_course_object();
+    $config = mod_bongo_create_course_object();
 
     create_course($config);
-    $course = $DB->get_record('course', array('fullname' => get_string('bongoexamplecourse', 'tool_bongo')));
+    $course = $DB->get_record('course', array('fullname' => get_string('bongoexamplecourse', 'mod_bongo')));
     $id = $course->id;
 
     return $id;
 }
 
-function tool_bongo_create_course_object() {
+function mod_bongo_create_course_object() {
     $config = new stdClass();
-    $config->fullname = get_string('bongoexamplecourse', 'tool_bongo');
-    $config->shortname = get_string('bongoexamplecourse', 'tool_bongo');
-    $config->summary = get_string('bongoexamplecourse', 'tool_bongo');
+    $config->fullname = get_string('bongoexamplecourse', 'mod_bongo');
+    $config->shortname = get_string('bongoexamplecourse', 'mod_bongo');
+    $config->summary = get_string('bongoexamplecourse', 'mod_bongo');
     $config->category = 1;
     $config->startdate = time();
     $config->timecreated = time();
@@ -300,7 +299,7 @@ function tool_bongo_create_course_object() {
  * @param int $courseid
  * @return int section id
  */
-function tool_bongo_get_course_section_id($courseid) {
+function mod_bongo_get_course_section_id($courseid) {
     global $DB;
     $section = $DB->get_record('course_sections', array('course' => $courseid));
 
@@ -316,8 +315,8 @@ function tool_bongo_get_course_section_id($courseid) {
  * @param int $ltimoduleid
  * @return int coursemodule id
  */
-function tool_bongo_create_course_module($courseid, $sectionid, $ltitypeid, $ltimoduleid) {
-    $moduleinfo = tool_bongo_create_course_module_object($ltitypeid, $courseid, $sectionid, $ltimoduleid);
+function mod_bongo_create_course_module($courseid, $sectionid, $ltitypeid, $ltimoduleid) {
+    $moduleinfo = mod_bongo_create_course_module_object($ltitypeid, $courseid, $sectionid, $ltimoduleid);
 
     $course = new stdClass();
     $course->id = $courseid;
@@ -335,12 +334,12 @@ function tool_bongo_create_course_module($courseid, $sectionid, $ltitypeid, $lti
  * @param int $ltimoduleid database id of the lti module that was created
  * @return stdClass database persist-ready object
  */
-function tool_bongo_create_course_module_object($ltitypeid, $courseid, $sectionid, $ltimoduleid) {
+function mod_bongo_create_course_module_object($ltitypeid, $courseid, $sectionid, $ltimoduleid) {
     // Module test values.
     $moduleinfo = new stdClass();
 
     // Always mandatory generic values to any module.
-    $moduleinfo->name = get_string('bongoactivity', 'tool_bongo');;
+    $moduleinfo->name = get_string('bongoactivity', 'mod_bongo');;
     $moduleinfo->showdescription = 0;
     $moduleinfo->showtitlelaunch = 1;
     $moduleinfo->typeid = $ltitypeid;
@@ -355,9 +354,9 @@ function tool_bongo_create_course_module_object($ltitypeid, $courseid, $sectioni
     $moduleinfo->course = $courseid;
     $moduleinfo->section = $sectionid; // This is the section number in the course. Not the section id in the database.
     $moduleinfo->module = $ltimoduleid;
-    $moduleinfo->modulename = constants::TOOL_BONGO_LTI;
+    $moduleinfo->modulename = constants::MOD_BONGO_LTI;
     $moduleinfo->instance = $ltitypeid;
-    $moduleinfo->add = constants::TOOL_BONGO_LTI;
+    $moduleinfo->add = constants::MOD_BONGO_LTI;
     $moduleinfo->update = 0;
     $moduleinfo->return = 0;
 
@@ -369,14 +368,14 @@ function tool_bongo_create_course_module_object($ltitypeid, $courseid, $sectioni
  *
  * This allows Bongo to cleanup unwanted installations and de-provision them.
  */
-function tool_bongo_unregister_bongo_integration() {
-    $bongoconfig = get_config('tool_bongo');
+function mod_bongo_unregister_bongo_integration() {
+    $bongoconfig = get_config('mod_bongo');
 
     // If the plugin was not configured, don't bother with a rest call.
     if (isset($bongoconfig->key)) {
-        $requestfields = constants::TOOL_BONGO_KEY . '=' . $bongoconfig->key
-            . '&' . constants::TOOL_BONGO_REST_CALL_TYPE . '=' . constants::TOOL_BONGO_REST_CALL_TYPE_UNINSTALL;
-        $resultresponse = tool_bongo_execute_rest_call(constants::TOOL_BONGO_MOODLE_LAMBDA_ADDRESS, $requestfields);
+        $requestfields = constants::MOD_BONGO_KEY . '=' . $bongoconfig->key
+            . '&' . constants::MOD_BONGO_REST_CALL_TYPE . '=' . constants::MOD_BONGO_REST_CALL_TYPE_UNINSTALL;
+        $resultresponse = mod_bongo_execute_rest_call(constants::MOD_BONGO_MOODLE_LAMBDA_ADDRESS, $requestfields);
     }
 }
 
@@ -385,7 +384,7 @@ function tool_bongo_unregister_bongo_integration() {
  * @param stdClass $parsedresponse
  * @return stdClass if there was an error in the rest response
  */
-function tool_bongo_handle_rest_errors($parsedresponse) {
+function mod_bongo_handle_rest_errors($parsedresponse) {
     $moodleerror = new stdClass();
     $errorexists = false;
     $errormessage = false;
@@ -403,25 +402,25 @@ function tool_bongo_handle_rest_errors($parsedresponse) {
             case 'Invalid backend':
             case '':
                 $errorexists = true;
-                $errormessage = get_string('bongoresterror', 'tool_bongo');
+                $errormessage = get_string('bongoresterror', 'mod_bongo');
                 break;
             case 'Invalid accessCode':
                 $errorexists = true;
-                $errormessage = get_string('bongoresterrorinvalidtoken', 'tool_bongo');
+                $errormessage = get_string('bongoresterrorinvalidtoken', 'mod_bongo');
                 break;
             case 'Expired accessCode':
                 $errorexists = true;
-                $errormessage = get_string('bongoresterrorexpiredtoken', 'tool_bongo');
+                $errormessage = get_string('bongoresterrorexpiredtoken', 'mod_bongo');
                 break;
             default:
                 // No known errors were found! Give a generic error.
                 $errorexists = true;
-                $errormessage = get_string('bongoresterror', 'tool_bongo');
+                $errormessage = get_string('bongoresterror', 'mod_bongo');
                 break;
         }
     } else if (is_null($parsedresponse->url)) {
         $errorexists = true;
-        $errormessage = get_string('bongoresterror', 'tool_bongo');
+        $errormessage = get_string('bongoresterror', 'mod_bongo');
     }
     $moodleerror->errorexists = $errorexists;
     $moodleerror->errormessage = $errormessage;

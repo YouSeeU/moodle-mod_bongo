@@ -20,10 +20,10 @@
  * At least $string['pluginname'] must be present.
  * String API provides information about the string files.
  *
- * Usage: get_string('pluginname', 'tool_bongo')
+ * Usage: get_string('pluginname', 'mod_bongo')
  *  - first argument is the string index, the second is the plugin that owns the string index
  *
- * File         tool_bongo.php
+ * File         mod_bongo.php
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
@@ -41,6 +41,8 @@ $string['bongoaccessdenied'] = 'You are not allowed to configure the Bongo Plugi
 $string['bongoinfo'] = 'For more information on Bongo and how it works see: <a href="http://www.bongolearn.com">www.bongolearn.com</a>';
 $string['plugindescription'] = 'Bongo';
 $string['pluginname'] = 'Bongo';
+$string['modulename'] = 'Bongo';
+$string['modulenameplural'] = 'Bongo Name Plural';
 $string['plugininformation'] = '<b>Thank you for installing Bongo!</b>'.
     '</p>To use Bongo in any class, add it from the \'Add an activity resource\' menu in the class main page. Then,'.
     ' click on the Bongo activity to be taken directly to Bongo!'.

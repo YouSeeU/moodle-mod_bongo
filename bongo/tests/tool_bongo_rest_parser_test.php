@@ -18,10 +18,10 @@ defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
 
-require_once($CFG->dirroot.'/admin/tool/bongo/locallib.php');
+require_once($CFG->dirroot.'/mod/bongo/locallib.php');
 
-class tool_bongo_rest_parser_testcase extends basic_testcase {
-    public function tool_bongo_parse_rest_response() {
+class mod_bongo_rest_parser_testcase extends basic_testcase {
+    public function mod_bongo_parse_rest_response() {
         $url = 'https://bongo-test-site.youseeu.com/lti/school-name/connect';
         $key = '1234567890';
         $secret = 'ABCDEFGHI';
@@ -35,7 +35,7 @@ class tool_bongo_rest_parser_testcase extends basic_testcase {
                 ' \"region\": \"' . $region . '\"'.
             '}"';
 
-        $parsedresponse = tool_bongo_parse_response($response);
+        $parsedresponse = mod_bongo_parse_response($response);
 
         assert($parsedresponse->errorexists == false, 'Rest error exists in parsed object!' . var_dump($parsedresponse));
         assert(!is_null($parsedresponse->url), 'Rest URL does not exist!' . var_dump($parsedresponse));

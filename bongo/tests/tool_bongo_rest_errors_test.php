@@ -18,16 +18,16 @@ defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
 
-require_once($CFG->dirroot.'/admin/tool/bongo/locallib.php');
+require_once($CFG->dirroot.'/mod/bongo/locallib.php');
 
-class tool_bongo_parse_rest_errors_testcase extends basic_testcase {
-    public function tool_bongo_get_rest_errors() {
+class mod_bongo_parse_rest_errors_testcase extends basic_testcase {
+    public function mod_bongo_get_rest_errors() {
         $this->resetAfterTest(true);
 
         $parsedresponse = new stdClass();
         $parsedresponse->message = 'Internal Server Error';
 
-        $resterror = tool_bongo_handle_rest_errors($parsedresponse);
+        $resterror = mod_bongo_handle_rest_errors($parsedresponse);
 
         assert($resterror->errorexists == true, 'Rest error does not exist in parsed object!');
     }
