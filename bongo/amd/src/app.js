@@ -2,6 +2,16 @@ define(['jquery'], function ($) {
 
   return {
     init: function () {
+      $.keyframe.define([{
+        name: 'bongo-load',
+        '0%': {
+          transform: 'translateX(-50%) translateY(-50%) rotate(0deg)'
+        },
+        '100%': {
+          transform: 'translateX(-50%) translateY(-50%) rotate(360deg)'
+        }
+      }]);
+
       var form = $('#mform1');
       var submitButton = $('#id_submitbutton');
       var cancelButton = $('#id_cancel');
@@ -24,10 +34,13 @@ define(['jquery'], function ($) {
         borderBottom: '1.1em solid #006fbf',
         borderLeft: '1.1em solid #ffffff',
         transform: 'translateZ(0)',
-        animation: 'load 1.1s infinite linear',
+        animation: 'bongo-load 1.1s infinite linear',
         borderRadius: '50%',
-        width: '10em',
-        height: '10em',
+        width: '4em',
+        height: '4em',
+
+        '-webkit-transform': 'translateZ(0)',
+        '-webkit-animation': 'bongo-load 1.1s infinite linear'
       });
       loadingText.css({ display: 'inline-block' });
 
