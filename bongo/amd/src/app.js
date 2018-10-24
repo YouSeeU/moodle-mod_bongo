@@ -10,9 +10,9 @@ define(['jquery'], function ($) {
       var cancelButton = $('#id_cancel');
       var loadingDiv = $('#bongo-submitting-loader');
       var loadingIcon = $('#bongo-submitting-loader-icon');
-      var loadingText = $('#bongo-submitting-loader-text');
+      // var loadingText = $('#bongo-submitting-loader-text');
 
-      loadingDiv.css({ display: 'none', margin: '8px' });
+      loadingDiv.css({ display: 'none', margin: '12px 0 12px 0' });
       loadingIcon.css({
         display: 'inline-block',
         marginRight: '12px',
@@ -32,7 +32,7 @@ define(['jquery'], function ($) {
         width: '4em',
         height: '4em'
       });
-      loadingText.css({ display: 'inline-block' });
+      // loadingText.css({});
 
       form.submit(function () {
         submitButton.prop('disabled', true);
