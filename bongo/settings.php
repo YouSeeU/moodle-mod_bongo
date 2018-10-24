@@ -30,7 +30,6 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once(__DIR__ . '/../../../config.php');
 global $CFG;
 require_once($CFG->libdir . '/adminlib.php');
 
@@ -41,11 +40,11 @@ if (!defined('MOODLE_INTERNAL')) {
 }
 
 // Add the Bongo configuration page to the main Admin Tree.
-$ADMIN->add('tools',
+$ADMIN->add('modsettings',
     new admin_externalpage(
-        'tool_bongo_settings',
-        get_string('pluginname', 'tool_bongo'),
-        new moodle_url('/admin/tool/bongo/index.php'),
+        'mod_bongo_settings',
+        get_string('pluginname', 'mod_bongo'),
+        new moodle_url('/mod/bongo/index.php'),
         'moodle/course:create'
     )
 );

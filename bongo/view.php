@@ -28,7 +28,7 @@
  *
  */
 
-require_once(dirname(__FILE__) . '/../../../config.php');
+require_once('../../config.php');
 global $CFG, $DB;
 require_once($CFG->libdir . '/adminlib.php');
 
@@ -39,16 +39,16 @@ require_login();
 $context = context_system::instance();
 $PAGE->set_context($context);
 
-$PAGE->set_url('/tool/bongo/view.php');
-$PAGE->set_title(get_string('pluginname', 'tool_bongo'));
-$PAGE->set_heading(get_string('pluginname', 'tool_bongo'));
+$PAGE->set_url('/mod/bongo/view.php');
+$PAGE->set_title(get_string('pluginname', 'mod_bongo'));
+$PAGE->set_heading(get_string('pluginname', 'mod_bongo'));
 
 // Moodle 2.2 and greater is required to use this.
 $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('standard');
 
-$config = get_config('tool_bongo');
-$form = new \tool_bongo\forms\bongoinformationform();
+$config = get_config('mod_bongo');
+$form = new \mod_bongo\forms\bongoinformationform();
 
 if (isset($_GET['moduleid'])) {
     $moduleid = $_GET['moduleid'];
@@ -63,6 +63,6 @@ if ($form->is_cancelled()) {
 }
 
 echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('plugininformationpage', 'tool_bongo'));
+echo $OUTPUT->heading(get_string('plugininformationpage', 'mod_bongo'));
 $form->display();
 echo $OUTPUT->footer();

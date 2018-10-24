@@ -20,14 +20,14 @@
  * File         bongo_information_form.php
  * Encoding     UTF-8
  *
- * @package     tool_bongo\forms
+ * @package     mod_bongo\forms
  *
  * @copyright   YouSeeU
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace tool_bongo\forms;
+namespace mod_bongo\forms;
 
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
@@ -55,13 +55,13 @@ class bongoinformationform extends \moodleform {
         // Bongo information page.
 
         // Breadcrumb content.
-        $mform->addElement('html', get_string('plugininformation', 'tool_bongo'));
+        $mform->addElement('html', get_string('plugininformation', 'mod_bongo'));
 
         // Hidden field to store module id through another submit.
         $mform->addElement('hidden', 'bongo_module_id');
         $mform->setType('bongo_module_id', PARAM_TEXT);
 
         // Add custom submit button.
-        $mform->addElement('submit', 'submitbutton', get_string('bongocontinue', 'tool_bongo'));
+        $mform->addElement('submit', 'submitbutton', get_string('bongocontinue', 'mod_bongo'));
     }
 }

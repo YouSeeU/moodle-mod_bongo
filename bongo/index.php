@@ -26,10 +26,10 @@
  *
  */
 
-require_once(dirname(__FILE__) . '/../../../config.php');
+require_once('../../config.php');
 global $CFG, $DB;
 require_once($CFG->libdir . '/adminlib.php');
-require_once($CFG->dirroot . '/admin/tool/bongo/locallib.php');
+require_once($CFG->dirroot . '/mod/bongo/locallib.php');
 
 defined('MOODLE_INTERNAL') || die();
 require_login();
@@ -42,19 +42,19 @@ if (
     and has_capability('moodle/site:config', $context)
 )
 ) {
-    redirect(new moodle_url('/'), get_string('bongoaccessdenied', 'tool_bongo'));
+    redirect(new moodle_url('/'), get_string('bongoaccessdenied', 'mod_bongo'));
 }
 
 $PAGE->set_context($context);
-$PAGE->set_url('/tool/bongo/index.php');
-$PAGE->set_title(get_string('pluginsettings', 'tool_bongo'));
-$PAGE->set_heading(get_string('pluginsettings', 'tool_bongo'));
+$PAGE->set_url('/mod/bongo/index.php');
+$PAGE->set_title(get_string('pluginsettings', 'mod_bongo'));
+$PAGE->set_heading(get_string('pluginsettings', 'mod_bongo'));
 $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('standard');
 
-admin_externalpage_setup('tool_bongo_settings');
+admin_externalpage_setup('mod_bongo_settings');
 
-$form = new \tool_bongo\forms\bongosetupform();
+$form = new \mod_bongo\forms\bongosetupform();
 
 if ($form->is_cancelled()) {
     redirect(new moodle_url('/admin/search.php'));
@@ -69,20 +69,20 @@ if ($form->is_cancelled()) {
 //    $dbobject->region = $data->bongo_region;
     $dbobject->region = '0';
 
-    $bongorecords = $DB->get_records('tool_bongo', array('school_name' => $dbobject->school_name));
+    $bongorecords = $DB->get_records('mod_bongo', array('school_name' => $dbobject->school_name));
     if (!empty($bongorecords)) {
         redirect(
-            new moodle_url('/admin/tool/bongo/index.php'),
-            get_string('pluginsettingsalreadyconfigured', 'tool_bongo')
+            new moodle_url('/mod/bongo/index.php'),
+            get_string('pluginsettingsalreadyconfigured', 'mod_bongo')
         );
     }
 
-    $registrationresponse = tool_bongo_set_up_bongo($dbobject);
+    $registrationresponse = mod_bongo_set_up_bongo($dbobject);
 
     // If there was an error in the call to Bongo, display the parsed error and redirect the page.
     if ($registrationresponse->errorexists == true || is_null($registrationresponse->url)) {
         redirect(
-            new moodle_url('/admin/tool/bongo/index.php'),
+            new moodle_url('/mod/bongo/index.php'),
             $registrationresponse->errormessage
         );
     }
@@ -94,20 +94,20 @@ if ($form->is_cancelled()) {
     $dbobject->lti_type_id = $registrationresponse->lti_type_id;
     $dbobject->course_id = $registrationresponse->course_id;
 
-    $DB->insert_record('tool_bongo', $dbobject);
+    $DB->insert_record('mod_bongo', $dbobject);
 
     // Save plugin config.
     foreach ($dbobject as $name => $value) {
-        set_config($name, $value, 'tool_bongo');
+        set_config($name, $value, 'mod_bongo');
     }
     redirect(
-        new moodle_url('/admin/tool/bongo/view.php?moduleid=' . $registrationresponse->module_id),
-        get_string('bongochangessaved', 'tool_bongo')
+        new moodle_url('/mod/bongo/view.php?moduleid=' . $registrationresponse->module_id),
+        get_string('bongochangessaved', 'mod_bongo')
     );
 }
 
 // Build the page output.
 echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('pluginsettings', 'tool_bongo'));
+echo $OUTPUT->heading(get_string('pluginsettings', 'mod_bongo'));
 $form->display();
 echo $OUTPUT->footer();

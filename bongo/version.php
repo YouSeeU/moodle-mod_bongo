@@ -38,7 +38,7 @@ $plugin->version = 2017102000;
 $plugin->requires = 2014051200;
 
 // Name of the plugin inside of moodle.
-$plugin->component = 'tool_bongo';
+$plugin->component = 'mod_bongo';
 
 // How stable the plugin is: MATURITY_ALPHA, MATURITY_BETA, MATURITY_RC or MATURITY_STABLE.
 $plugin->maturity = MATURITY_ALPHA;
