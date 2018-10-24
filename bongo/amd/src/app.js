@@ -1,9 +1,10 @@
-define(['jquery', 'core/ajax'], function ($, ajax) {
+define(['jquery'], function ($) {
 
   return {
     init: function () {
-      const submitButton = $('#id_submitbutton');
+      var submitButton = $('#id_submitbutton');
       submitButton.click(function () {
+        $('#mform1').submit();
         submitButton.prop('disabled', true);
       });
     }

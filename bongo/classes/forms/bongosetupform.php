@@ -32,7 +32,7 @@ namespace mod_bongo\forms;
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
 }
-global $CFG;
+global $CFG, $PAGE;
 
 // Prevent JS caching
 $CFG->cachejs = false;
