@@ -65,19 +65,17 @@ class bongosetupform extends \moodleform {
         $mform->addHelpButton('bongo_school_name', 'bongoschoolname', 'mod_bongo');
         $mform->addRule('bongo_school_name', null, 'required', null, 'client');
         $mform->addRule('bongo_school_name', get_string('bongoschoolformat', 'mod_bongo'), 'regex', '/^[A-Za-z0-9 ]+$/', 'server');
-        $mform->setType('bongo_school_name', PARAM_TEXT);
 
         $mform->addElement('text', 'bongo_email', get_string('email'));
         $mform->addHelpButton('bongo_email', 'bongoemail', 'mod_bongo');
         $mform->addRule('bongo_email', null, 'required', null, 'client');
         $mform->addRule('bongo_email', get_string('err_email', 'form'), 'email', null, 'client');
-        $mform->setType('bongo_email', PARAM_NOTAGS);
 
         // Bongo Premium Key.
         $mform->addElement('text', 'bongo_access_code', get_string('bongopremiumkey', 'mod_bongo'));
         $mform->addHelpButton('bongo_access_code', 'bongopremiumkey', 'mod_bongo');
         $mform->addRule('bongo_access_code', null, 'required', null, 'client');
-        $mform->setType('bongo_access_code', PARAM_ALPHANUM);
+        $mform->addRule('bongo_access_code', get_string('bongopremiumkeyformat', 'mod_bongo'), 'regex', '/^[A-Za-z0-9-]+$/', 'server');
         $mform->addElement(
             'static',
             get_string('bongopremiumkey_help', 'mod_bongo'),
