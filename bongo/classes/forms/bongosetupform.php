@@ -69,6 +69,7 @@ class bongosetupform extends \moodleform {
         $mform->addElement('text', 'bongo_email', get_string('email'));
         $mform->addHelpButton('bongo_email', 'bongoemail', 'mod_bongo');
         $mform->addRule('bongo_email', null, 'required', null, 'client');
+        $mform->addRule('bongo_email', get_string('err_email', 'form'), 'email', null, 'client');
         $mform->setType('bongo_email', PARAM_NOTAGS);
 
         // Bongo Premium Key.
