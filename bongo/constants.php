@@ -26,12 +26,11 @@
  *
  */
 
-//if (!defined('MOODLE_INTERNAL')) {
-//    die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
-//}
+if (!defined('MOODLE_INTERNAL')) {
+    die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
+}
 
 class constants{
-//    const MOD_BONGO_MOODLE_LAMBDA_ADDRESS = 'https://890qn4pzv5.execute-api.us-west-2.amazonaws.com/bongo17stable/api/provision';
     const MOD_BONGO_MOODLE_LAMBDA_ADDRESS = 'https://bongo-gss.youseeu.com/api/provision';
     const MOD_BONGO_FAVICON_URL = 'https://s3.amazonaws.com/ysumisc/Bongo_Favicon.png';
     const MOD_BONGO_SECRET = 'secret';

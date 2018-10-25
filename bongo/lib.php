@@ -33,10 +33,10 @@
  *
  */
 
-require_login();
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
 }
+require_login();
 
 function mod_bongo_extend_navigation(\global_navigation $nav) {
     return;

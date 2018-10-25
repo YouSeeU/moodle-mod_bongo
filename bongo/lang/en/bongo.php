@@ -56,9 +56,9 @@ $string['pluginsettingscanceled'] = 'Bongo configuration canceled';
 // Form info.
 $string['bongochangessaved'] = 'Changes saved!';
 $string['bongopremiumkey'] = 'Bongo Access Code';
-$string['bongopremiumkey_help'] = ' If you do not have a key please <a href="https://www.bongolearn.com/activation-code">Visit Our Site</a>.';
+$string['bongopremiumkey_help'] = ' If you do not have an access code please <a href="https://www.bongolearn.com/activation-code">visit our site</a>.';
 $string['bongopremiumkeyformat'] = 'Please use only letters, numbers and dashes (-)';
-$string['bongoschoolname'] = 'Moodle School Name';
+$string['bongoschoolname'] = 'Moodle Institution';
 $string['bongoschoolname_help'] = 'Name of the school you are associated with.';
 $string['bongoschoolformat'] = 'Please use only letters, numbers, and spaces';
 $string['bongoregion'] = 'Region';
@@ -84,6 +84,6 @@ $string['bongoresterror'] = 'An error occurred while contacting Bongo';
 $string['bongoresterrorinvalidtoken'] = 'That token is invalid. Please contact Bongo for a new key.';
 $string['bongoresterrorexpiredtoken'] = 'That token is expired. Please contact Bongo for a new key.';
 
-// Form Actions
+// Form Actions.
 $string['bongosubmitbutton_label'] = 'Create';
 $string['bongosubmitting_label'] = 'Please wait while your Bongo instance is being created. Do not navigate away from this page.';

@@ -34,8 +34,7 @@ if (!defined('MOODLE_INTERNAL')) {
 }
 global $CFG, $PAGE;
 
-// Prevent JS caching
-// $CFG->cachejs = false;
+// Load javascript into page.
 $PAGE->requires->js_call_amd('mod_bongo/app', 'init');
 
 require_once($CFG->libdir . '/formslib.php');
@@ -66,7 +65,7 @@ class bongosetupform extends \moodleform {
         $mform->addRule('bongo_school_name', null, 'required', null, 'client');
         $mform->addRule('bongo_school_name', get_string('bongoschoolformat', 'mod_bongo'), 'regex', '/^[A-Za-z0-9 ]+$/', 'server');
 
-        $mform->addElement('text', 'bongo_email', get_string('email'));
+        $mform->addElement('text', 'bongo_email', get_string('bongoemail', 'mod_bongo'));
         $mform->addHelpButton('bongo_email', 'bongoemail', 'mod_bongo');
         $mform->addRule('bongo_email', null, 'required', null, 'client');
         $mform->addRule('bongo_email', get_string('err_email', 'form'), 'email', null, 'client');
@@ -99,6 +98,7 @@ class bongosetupform extends \moodleform {
 //        $mform->addRule('bongo_region_radio_array', null, 'required', null, 'client');
 
         $this->add_action_buttons(true, get_string('bongosubmitbutton_label', 'mod_bongo'));
-        $mform->addElement('html', '<div id=\'bongo-submitting-loader\' style=\'display:none\'><div id=\'bongo-submitting-loader-icon\'/></div><span id=\'bongo-submitting-loader-text\'>' . get_string('bongosubmitting_label', 'mod_bongo') . '</span></div>');
+        $mform->addElement('html', '<div id=\'bongo-submitting-loader\' style=\'display:none\'><div id=\'bongo-submitting-loader-icon\'/></div>'.
+            '<span id=\'bongo-submitting-loader-text\'>' . get_string('bongosubmitting_label', 'mod_bongo') . '</span></div>');
     }
 }

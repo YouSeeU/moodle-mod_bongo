@@ -30,14 +30,13 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-global $CFG;
-require_once($CFG->libdir . '/adminlib.php');
-
-require_login();
-
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
 }
+require_login();
+
+global $CFG;
+require_once($CFG->libdir . '/adminlib.php');
 
 // Add the Bongo configuration page to the main Admin Tree.
 $ADMIN->add('modsettings',

@@ -37,16 +37,17 @@
  *
  */
 
+if (!defined('MOODLE_INTERNAL')) {
+    die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
+}
+require_login();
+
 global $CFG, $DB;
 require_once($CFG->dirroot . '/mod/lti/locallib.php');
 require_once($CFG->dirroot . '/course/lib.php');
 require_once($CFG->dirroot . '/course/modlib.php');
 require_once($CFG->dirroot . '/mod/bongo/constants.php');
 
-require_login();
-if (!defined('MOODLE_INTERNAL')) {
-    die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
-}
 
 /**
  * Creates an array of Bongo regions to show to the user on the configuration page
@@ -169,7 +170,7 @@ function mod_bongo_parse_response($jsonresult) {
     $code = null;
     $message = null;
 
-    if($dataexists){
+    if ($dataexists) {
         $body = $jsonresponse['data'];
         $code = (array_key_exists(constants::MOD_BONGO_CODE, $body) ? $body[constants::MOD_BONGO_CODE] : null);
         $message = (array_key_exists(constants::MOD_BONGO_MESSAGE, $body) ? $body[constants::MOD_BONGO_MESSAGE] : null);
@@ -178,7 +179,7 @@ function mod_bongo_parse_response($jsonresult) {
         $url = (array_key_exists(constants::MOD_BONGO_URL, $body) ? $body[constants::MOD_BONGO_URL] : null);
         $region = (array_key_exists(constants::MOD_BONGO_REGION, $body) ? $body[constants::MOD_BONGO_REGION] : null);
     }
-    if($errorsexist){
+    if ($errorsexist) {
         $message = $jsonresponse['errors'];
     }
 
