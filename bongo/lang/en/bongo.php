@@ -42,7 +42,7 @@ $string['bongoinfo'] = 'For more information on Bongo and how it works see: <a h
 $string['plugindescription'] = 'Bongo';
 $string['pluginname'] = 'Bongo';
 $string['modulename'] = 'Bongo';
-$string['modulenameplural'] = 'Bongo Name Plural';
+$string['modulenameplural'] = 'Bongos';
 $string['plugininformation'] = '<b>Thank you for installing Bongo!</b>'.
     '</p>To use Bongo in your courses, you must first add it from the activity resource menu on the main class page. '.
     'Once you click on the Bongo activity, you will be taken directly to the platform.' .
