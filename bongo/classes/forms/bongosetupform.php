@@ -81,6 +81,13 @@ class bongosetupform extends \moodleform {
             '',
             get_string('bongopremiumkey_help', 'mod_bongo')
         );
+        $mform->addElement(
+            'static',
+            get_string('bongolanguages', 'mod_bongo'),
+            '',
+            get_string('bongolanguages', 'mod_bongo')
+        );
+
 
 //        REMOVED FOR MOODLE MOOT. Only the NA Region will be used
 

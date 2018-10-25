@@ -65,6 +65,7 @@ $string['bongoregion'] = 'Region';
 $string['bongoregion_help'] = 'What area of the world are you installing this plugin to?';
 $string['bongoemail'] = 'Email Address';
 $string['bongoemail_help'] = 'Email Address that Bongo can use to contact you about your trial';
+$string['bongolanguages'] = 'Bongo Supported Languages: English, Arabic, French, German, Dutch, Brazillian Portuguese, Spanish';
 
 
 // Regions.

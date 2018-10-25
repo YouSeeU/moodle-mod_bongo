@@ -36,16 +36,12 @@ require_once($CFG->dirroot . '/mod/lti/locallib.php');
 function xmldb_bongo_install() {
     global $DB;
 
-    // Turning on Bongo in Moodle.
-    if (!$DB->record_exists('config', array('name' => 'enablebongo'))) {
-        $enabledata = new stdClass();
-        $enabledata->name = 'enablebongo';
-        $enabledata->value = 1;
-        $DB->insert_record('config', $enabledata);
-    } else if ($enabled = $DB->get_record('config', array('name' => 'enablebongo'))) {
-        if ($enabled->value == 0) {
-            $enabled->value = 1;
-            $DB->update_record('config', $enabled);
+    // Turning off Bongo activity modules in Moodle.
+    $bongoplugin = $DB->get_records('modules', array('name' => 'bongo'));
+    if (!empty($bongoplugin)) {
+        foreach ($bongoplugin as $plugin) {
+            $plugin->visible = 0;
+            $DB->update_record('modules', $plugin);
         }
     }
 }
