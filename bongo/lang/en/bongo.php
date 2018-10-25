@@ -44,10 +44,10 @@ $string['pluginname'] = 'Bongo';
 $string['modulename'] = 'Bongo';
 $string['modulenameplural'] = 'Bongo Name Plural';
 $string['plugininformation'] = '<b>Thank you for installing Bongo!</b>'.
-    '</p>To use Bongo in any class, add it from the \'Add an activity resource\' menu in the class main page. Then,'.
-    ' click on the Bongo activity to be taken directly to Bongo!'.
-    '</p>We are so excited to show you Bongo and we would love with talk to you about extending your 2 week trial.'.
-    '</p>Now, get ready to <b>Feel The Beat</b>, with Bongo! Click below to check out our demo course.';
+    '</p>To use Bongo in your courses, you must first add it from the activity resource menu on the main class page. '.
+    'Once you click on the Bongo activity, you will be taken directly to the platform.' .
+    '</p>We are excited to show you Bongo, and we look forward to you experiencing everything it has to offer. '.
+    '</p>Ready to <b>feel the beat</b>, with Bongo! Click the button below to check out our demo course. ';
 $string['plugininformationpage'] = 'Bongo Information';
 $string['pluginsettings'] = 'Bongo Configuration';
 $string['pluginsettingsalreadyconfigured'] = 'Bongo is already configured!';
