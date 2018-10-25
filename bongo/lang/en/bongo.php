@@ -59,6 +59,7 @@ $string['bongopremiumkey'] = 'Bongo Access Code';
 $string['bongopremiumkey_help'] = ' If you do not have a key please <a href="https://www.bongolearn.com/activation-code">Visit Our Site</a>.';
 $string['bongoschoolname'] = 'Moodle School Name';
 $string['bongoschoolname_help'] = 'Name of the school you are associated with.';
+$string['bongoschoolformat'] = 'Please use only Upper Case, lower case, numbers, and spaces';
 $string['bongoregion'] = 'Region';
 $string['bongoregion_help'] = 'What area of the world are you installing this plugin to?';
 $string['bongoemail'] = 'Email Address';

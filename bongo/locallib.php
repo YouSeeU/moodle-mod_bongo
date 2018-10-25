@@ -159,13 +159,28 @@ function mod_bongo_execute_rest_call($urladdress, $postfields) {
  */
 function mod_bongo_parse_response($jsonresult) {
     $jsonresponse = json_decode($jsonresult, true, 512);
-    $body = $jsonresponse['data'];
-    $code = (array_key_exists(constants::MOD_BONGO_CODE, $body) ? $body[constants::MOD_BONGO_CODE] : null);
-    $message = (array_key_exists(constants::MOD_BONGO_MESSAGE, $body) ? $body[constants::MOD_BONGO_MESSAGE] : null);
-    $secret = (array_key_exists(constants::MOD_BONGO_SECRET, $body) ? $body[constants::MOD_BONGO_SECRET] : null);
-    $key = (array_key_exists(constants::MOD_BONGO_KEY, $body) ? $body[constants::MOD_BONGO_KEY] : null);
-    $url = (array_key_exists(constants::MOD_BONGO_URL, $body) ? $body[constants::MOD_BONGO_URL] : null);
-    $region = (array_key_exists(constants::MOD_BONGO_REGION, $body) ? $body[constants::MOD_BONGO_REGION] : null);
+    $errorsexist = array_key_exists('errors', $jsonresponse);
+    $dataexists = array_key_exists('data', $jsonresponse);
+
+    $secret = null;
+    $key = null;
+    $url = null;
+    $region = null;
+    $code = null;
+    $message = null;
+
+    if($dataexists){
+        $body = $jsonresponse['data'];
+        $code = (array_key_exists(constants::MOD_BONGO_CODE, $body) ? $body[constants::MOD_BONGO_CODE] : null);
+        $message = (array_key_exists(constants::MOD_BONGO_MESSAGE, $body) ? $body[constants::MOD_BONGO_MESSAGE] : null);
+        $secret = (array_key_exists(constants::MOD_BONGO_SECRET, $body) ? $body[constants::MOD_BONGO_SECRET] : null);
+        $key = (array_key_exists(constants::MOD_BONGO_KEY, $body) ? $body[constants::MOD_BONGO_KEY] : null);
+        $url = (array_key_exists(constants::MOD_BONGO_URL, $body) ? $body[constants::MOD_BONGO_URL] : null);
+        $region = (array_key_exists(constants::MOD_BONGO_REGION, $body) ? $body[constants::MOD_BONGO_REGION] : null);
+    }
+    if($errorsexist){
+        $message = $jsonresponse['errors'];
+    }
 
     $parsedresponse = new stdClass();
     $parsedresponse->secret = $secret;

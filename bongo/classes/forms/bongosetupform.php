@@ -64,6 +64,7 @@ class bongosetupform extends \moodleform {
         $mform->addElement('text', 'bongo_school_name', get_string('bongoschoolname', 'mod_bongo'));
         $mform->addHelpButton('bongo_school_name', 'bongoschoolname', 'mod_bongo');
         $mform->addRule('bongo_school_name', null, 'required', null, 'client');
+        $mform->addRule('bongo_school_name', get_string('bongoschoolformat', 'mod_bongo'), 'regex', '/^[A-Za-z0-9 ]+$/', 'server');
         $mform->setType('bongo_school_name', PARAM_TEXT);
 
         $mform->addElement('text', 'bongo_email', get_string('email'));
