@@ -35,14 +35,13 @@ if (!defined('MOODLE_INTERNAL')) {
 $plugin->version = 2017102000;
 
 // Moodle 2.7.0 is required. This is because the mod_lti plugin was not available until 2.7.0.
-// Moodle 2.9.0 is required. This is because the AJAX support was not enabled until 2.9.0.
 $plugin->requires = 2014051200;
 
 // Name of the plugin inside of moodle.
 $plugin->component = 'mod_bongo';
 
 // How stable the plugin is: MATURITY_ALPHA, MATURITY_BETA, MATURITY_RC or MATURITY_STABLE.
-$plugin->maturity = MATURITY_ALPHA;
+$plugin->maturity = MATURITY_BETA;
 
 // This is the first revision for Bongo 1.6.
 $plugin->release = '1.0-r1';
