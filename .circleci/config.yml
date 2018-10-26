@@ -4,6 +4,8 @@ jobs:
   build-feature:
     docker:
       - image: circleci/node:8.9.1
+    environment:
+      - ARTIFACTORY_REPO: ysu-integration-local
     steps:
       - checkout
       - run:
