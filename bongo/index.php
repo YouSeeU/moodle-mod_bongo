@@ -67,7 +67,7 @@ if ($form->is_cancelled()) {
 
     // Hard coded for Moodle Moot. Only the NA region will be used.
     // $dbobject->region = $data->bongo_region;
-    $dbobject->region = '0';
+    $dbobject->region = 'bongo-na';
 
     $bongorecords = $DB->get_records('mod_bongo', array('school_name' => $dbobject->school_name));
     if (!empty($bongorecords)) {
