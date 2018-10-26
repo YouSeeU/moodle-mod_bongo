@@ -63,7 +63,13 @@ class bongosetupform extends \moodleform {
         $mform->addElement('text', 'bongo_school_name', get_string('bongoschoolname', 'mod_bongo'));
         $mform->addHelpButton('bongo_school_name', 'bongoschoolname', 'mod_bongo');
         $mform->addRule('bongo_school_name', null, 'required', null, 'client');
-        $mform->addRule('bongo_school_name', get_string('bongoschoolformat', 'mod_bongo'), 'regex', '/^[A-Za-z0-9 ]+$/', 'server');
+        $mform->addRule(
+            'bongo_school_name',
+            get_string('bongoschoolformat', 'mod_bongo'),
+            'regex',
+            '/^[A-Za-z0-9 ]+$/',
+            'server'
+        );
 
         $mform->addElement('text', 'bongo_email', get_string('bongoemail', 'mod_bongo'));
         $mform->addHelpButton('bongo_email', 'bongoemail', 'mod_bongo');
@@ -74,7 +80,13 @@ class bongosetupform extends \moodleform {
         $mform->addElement('text', 'bongo_access_code', get_string('bongopremiumkey', 'mod_bongo'));
         $mform->addHelpButton('bongo_access_code', 'bongopremiumkey', 'mod_bongo');
         $mform->addRule('bongo_access_code', null, 'required', null, 'client');
-        $mform->addRule('bongo_access_code', get_string('bongopremiumkeyformat', 'mod_bongo'), 'regex', '/^[A-Za-z0-9-]+$/', 'server');
+        $mform->addRule(
+            'bongo_access_code',
+            get_string('bongopremiumkeyformat', 'mod_bongo'),
+            'regex',
+            '/^[A-Za-z0-9-]+$/',
+            'server'
+        );
         $mform->addElement(
             'static',
             get_string('bongopremiumkey_help', 'mod_bongo'),
@@ -105,7 +117,8 @@ class bongosetupform extends \moodleform {
 //        $mform->addRule('bongo_region_radio_array', null, 'required', null, 'client');
 
         $this->add_action_buttons(true, get_string('bongosubmitbutton_label', 'mod_bongo'));
-        $mform->addElement('html', '<div id=\'bongo-submitting-loader\' style=\'display:none\'><div id=\'bongo-submitting-loader-icon\'/></div>'.
+        $mform->addElement('html', '<div id=\'bongo-submitting-loader\' style=\'display:none\'>'.
+            '<div id=\'bongo-submitting-loader-icon\'/></div>'.
             '<span id=\'bongo-submitting-loader-text\'>' . get_string('bongosubmitting_label', 'mod_bongo') . '</span></div>');
     }
 }
