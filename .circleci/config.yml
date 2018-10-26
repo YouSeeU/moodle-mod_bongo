@@ -24,7 +24,7 @@ jobs:
           name: Patch Build Number
           command: .circleci/patch_build_number.sh
       - run:
-          name: yarn build
+          name: Build Zip
           command: .circleci/build_dev_package.sh
       - deploy:
           name: Artifactory Publish
@@ -44,7 +44,7 @@ jobs:
           name: Patch Build Number
           command: .circleci/patch_build_number.sh
       - run:
-          name: yarn build
+          name: Build Zip
           command: .circleci/build_package.sh
       - deploy:
           name: Artifactory Publish
@@ -74,7 +74,7 @@ jobs:
           name: Patch Build Number
           command: .circleci/patch_build_number.sh
       - run:
-          name: yarn build
+          name: Build zip
           command: .circleci/build_package.sh
       - deploy:
           name: Artifactory Promote
