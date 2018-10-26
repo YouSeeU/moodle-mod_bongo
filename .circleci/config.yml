@@ -115,30 +115,35 @@ workflows:
   feature:
     jobs:
       - build-feature:
+          context: org-global
           filters:
             branches:
               ignore: /^(staging|master).*/
   integration:
     jobs:
       - build-deploy-integration:
+          context: org-global
           filters:
             branches:
               only: /^(integration|hotfix).*/
   internal:
     jobs:
       - build-deploy-internal:
+          context: org-global
           filters:
             branches:
               only: /^(internal|partner).*/
   staging:
     jobs:
       - promote-stage:
+          context: org-global
           filters:
             branches:
               only: staging
   production:
     jobs:
       - promote-prod:
+          context: org-global
           filters:
             branches:
               only: master
