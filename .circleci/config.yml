@@ -9,6 +9,9 @@ jobs:
       - run:
           name: Package plugin
           command: ./package_plugin.sh
+      - deploy:
+          name: Artifactory Publish
+          command: .circleci/artifactory_publish.sh
 
   build-deploy-integration:
     docker:
