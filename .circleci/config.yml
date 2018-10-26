@@ -1,0 +1,144 @@
+version: 2
+
+jobs:
+  build-feature:
+    docker:
+      - image: circleci/node:8.9.1
+    steps:
+      - checkout
+      - run:
+          name: Package plugin
+          command: ./package_plugin.sh
+
+  build-deploy-integration:
+    docker:
+      - image: circleci/node:8.9.1
+    environment:
+      - ARTIFACTORY_REPO: ysu-integration-local
+    steps:
+      - checkout
+      - run:
+          name: Package plugin
+          command: ./package_plugin.sh
+      - run:
+          name: Patch Build Number
+          command: .circleci/patch_build_number.sh
+      - run:
+          name: yarn build
+          command: .circleci/build_dev_package.sh
+      - deploy:
+          name: Artifactory Publish
+          command: .circleci/artifactory_publish.sh
+          
+  build-deploy-internal:
+    docker:
+      - image: circleci/node:8.9.1
+    environment:
+      - ARTIFACTORY_REPO: ysu-internal-local
+    steps:
+      - checkout
+      - run:
+          name: Package plugin
+          command: ./package_plugin.sh
+      - run:
+          name: Patch Build Number
+          command: .circleci/patch_build_number.sh
+      - run:
+          name: yarn build
+          command: .circleci/build_package.sh
+      - deploy:
+          name: Artifactory Publish
+          command: .circleci/artifactory_publish.sh
+          
+  promote-stage:
+    docker:
+      - image: circleci/node:8.9.1
+    environment:
+      - ARTIFACTORY_REPO: ysu-staging-local
+    steps:
+      - checkout
+      - deploy:
+          name: Artifactory Promote
+          command: .circleci/artifactory_promote.sh internal staging
+  promote-prod:
+    docker:
+      - image: circleci/node:8.9.1
+    environment:
+      - ARTIFACTORY_REPO: ysu-production-local
+    steps:
+      - checkout
+      - run:
+          name: Package plugin
+          command: ./package_plugin.sh
+      - run:
+          name: Patch Build Number
+          command: .circleci/patch_build_number.sh
+      - run:
+          name: yarn build
+          command: .circleci/build_package.sh
+      - deploy:
+          name: Artifactory Promote
+          command: .circleci/artifactory_promote.sh staging production
+          
+  sonarqube:
+    docker:
+      - image: newtmitch/sonar-scanner
+    steps:
+      - checkout:
+          path: /root/src
+      - run:
+          name: Sonar scan
+          command: |-
+            if [[ -n "$CIRCLE_PULL_REQUEST" ]] && [[ "$CIRCLE_BRANCH" =~ .+/.+ ]]; then
+              EXTRA_ARGS="-Dsonar.analysis.mode=preview \
+                          -Dsonar.github.oauth=$SONAR_GITHUB_TOKEN \
+                          -Dsonar.github.repository=$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME \
+                          -Dsonar.github.pullRequest=$(echo $CIRCLE_PULL_REQUEST | cut -d / -f 7)"
+            fi
+            sonar-scanner \
+            -Dsonar.host.url=$SONAR_HOST \
+            -Dsonar.login=$SONAR_LOGIN \
+            -Dsonar.projectKey=BONGO_UI \
+            -Dsonar.projectName="Bongo UI" \
+            -Dsonar.projectVersion=1 \
+            -Dsonar.links.ci=$CIRCLE_BUILD_URL \
+            -Dsonar.links.scm=$CIRCLE_REPOSITORY_URL \
+            -Dsonar.branch=$CIRCLE_BRANCH \
+            -Dsonar.scm.provider=git \
+            $EXTRA_ARGS
+
+workflows:
+  version: 2
+  quality:
+    jobs:
+      - sonarqube
+  feature:
+    jobs:
+      - build-feature:
+          filters:
+            branches:
+              ignore: /^(staging|master).*/
+  integration:
+    jobs:
+      - build-deploy-integration:
+          filters:
+            branches:
+              only: /^(integration|hotfix).*/
+  internal:
+    jobs:
+      - build-deploy-internal:
+          filters:
+            branches:
+              only: /^(internal|partner).*/
+  staging:
+    jobs:
+      - promote-stage:
+          filters:
+            branches:
+              only: staging
+  production:
+    jobs:
+      - promote-prod:
+          filters:
+            branches:
+              only: master
