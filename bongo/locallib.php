@@ -55,13 +55,31 @@ require_once($CFG->dirroot . '/mod/bongo/constants.php');
  * @return array
  */
 function mod_bongo_regions() {
-    // These are not string constants because this array is shown to the user.
+    $naregion = new stdClass();
+    $naregion->translated_name = get_string('bongona', 'mod_bongo');
+    $naregion->value = constants::MOD_BONGO_REGION_NA;
+
+    $saregion = new stdClass();
+    $saregion->translated_name = get_string('bongosa', 'mod_bongo');
+    $saregion->value = constants::MOD_BONGO_REGION_SA;
+
+    $caregion = new stdClass();
+    $caregion->translated_name = get_string('bongoca', 'mod_bongo');
+    $caregion->value = constants::MOD_BONGO_REGION_CA;
+
+    $euregion = new stdClass();
+    $euregion->translated_name = get_string('bongoeu', 'mod_bongo');
+    $euregion->value = constants::MOD_BONGO_REGION_EU;
+
+    $auregion = new stdClass();
+    $auregion->translated_name = get_string('bongoau', 'mod_bongo');
+    $auregion->value = constants::MOD_BONGO_REGION_AU;
     return array(
-        get_string('bongona', 'mod_bongo'),
-        get_string('bongoca', 'mod_bongo'),
-        get_string('bongosa', 'mod_bongo'),
-        get_string('bongoeu', 'mod_bongo'),
-        get_string('bongoau', 'mod_bongo')
+        $naregion,
+        $saregion,
+        $caregion,
+        $euregion,
+        $auregion
     );
 }
 

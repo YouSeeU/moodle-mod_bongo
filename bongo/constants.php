@@ -31,7 +31,8 @@ if (!defined('MOODLE_INTERNAL')) {
 }
 
 class constants{
-    const MOD_BONGO_MOODLE_LAMBDA_ADDRESS = 'https://bongo-gss.youseeu.com/api/provision';
+//    const MOD_BONGO_MOODLE_LAMBDA_ADDRESS = 'https://bongo-gss.youseeu.com/api/provision';
+    const MOD_BONGO_MOODLE_LAMBDA_ADDRESS = 'https://890qn4pzv5.execute-api.us-west-2.amazonaws.com/bongo17stable/api/provision';
     const MOD_BONGO_FAVICON_URL = 'https://s3.amazonaws.com/ysumisc/Bongo_Favicon.png';
     const MOD_BONGO_SECRET = 'secret';
     const MOD_BONGO_KEY = 'key';
@@ -49,4 +50,10 @@ class constants{
     const MOD_BONGO_REST_CALL_TYPE = 'type';
     const MOD_BONGO_REST_CALL_TYPE_INSTALL = 'install';
     const MOD_BONGO_REST_CALL_TYPE_UNINSTALL = 'uninstall';
+
+    const MOD_BONGO_REGION_NA = 'bongo-na';
+    const MOD_BONGO_REGION_SA = 'bongo-sa';
+    const MOD_BONGO_REGION_CA = 'bongo-ca';
+    const MOD_BONGO_REGION_EU = 'bongo-eu';
+    const MOD_BONGO_REGION_AU = 'bongo-au';
 }

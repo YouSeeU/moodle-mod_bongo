@@ -87,6 +87,21 @@ class bongosetupform extends \moodleform {
             '/^[A-Za-z0-9-]+$/',
             'server'
         );
+
+        // Bongo Region selection.
+        $regions = mod_bongo_regions();
+        $radioarray = array();
+        for ($i = 0; $i < count($regions); $i++) {
+            $region = $regions[$i];
+            $radioarray[] =& $mform->createElement('radio', 'bongo_region', '', $region->translated_name, $region->value);
+        }
+
+        // Add Bongo regions to form.
+
+        $mform->addGroup($radioarray, 'bongo_region_radio_array', get_string('bongoregion', 'mod_bongo'), array('</p>'), false);
+        $mform->addHelpButton('bongo_region_radio_array', 'bongoregion', 'mod_bongo');
+        $mform->addRule('bongo_region_radio_array', null, 'required', null, 'client');
+
         $mform->addElement(
             'static',
             get_string('bongopremiumkey_help', 'mod_bongo'),
@@ -99,22 +114,6 @@ class bongosetupform extends \moodleform {
             '',
             get_string('bongolanguages', 'mod_bongo')
         );
-
-
-//        REMOVED FOR MOODLE MOOT. Only the NA Region will be used
-
-        // Bongo Region selection.
-//        $regions = mod_bongo_regions();
-//        $radioarray = array();
-//        for ($i = 0; $i < count($regions); $i++) {
-//            $radioarray[] =& $mform->createElement('radio', 'bongo_region', '', $regions[$i], $i);
-//        }
-
-        // Add Bongo regions to form.
-
-//        $mform->addGroup($radioarray, 'bongo_region_radio_array', get_string('bongoregion', 'mod_bongo'), array('</p>'), false);
-//        $mform->addHelpButton('bongo_region_radio_array', 'bongoregion', 'mod_bongo');
-//        $mform->addRule('bongo_region_radio_array', null, 'required', null, 'client');
 
         $this->add_action_buttons(true, get_string('bongosubmitbutton_label', 'mod_bongo'));
         $mform->addElement('html', '<div id=\'bongo-submitting-loader\' style=\'display:none\'>'.
