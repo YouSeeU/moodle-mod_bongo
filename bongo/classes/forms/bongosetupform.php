@@ -94,7 +94,7 @@ class bongosetupform extends \moodleform {
         for ($i = 0; $i < count($regions); $i++) {
             $region = $regions[$i];
             $radioarray[] =& $mform->createElement('radio', 'bongo_region', '', $region->translated_name, $region->value);
-            if($region->is_default){
+            if ($region->is_default) {
                 $mform->setDefault('bongo_region', $region->value);
             }
         }
