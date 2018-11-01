@@ -88,3 +88,6 @@ $string['bongoresterrorexpiredtoken'] = 'That token is expired. Please contact B
 // Form Actions.
 $string['bongosubmitbutton_label'] = 'Create';
 $string['bongosubmitting_label'] = 'Please wait while your Bongo instance is being created. Do not navigate away from this page.';
+$string['bongoconfiguredeventdescription'] = 'Bongo has been configured and is ready to use.';
+$string['bongoconfiguredevent'] = 'Bongo has been configured and is ready to use.';
+

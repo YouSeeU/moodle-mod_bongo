@@ -70,11 +70,13 @@ class bongosetupform extends \moodleform {
             '/^[A-Za-z0-9 ]+$/',
             'server'
         );
+        $mform->setType('bongo_school_name', PARAM_RAW);
 
         $mform->addElement('text', 'bongo_email', get_string('bongoemail', 'mod_bongo'));
         $mform->addHelpButton('bongo_email', 'bongoemail', 'mod_bongo');
         $mform->addRule('bongo_email', null, 'required', null, 'client');
         $mform->addRule('bongo_email', get_string('err_email', 'form'), 'email', null, 'client');
+        $mform->setType('bongo_email', PARAM_RAW);
 
         // Bongo Premium Key.
         $mform->addElement('text', 'bongo_access_code', get_string('bongopremiumkey', 'mod_bongo'));
@@ -87,6 +89,7 @@ class bongosetupform extends \moodleform {
             '/^[A-Za-z0-9-]+$/',
             'server'
         );
+        $mform->setType('bongo_access_code', PARAM_RAW);
 
         // Bongo Region selection.
         $regions = mod_bongo_regions();

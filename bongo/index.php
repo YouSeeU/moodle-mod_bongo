@@ -97,6 +97,11 @@ if ($form->is_cancelled()) {
     foreach ($dbobject as $name => $value) {
         set_config($name, $value, 'mod_bongo');
     }
+
+    // Trigger a bongo configured event.
+    $event = \mod_bongo\event\bongo_configured::create();
+    $event->trigger();
+
     redirect(
         new moodle_url('/mod/bongo/view.php?moduleid=' . $registrationresponse->module_id),
         get_string('bongochangessaved', 'mod_bongo')
