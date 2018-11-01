@@ -1,7 +1,11 @@
 # Bongo Plugin
-
+Bongo is a Video Assessment platform built aroundd synchronous and asynchronous learning
+to better facilitate student learning.
 This is a Moodle plugin that enables access to YouSeeU Bongo Learn (c). You will need to purchase a subscription to
-Bongo in order to use the Bongo plugin. It gathers relevant information related to the specific Moodle installation and 
+Bongo in order to use the Bongo plugin.
+
+## What the plugin does
+It gathers relevant information related to the specific Moodle installation and 
 sends that to the Bongo REST API. The Bongo REST API will respond with the necessary connection information allowing 
 the Moodle to make regular LTI requests against Bongo.
 
