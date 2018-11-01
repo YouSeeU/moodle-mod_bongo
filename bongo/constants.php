@@ -49,4 +49,10 @@ class constants{
     const MOD_BONGO_REST_CALL_TYPE = 'type';
     const MOD_BONGO_REST_CALL_TYPE_INSTALL = 'install';
     const MOD_BONGO_REST_CALL_TYPE_UNINSTALL = 'uninstall';
+
+    const MOD_BONGO_REGION_NA = 'bongo-na';
+    const MOD_BONGO_REGION_SA = 'bongo-sa';
+    const MOD_BONGO_REGION_CA = 'bongo-ca';
+    const MOD_BONGO_REGION_EU = 'bongo-eu';
+    const MOD_BONGO_REGION_AU = 'bongo-au';
 }
