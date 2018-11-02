@@ -66,7 +66,7 @@ if ($form->is_cancelled()) {
     $dbobject->timezone = date_default_timezone_get();
     $dbobject->region = $data->bongo_region;
 
-    $bongorecords = $DB->get_records('mod_bongo', array('school_name' => $dbobject->school_name));
+    $bongorecords = $DB->get_records('bongo', array('school_name' => $dbobject->school_name));
     if (!empty($bongorecords)) {
         redirect(
             new moodle_url('/mod/bongo/index.php'),
@@ -99,8 +99,8 @@ if ($form->is_cancelled()) {
     }
 
     // Trigger a bongo configured event.
-    $event = \mod_bongo\event\bongo_configured::create();
-    $event->trigger();
+//    $event = \mod_bongo\event\bongo_configured::create();
+//    $event->trigger();
 
     redirect(
         new moodle_url('/mod/bongo/view.php?moduleid=' . $registrationresponse->module_id),

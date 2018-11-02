@@ -312,7 +312,9 @@ function mod_bongo_create_mod_course() {
         return $id;
     }
 
-    $config = mod_bongo_create_course_object();
+    $categoryid = mod_bongo_find_or_create_course_category();
+
+    $config = mod_bongo_create_course_object($categoryid);
 
     create_course($config);
     $course = $DB->get_record('course', array('fullname' => get_string('bongoexamplecourse', 'mod_bongo')));
@@ -321,12 +323,32 @@ function mod_bongo_create_mod_course() {
     return $id;
 }
 
-function mod_bongo_create_course_object() {
+function mod_bongo_find_or_create_course_category(){
+    global $DB;
+
+    // Use the Miscellaneous category by default.
+    $category = $DB->get_record('course_categories', array('name' => get_string('miscellaneous')));
+    if($category){
+        return $category->id;
+    }
+
+    // If Miscellaneous was not there, use the first category.
+    $categories = $DB->get_records('course_categories');
+    foreach($categories AS $category){
+        return $category->id;
+    }
+
+    $category = coursecat::create(array('name' => get_string('miscellaneous')));
+    // If there were no categories, create one
+    return $category->id;
+}
+
+function mod_bongo_create_course_object($categoryid) {
     $config = new stdClass();
     $config->fullname = get_string('bongoexamplecourse', 'mod_bongo');
     $config->shortname = get_string('bongoexamplecourse', 'mod_bongo');
     $config->summary = get_string('bongoexamplecourse', 'mod_bongo');
-    $config->category = 1;
+    $config->category = $categoryid;
     $config->startdate = time();
     $config->timecreated = time();
     $config->timemodified = time();
