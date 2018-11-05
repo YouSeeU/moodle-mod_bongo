@@ -30,7 +30,7 @@ jobs:
           command: .circleci/build_package.sh
       - deploy:
           name: Artifactory Promote
-          command: .circleci/artifactory_deploy.sh
+          command: .circleci/artifactory_publish.sh
 
   sonarqube:
     docker:
