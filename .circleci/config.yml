@@ -12,57 +12,6 @@ jobs:
           name: Package plugin
           command: ./.circleci/build_package.sh
 
-  build-deploy-integration:
-    docker:
-      - image: circleci/node:8.9.1
-    environment:
-      - ARTIFACTORY_REPO: ysu-integration-local
-    steps:
-      - checkout
-      - run:
-          name: Package plugin
-          command: ./.circleci/build_package.sh
-      - run:
-          name: Patch Build Number
-          command: .circleci/patch_build_number.sh
-      - run:
-          name: Build Zip
-          command: .circleci/build_dev_package.sh
-      - deploy:
-          name: Artifactory Publish
-          command: .circleci/artifactory_publish.sh
-
-  build-deploy-internal:
-    docker:
-      - image: circleci/node:8.9.1
-    environment:
-      - ARTIFACTORY_REPO: ysu-internal-local
-    steps:
-      - checkout
-      - run:
-          name: Package plugin
-          command: ./.circleci/build_package.sh
-      - run:
-          name: Patch Build Number
-          command: .circleci/patch_build_number.sh
-      - run:
-          name: Build Zip
-          command: .circleci/build_package.sh
-      - deploy:
-          name: Artifactory Publish
-          command: .circleci/artifactory_publish.sh
-
-  promote-stage:
-    docker:
-      - image: circleci/node:8.9.1
-    environment:
-      - ARTIFACTORY_REPO: ysu-staging-local
-    steps:
-      - checkout
-      - deploy:
-          name: Artifactory Promote
-          command: .circleci/artifactory_promote.sh internal staging
-
   promote-prod:
     docker:
       - image: circleci/node:8.9.1
@@ -81,7 +30,7 @@ jobs:
           command: .circleci/build_package.sh
       - deploy:
           name: Artifactory Promote
-          command: .circleci/artifactory_promote.sh staging production
+          command: .circleci/artifactory_deploy.sh
 
   sonarqube:
     docker:
@@ -121,24 +70,7 @@ workflows:
           filters:
             branches:
               ignore: /^(staging|master).*/
-  integration:
-    jobs:
-      - build-deploy-integration:
-          filters:
-            branches:
-              only: /^(integration|hotfix).*/
-  internal:
-    jobs:
-      - build-deploy-internal:
-          filters:
-            branches:
-              only: /^(internal|partner).*/
-  staging:
-    jobs:
-      - promote-stage:
-          filters:
-            branches:
-              only: staging
+
   production:
     jobs:
       - promote-prod:
