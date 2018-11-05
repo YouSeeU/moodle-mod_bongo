@@ -41,3 +41,9 @@ require_login();
 function mod_bongo_extend_navigation(\global_navigation $nav) {
     return;
 }
+
+// Override function to delete mod instance.
+// Bongo plugin doesn't need to delete anything but the function needs to exist.
+function bongo_delete_instance($modinstance){
+    return;
+}

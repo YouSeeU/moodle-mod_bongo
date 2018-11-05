@@ -7,10 +7,10 @@
         xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
     <TABLES>
-        <TABLE NAME="mod_bongo" COMMENT="Storage for Bongo configurations">
+        <TABLE NAME="bongo" COMMENT="Storage for Bongo configurations">
             <FIELDS>
                 <FIELD NAME="id" TYPE="int" LENGTH="9" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
-                <FIELD NAME="school_name" TYPE="char" NOTNULL="false" SEQUENCE="false" COMMENT="Name of school"/>
+                <FIELD NAME="name" TYPE="char" NOTNULL="false" SEQUENCE="false" COMMENT="Name of school"/>
                 <FIELD NAME="hostname" TYPE="char" NOTNULL="true" SEQUENCE="false" COMMENT="YouSeeU Server Url"/>
                 <FIELD NAME="key" TYPE="char" NOTNULL="true" SEQUENCE="false" COMMENT="YouSeeU Key"/>
                 <FIELD NAME="secret" TYPE="char" NOTNULL="true" SEQUENCE="false" COMMENT="YouSeeU Secret"/>
@@ -20,7 +20,7 @@
                 <FIELD NAME="region" TYPE="char" NOTNULL="true" SEQUENCE="false" COMMENT="YouSeeU Global Region"/>
                 <FIELD NAME="lti_type_id" TYPE="int" LENGTH="9" NOTNULL="false" SEQUENCE="false"
                        COMMENT="YouSeeU Bongo Configured Lti Type"/>
-                <FIELD NAME="course_id" TYPE="int" LENGTH="9" NOTNULL="false" SEQUENCE="false"
+                <FIELD NAME="course" TYPE="int" LENGTH="9" NOTNULL="false" SEQUENCE="false"
                        COMMENT="YouSeeU Bongo Example Course"/>
             </FIELDS>
             <KEYS>
@@ -28,7 +28,7 @@
                      COMMENT="It is convention to have the ID be the primary key"/>
             </KEYS>
             <INDEXES>
-                <INDEX NAME="school_name" UNIQUE="true" FIELDS="school_name"/>
+                <INDEX NAME="name" UNIQUE="true" FIELDS="name"/>
             </INDEXES>
         </TABLE>
     </TABLES>
