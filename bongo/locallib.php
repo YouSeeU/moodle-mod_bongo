@@ -128,7 +128,7 @@ function mod_bongo_set_up_bongo($requestobject) {
  */
 function mod_bongo_register_with_bongo($requestobject) {
     $array = array(
-        constants::MOD_BONGO_NAME => $requestobject->school_name,
+        constants::MOD_BONGO_NAME => $requestobject->name,
         constants::MOD_BONGO_REGION => $requestobject->region,
         constants::MOD_BONGO_ACCESS_CODE => $requestobject->access_code,
         constants::MOD_BONGO_CUSTOMER_EMAIL => $requestobject->customer_email,
@@ -323,24 +323,27 @@ function mod_bongo_create_mod_course() {
     return $id;
 }
 
-function mod_bongo_find_or_create_course_category(){
+function mod_bongo_find_or_create_course_category() {
     global $DB;
 
     // Use the Miscellaneous category by default.
     $category = $DB->get_record('course_categories', array('name' => get_string('miscellaneous')));
+    if ($category) {
+        return $category->id;
+    }
+
+    // If there were no categories, create the Miscellaneous category.
+    $category = coursecat::create(array('name' => get_string('miscellaneous')));
     if($category){
         return $category->id;
     }
 
     // If Miscellaneous was not there, use the first category.
+    // This is the "catch all" case and should realistically never be hit.
     $categories = $DB->get_records('course_categories');
-    foreach($categories AS $category){
+    foreach ($categories AS $category) {
         return $category->id;
     }
-
-    $category = coursecat::create(array('name' => get_string('miscellaneous')));
-    // If there were no categories, create one
-    return $category->id;
 }
 
 function mod_bongo_create_course_object($categoryid) {
@@ -362,9 +365,13 @@ function mod_bongo_create_course_object($categoryid) {
  */
 function mod_bongo_get_course_section_id($courseid) {
     global $DB;
-    $section = $DB->get_record('course_sections', array('course' => $courseid));
+    $sections = $DB->get_records('course_sections', array('course' => $courseid));
+    $id = -1;
+    foreach ($sections AS $section) {
+        $id = $section->id;
+    }
 
-    return $section->id;
+    return $id;
 }
 
 /**
@@ -461,7 +468,6 @@ function mod_bongo_handle_rest_errors($parsedresponse) {
             case 'No Token': // For contacting Bongo, not the GSS.
             case 'Institution not created':
             case 'Invalid backend':
-            case '':
                 $errorexists = true;
                 $errormessage = get_string('bongoresterror', 'mod_bongo');
                 break;

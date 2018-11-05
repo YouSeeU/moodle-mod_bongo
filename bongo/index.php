@@ -60,13 +60,13 @@ if ($form->is_cancelled()) {
     redirect(new moodle_url('/admin/search.php'));
 } else if ($data = $form->get_data()) {
     $dbobject = new stdClass();
-    $dbobject->school_name = $data->bongo_school_name;
+    $dbobject->name = $data->bongo_school_name;
     $dbobject->customer_email = $data->bongo_email;
     $dbobject->access_code = $data->bongo_access_code;
     $dbobject->timezone = date_default_timezone_get();
     $dbobject->region = $data->bongo_region;
 
-    $bongorecords = $DB->get_records('bongo', array('school_name' => $dbobject->school_name));
+    $bongorecords = $DB->get_records('bongo', array('name' => $dbobject->name));
     if (!empty($bongorecords)) {
         redirect(
             new moodle_url('/mod/bongo/index.php'),
@@ -87,11 +87,10 @@ if ($form->is_cancelled()) {
     $dbobject->hostname = $registrationresponse->url;
     $dbobject->key = $registrationresponse->key;
     $dbobject->secret = $registrationresponse->secret;
-    $dbobject->secret = $registrationresponse->secret;
     $dbobject->lti_type_id = $registrationresponse->lti_type_id;
-    $dbobject->course_id = $registrationresponse->course_id;
+    $dbobject->course = $registrationresponse->course_id;
 
-    $DB->insert_record('mod_bongo', $dbobject);
+    $DB->insert_record('bongo', $dbobject);
 
     // Save plugin config.
     foreach ($dbobject as $name => $value) {
