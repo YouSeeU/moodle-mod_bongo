@@ -10,7 +10,7 @@ jobs:
       - checkout
       - run:
           name: Package plugin
-          command: ./package_plugin.sh
+          command: ./build_package.sh
       - deploy:
           name: Artifactory Publish
           command: .circleci/artifactory_publish.sh
@@ -24,7 +24,7 @@ jobs:
       - checkout
       - run:
           name: Package plugin
-          command: ./package_plugin.sh
+          command: ./build_package.sh
       - run:
           name: Patch Build Number
           command: .circleci/patch_build_number.sh
@@ -44,7 +44,7 @@ jobs:
       - checkout
       - run:
           name: Package plugin
-          command: ./package_plugin.sh
+          command: ./build_package.sh
       - run:
           name: Patch Build Number
           command: .circleci/patch_build_number.sh
@@ -75,7 +75,7 @@ jobs:
       - checkout
       - run:
           name: Package plugin
-          command: ./package_plugin.sh
+          command: ./build_package.sh
       - run:
           name: Patch Build Number
           command: .circleci/patch_build_number.sh
