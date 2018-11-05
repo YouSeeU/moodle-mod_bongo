@@ -34,7 +34,7 @@ jobs:
       - deploy:
           name: Artifactory Publish
           command: .circleci/artifactory_publish.sh
-          
+
   build-deploy-internal:
     docker:
       - image: circleci/node:8.9.1
@@ -54,7 +54,7 @@ jobs:
       - deploy:
           name: Artifactory Publish
           command: .circleci/artifactory_publish.sh
-          
+
   promote-stage:
     docker:
       - image: circleci/node:8.9.1
@@ -65,6 +65,7 @@ jobs:
       - deploy:
           name: Artifactory Promote
           command: .circleci/artifactory_promote.sh internal staging
+
   promote-prod:
     docker:
       - image: circleci/node:8.9.1
@@ -84,7 +85,7 @@ jobs:
       - deploy:
           name: Artifactory Promote
           command: .circleci/artifactory_promote.sh staging production
-          
+
   sonarqube:
     docker:
       - image: newtmitch/sonar-scanner
@@ -120,4 +121,30 @@ workflows:
   feature:
     jobs:
       - build-feature:
-          context: org-global
+          filters:
+            branches:
+              ignore: /^(staging|master).*/
+  integration:
+    jobs:
+      - build-deploy-integration:
+          filters:
+            branches:
+              only: /^(integration|hotfix).*/
+  internal:
+    jobs:
+      - build-deploy-internal:
+          filters:
+            branches:
+              only: /^(internal|partner).*/
+  staging:
+    jobs:
+      - promote-stage:
+          filters:
+            branches:
+              only: staging
+  production:
+    jobs:
+      - promote-prod:
+          filters:
+            branches:
+              only: master
