@@ -1,15 +1,42 @@
-# Bongo Plugin
-Bongo is a Video Assessment platform built aroundd synchronous and asynchronous learning
-to better facilitate student learning.
-This is a Moodle plugin that enables access to YouSeeU Bongo Learn (c). You will need to purchase a subscription to
-Bongo in order to use the Bongo plugin.
+# Bongo Plugin Description
+Bongo is a Video Assessment platform built around synchronous and asynchronous learning
+to facilitate soft skills development at scale.
+The Bongo Moodle plugin enables access to YouSeeU Bongo Learn (c). The plugin creates a free Bongo trial subscription. A paid Bongo subscription is required for ongoing use.
 
 ## What the plugin does
 It gathers relevant information related to the specific Moodle installation and 
 sends that to the Bongo REST API. The Bongo REST API will respond with the necessary connection information allowing 
 the Moodle to make regular LTI requests against Bongo.
 
+## Supported Moodle versions
+Moodle version 2.7 and higher are supported.
+
+## Code repository name
+The code repository name is moodle-mod_bongo.
+
+## Source control URL
+See https://github.com/YouSeeU/moodle-mod_bongo
+
+## Bug tracker
+See https://github.com/YouSeeU/moodle-mod_bongo/issues
+
+## Learn more about the Bongo solution
+Please visit https://www.bongolearn.com
+
+## Licensing
+Licensed under GNU GPL v3 and higher.
+
+## Subscriptions required
+Initial installation of the Bongo plugin provisions a free trial of Bongo. The trial can be extended based on need. For ongoing usage of Bongo in Moodle, a paid subscription of Bongo is required.
+
 ## How to build
+
+## Dependencies
+Must be using Moodle 2.7 or higher
+Must have mod_lti
+
+## Cross database compatibilty
+Verfied to work with MySQL, PostgreSQL, MS SQL and Oracle.
 
 ### Linux
 There is a shell script at the top level of the repo (./package_plugin.sh) that will create a zip of the plugin.  This
