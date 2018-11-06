@@ -17,7 +17,7 @@
 /**
  * The bongo_configured event.
  *
- * @package    bongo_configured
+ * @package    mod_bongo
  * @copyright  2014 onwards Ankit Agarwal <ankit.agrr@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -27,15 +27,16 @@ namespace mod_bongo\event;
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * The bongo_configured event class.
+ * The bongo_configured event.
  *
- * @package    bongo_configured
- * @since      Moodle 2.7
  * @copyright  2014 onwards Ankit Agarwal <ankit.agrr@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class bongo_configured extends \core\event\base {
 
+    /**
+     * Registers the event with the system so it can be used by other plugins and event handlers.
+     */
     protected function init() {
         $this->data['crud'] = 'c';
         $this->data['edulevel'] = self::LEVEL_OTHER;
@@ -43,14 +44,29 @@ class bongo_configured extends \core\event\base {
         $this->context = \context_system::instance();
     }
 
+    /**
+     * Return the localized name of the event.
+     *
+     * @return string
+     */
     public static function get_name() {
         return get_string('bongoconfiguredevent', 'mod_bongo');
     }
 
+    /**
+     * Return the localized description of the event.
+     *
+     * @return string
+     */
     public function get_description() {
         return get_string('bongoconfiguredeventdescription', 'mod_bongo');
     }
 
+    /**
+     * Return the page within Moodle that triggered the event.
+     *
+     * @return \moodle_url
+     */
     public function get_url() {
         return new \moodle_url('/mod/bongo/index.php');
     }

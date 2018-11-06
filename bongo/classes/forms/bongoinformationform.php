@@ -17,12 +17,13 @@
 /**
  * Passthrough form to relay information about Bongo before launching into demo course.
  *
- * File         bongo_information_form.php
+ * It describes what Bongo is, what the plugin just did, and welcomes them to Bongo.
+ *
+ * File         bongoinformationform.php
  * Encoding     UTF-8
  *
- * @package     mod_bongo\forms
- *
  * @copyright   YouSeeU
+ * @package     mod_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -37,9 +38,7 @@ global $CFG;
 require_once($CFG->libdir . '/formslib.php');
 
 /**
- * This page describes what Bongo is, what the plugin just did, and welcomes them to Bongo.
- *
- * @package     bongo
+ * Passthrough form to relay information about Bongo before launching into demo course.
  *
  * @copyright   YouSeeU
  * @author      Brian Kelly <brian.kelly@youseeu.com>

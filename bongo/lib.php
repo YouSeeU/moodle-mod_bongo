@@ -28,6 +28,7 @@
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
+ * @package     mod_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -38,12 +39,21 @@ if (!defined('MOODLE_INTERNAL')) {
 }
 require_login();
 
+/**
+ * If the Bongo plugin was using custom navigation actions, this is where it would go.
+ *
+ * @param \global_navigation $nav
+ */
 function mod_bongo_extend_navigation(\global_navigation $nav) {
     return;
 }
 
-// Override function to delete mod instance.
-// Bongo plugin doesn't need to delete anything but the function needs to exist.
+/**
+ * Override function to delete mod instance.
+ * Bongo plugin doesn't need to delete anything but the function needs to exist.
+ *
+ * @param integer $modinstance
+ */
 function bongo_delete_instance($modinstance){
     return;
 }

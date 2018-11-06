@@ -15,14 +15,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Informational page in between the configuration page and the course page. Gives
- * information about what Bongo is and what the plugin just configured.
+ * Informational page in between the configuration page and the course page.
  *
+ * Gives information about what Bongo is and what the plugin just configured.
  *
  * File         view.php
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
+ * @package     mod_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *

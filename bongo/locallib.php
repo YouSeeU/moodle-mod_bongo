@@ -32,6 +32,7 @@
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
+ * @package     mod_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -323,6 +324,15 @@ function mod_bongo_create_mod_course() {
     return $id;
 }
 
+/**
+ * Search for the default Miscellaneous course category.
+ *
+ * If it is there, use it.
+ * If it's not there, create it and use it.
+ * If you can't create it, use the first category available.
+ *
+ * @return mixed
+ */
 function mod_bongo_find_or_create_course_category() {
     global $DB;
 
@@ -344,8 +354,17 @@ function mod_bongo_find_or_create_course_category() {
     foreach ($categories AS $category) {
         return $category->id;
     }
+
+    // This should never be hit.
+    return -1;
 }
 
+/**
+ * Create a simple object containing default information for creating a new course.
+ *
+ * @param integer $categoryid
+ * @return stdClass
+ */
 function mod_bongo_create_course_object($categoryid) {
     $config = new stdClass();
     $config->fullname = get_string('bongoexamplecourse', 'mod_bongo');
@@ -360,6 +379,8 @@ function mod_bongo_create_course_object($categoryid) {
 }
 
 /**
+ * Go through all of the sections of the default Bongo example course and use the last section id.
+ *
  * @param int $courseid
  * @return int section id
  */
