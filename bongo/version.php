@@ -33,7 +33,7 @@ if (!defined('MOODLE_INTERNAL')) {
 }
 
 // YYYYMMDDXX where XX is an incremental counter for the given year.
-$plugin->version = 2018110500;
+$plugin->version = 2018110600;
 
 // Moodle 2.7.0 is required. This is because the mod_lti plugin was not available until 2.7.0.
 $plugin->requires = 2014051200;
