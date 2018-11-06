@@ -21,6 +21,7 @@
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
+ * @package     mod_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -32,7 +33,11 @@ if (!defined('MOODLE_INTERNAL')) {
 
 require_once($CFG->dirroot . '/mod/lti/locallib.php');
 
-// Overrides global function. Required for all plugins.
+/**
+ * Any custom actions that need to occur after the plugin has been installed go here.
+ *
+ * Overrides global function. Required for all plugins.
+ */
 function xmldb_bongo_install() {
     global $DB;
 

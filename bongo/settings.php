@@ -16,6 +16,7 @@
 
 /**
  * Describes the administration configuration for your plugin.
+ *
  * The setting names are supposed to be plugintype_pluginname/settingname (note the slash) and not
  * plugintype_pluginname_settingname or even just settingname. This makes them to be stored in the config_plugins
  * table without polluting the global $CFG object.
@@ -26,6 +27,7 @@
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
+ * @package     mod_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

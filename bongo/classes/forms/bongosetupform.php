@@ -15,14 +15,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Default setup/settings form for bongo
+ * Default setup/settings form for bongo.
  *
- * File         bongo_setup_form.php
+ * This is the main configuration page for anyone trying to configure the Bongo plugin.
+ *
+ * File         bongosetupform.php
  * Encoding     UTF-8
  *
- * @package     mod_bongo\forms
  *
  * @copyright   YouSeeU
+ * @package     mod_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -41,9 +43,7 @@ require_once($CFG->libdir . '/formslib.php');
 require_once($CFG->dirroot . '/mod/bongo/locallib.php');
 
 /**
- * Setup/settings form for bongo
- *
- * @package     bongo
+ * Default setup/settings form for bongo.
  *
  * @copyright   YouSeeU
  * @author      Brian Kelly <brian.kelly@youseeu.com>

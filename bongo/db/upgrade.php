@@ -15,17 +15,13 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Upgrade steps (such as database scheme changes and other things that must happen when the plugin is being upgraded)
- * are defined here.
- * The in-built XMLDB editor can be used to generate the code to change the database scheme.
- *
- * Upgrade API
+ * Upgrade steps (such as database scheme changes that must happen when the plugin is being upgraded) are defined here.
  *
  * File         upgrade.php
  * Encoding     UTF-8
  *
- *
  * @copyright   YouSeeU
+ * @package     mod_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -34,7 +30,14 @@ if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
 }
 
-// Overrides global function.
+/**
+ * Custom code called when the plugin is upgraded.  Migration from old code to new code and any new db actions.
+ *
+ * Overrides global function.
+ *
+ * @param integer $oldversion
+ * @return bool
+ */
 function xmldb_mymodule_upgrade($oldversion) {
     global $CFG;
 

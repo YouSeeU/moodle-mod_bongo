@@ -14,13 +14,40 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Tests rest response parsing ability to handle errors.
+ *
+ * Builds a simple object to be passed to the parser and adds an error to the object. If the parser detects the error,
+ * the test was successful.
+ *
+ * File         tool_bongo_rest_errors_test.php
+ * Encoding     UTF-8
+ *
+ * @copyright   YouSeeU
+ * @package     mod_bongo
+ * @author      Brian Kelly <brian.kelly@youseeu.com>
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
 
 require_once($CFG->dirroot.'/mod/bongo/locallib.php');
 
+
+/**
+ * Tests rest response parsing ability to handle errors.
+ *
+ * @copyright   YouSeeU
+ * @author      Brian Kelly <brian.kelly@youseeu.com>
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class mod_bongo_parse_rest_errors_testcase extends basic_testcase {
+
+    /**
+     * Test the rest parser's ability to find errors in messages.
+     */
     public function mod_bongo_get_rest_errors() {
         $this->resetAfterTest(true);
 

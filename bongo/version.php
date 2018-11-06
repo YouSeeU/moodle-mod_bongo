@@ -22,6 +22,7 @@
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
+ * @package     mod_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
