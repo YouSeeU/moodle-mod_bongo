@@ -99,8 +99,8 @@ if ($form->is_cancelled()) {
     }
 
     // Trigger a bongo configured event.
-//    $event = \mod_bongo\event\bongo_configured::create();
-//    $event->trigger();
+    // $event = \mod_bongo\event\bongo_configured::create();
+    // $event->trigger();
 
     redirect(
         new moodle_url('/mod/bongo/view.php?moduleid=' . $registrationresponse->module_id),
