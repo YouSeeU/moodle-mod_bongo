@@ -65,7 +65,7 @@ if ($form->is_cancelled()) {
     $dbobject->customer_email = $data->bongo_email;
     $dbobject->access_code = $data->bongo_access_code;
     $dbobject->timezone = date_default_timezone_get();
-    $dbobject->region = $data->bongo_region;
+    $dbobject->region = constants::MOD_BONGO_REGION_NA;
 
     $bongorecords = $DB->get_records('bongo', array('name' => $dbobject->name));
     if (!empty($bongorecords)) {
