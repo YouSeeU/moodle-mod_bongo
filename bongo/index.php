@@ -67,7 +67,7 @@ if ($form->is_cancelled()) {
     $dbobject->timezone = date_default_timezone_get();
     $dbobject->region = constants::MOD_BONGO_REGION_NA;
 
-    $bongorecords = $DB->get_records('bongo', array('name' => $dbobject->name));
+    $bongorecords = $DB->get_records('bongo', array());
     if (!empty($bongorecords)) {
         redirect(
             new moodle_url('/mod/bongo/index.php'),
