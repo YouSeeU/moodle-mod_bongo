@@ -344,14 +344,14 @@ function mod_bongo_find_or_create_course_category() {
 
     // If there were no categories, create the Miscellaneous category.
     $category = coursecat::create(array('name' => get_string('miscellaneous')));
-    if($category){
+    if ($category) {
         return $category->id;
     }
 
     // If Miscellaneous was not there, use the first category.
     // This is the "catch all" case and should realistically never be hit.
     $categories = $DB->get_records('course_categories');
-    foreach ($categories AS $category) {
+    foreach ($categories as $category) {
         return $category->id;
     }
 
@@ -388,7 +388,7 @@ function mod_bongo_get_course_section_id($courseid) {
     global $DB;
     $sections = $DB->get_records('course_sections', array('course' => $courseid));
     $id = -1;
-    foreach ($sections AS $section) {
+    foreach ($sections as $section) {
         $id = $section->id;
     }
 

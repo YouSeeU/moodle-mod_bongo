@@ -54,6 +54,6 @@ function mod_bongo_extend_navigation(\global_navigation $nav) {
  *
  * @param integer $modinstance
  */
-function bongo_delete_instance($modinstance){
+function bongo_delete_instance($modinstance) {
     return;
 }
