@@ -57,3 +57,23 @@ function mod_bongo_extend_navigation(\global_navigation $nav) {
 function bongo_delete_instance($modinstance) {
     return;
 }
+
+/**
+ * Override function to create mod instance.
+ * Bongo plugin doesn't need to create anything but the function needs to exist.
+ *
+ * @param integer $modinstance
+ */
+function bongo_create_instance($modinstance) {
+    return;
+}
+
+/**
+ * Override function to update mod instance.
+ * Bongo plugin doesn't need to update anything but the function needs to exist.
+ *
+ * @param integer $modinstance
+ */
+function bongo_update_instance($modinstance) {
+    return;
+}
