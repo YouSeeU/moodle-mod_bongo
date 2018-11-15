@@ -38,7 +38,7 @@ if (!defined('MOODLE_INTERNAL')) {
  * @param integer $oldversion
  * @return bool
  */
-function xmldb_mymodule_upgrade($oldversion) {
+function xmldb_bongo_upgrade($oldversion) {
     global $CFG;
 
     $result = true;
