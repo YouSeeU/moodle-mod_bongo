@@ -69,6 +69,16 @@ function bongo_create_instance($modinstance) {
 }
 
 /**
+ * Override function to add mod instance.
+ * Bongo plugin doesn't need to create anything but the function needs to exist.
+ *
+ * @param integer $modinstance
+ */
+function bongo_add_instance($modinstance) {
+    return;
+}
+
+/**
  * Override function to update mod instance.
  * Bongo plugin doesn't need to update anything but the function needs to exist.
  *
