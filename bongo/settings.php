@@ -48,6 +48,10 @@ require_once($CFG->dirroot . '/mod/bongo/locallib.php');
 //    }
 //}
 
+$url = new moodle_url('/mod/bongo/index.php');
+$link = html_writer::link($url, get_string('pluginname', 'mod_bongo'));
+$settings->add(new admin_setting_heading('mod_bongo', '', $link));
+
 // Add the Bongo configuration page to the main Admin Tree.
 $ADMIN->add('modsettings',
     new admin_externalpage(
@@ -59,4 +63,4 @@ $ADMIN->add('modsettings',
 );
 
 
-$settings = null;
+//$settings = null;
