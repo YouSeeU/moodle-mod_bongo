@@ -55,6 +55,9 @@ $PAGE->set_pagelayout('standard');
 
 admin_externalpage_setup('mod_bongo_settings');
 
+// Before we do anything, make sure the dummy version of the Bongo Activity plugin is disabled.
+mod_bongo_disable_dummy_plugin();
+
 $form = new \mod_bongo\forms\bongosetupform();
 
 if ($form->is_cancelled()) {
@@ -86,7 +89,7 @@ if ($form->is_cancelled()) {
     }
 
     $dbobject->hostname = $registrationresponse->url;
-    $dbobject->key = $registrationresponse->key;
+    $dbobject->ltikey = $registrationresponse->ltikey;
     $dbobject->secret = $registrationresponse->secret;
     $dbobject->lti_type_id = $registrationresponse->lti_type_id;
     $dbobject->course = $registrationresponse->course_id;

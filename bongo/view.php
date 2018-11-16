@@ -32,6 +32,7 @@
 require_once('../../config.php');
 global $CFG, $DB;
 require_once($CFG->libdir . '/adminlib.php');
+require_once($CFG->dirroot . '/mod/bongo/locallib.php');
 
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
@@ -47,6 +48,9 @@ $PAGE->set_heading(get_string('pluginname', 'mod_bongo'));
 // Moodle 2.2 and greater is required to use this.
 $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('standard');
+
+// Before we do anything, make sure the dummy version of the Bongo Activity plugin is disabled.
+mod_bongo_disable_dummy_plugin();
 
 $config = get_config('mod_bongo');
 $form = new \mod_bongo\forms\bongoinformationform();

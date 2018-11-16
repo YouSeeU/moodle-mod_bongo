@@ -2,7 +2,7 @@
 <XMLDB
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         PATH="mod/bongo/db"
-        VERSION="2018080100"
+        VERSION="2018111600"
         COMMENT="Tables for Bongo configurations."
         xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
@@ -12,9 +12,8 @@
                 <FIELD NAME="id" TYPE="int" LENGTH="9" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
                 <FIELD NAME="name" TYPE="char" NOTNULL="false" SEQUENCE="false" COMMENT="Name of school"/>
                 <FIELD NAME="hostname" TYPE="char" NOTNULL="true" SEQUENCE="false" COMMENT="YouSeeU Server Url"/>
-                <FIELD NAME="key" TYPE="char" NOTNULL="true" SEQUENCE="false" COMMENT="YouSeeU Key"/>
+                <FIELD NAME="ltikey" TYPE="char" NOTNULL="true" SEQUENCE="false" COMMENT="YouSeeU LTI Key"/>
                 <FIELD NAME="secret" TYPE="char" NOTNULL="true" SEQUENCE="false" COMMENT="YouSeeU Secret"/>
-                <FIELD NAME="premium_key" TYPE="char" NOTNULL="true" SEQUENCE="false" COMMENT="YouSeeU Premium Key"/>
                 <FIELD NAME="timezone" TYPE="char" NOTNULL="true" SEQUENCE="false"
                        COMMENT="Moodle installation timezone"/>
                 <FIELD NAME="region" TYPE="char" NOTNULL="true" SEQUENCE="false" COMMENT="YouSeeU Global Region"/>
