@@ -32,6 +32,7 @@ if (!defined('MOODLE_INTERNAL')) {
 }
 
 require_once($CFG->dirroot . '/mod/lti/locallib.php');
+require_once($CFG->dirroot . '/mod/bongo/locallib.php');
 
 /**
  * Any custom actions that need to occur after the plugin has been installed go here.
@@ -41,12 +42,6 @@ require_once($CFG->dirroot . '/mod/lti/locallib.php');
 function xmldb_bongo_install() {
     global $DB;
 
-    // Turning off Bongo activity modules in Moodle.
-    $bongoplugin = $DB->get_records('modules', array('name' => 'bongo'));
-    if (!empty($bongoplugin)) {
-        foreach ($bongoplugin as $plugin) {
-            $plugin->visible = 0;
-            $DB->update_record('modules', $plugin);
-        }
-    }
+    // Before we do anything, make sure the dummy version of the Bongo Activity plugin is disabled.
+    mod_bongo_disable_dummy_plugin();
 }
