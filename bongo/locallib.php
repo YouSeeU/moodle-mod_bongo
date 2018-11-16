@@ -111,7 +111,7 @@ function mod_bongo_set_up_bongo($requestobject) {
     // Format and execute rest call to Bongo to register.
     $parsedresponse = mod_bongo_register_with_bongo($requestobject);
     if ($parsedresponse->errorexists == false && !is_null($parsedresponse->url)) {
-        $ltitypeid = mod_bongo_create_lti_tool($parsedresponse->secret, $parsedresponse->key, $parsedresponse->url);
+        $ltitypeid = mod_bongo_create_lti_tool($parsedresponse->secret, $parsedresponse->ltikey, $parsedresponse->url);
         $coursemoduleid = mod_bongo_create_course_module($courseid, $coursesection, $ltitypeid, $ltimoduleid);
         $parsedresponse->lti_type_id = $ltitypeid;
         $parsedresponse->module_id = $coursemoduleid;
@@ -188,7 +188,7 @@ function mod_bongo_parse_response($jsonresult) {
     $dataexists = array_key_exists('data', $jsonresponse);
 
     $secret = null;
-    $key = null;
+    $ltikey = null;
     $url = null;
     $region = null;
     $code = null;
@@ -199,7 +199,7 @@ function mod_bongo_parse_response($jsonresult) {
         $code = (array_key_exists(constants::MOD_BONGO_CODE, $body) ? $body[constants::MOD_BONGO_CODE] : null);
         $message = (array_key_exists(constants::MOD_BONGO_MESSAGE, $body) ? $body[constants::MOD_BONGO_MESSAGE] : null);
         $secret = (array_key_exists(constants::MOD_BONGO_SECRET, $body) ? $body[constants::MOD_BONGO_SECRET] : null);
-        $key = (array_key_exists(constants::MOD_BONGO_KEY, $body) ? $body[constants::MOD_BONGO_KEY] : null);
+        $ltikey = (array_key_exists(constants::MOD_BONGO_KEY, $body) ? $body[constants::MOD_BONGO_KEY] : null);
         $url = (array_key_exists(constants::MOD_BONGO_URL, $body) ? $body[constants::MOD_BONGO_URL] : null);
         $region = (array_key_exists(constants::MOD_BONGO_REGION, $body) ? $body[constants::MOD_BONGO_REGION] : null);
     }
@@ -209,7 +209,7 @@ function mod_bongo_parse_response($jsonresult) {
 
     $parsedresponse = new stdClass();
     $parsedresponse->secret = $secret;
-    $parsedresponse->key = $key;
+    $parsedresponse->ltikey = $ltikey;
     $parsedresponse->url = $url;
     $parsedresponse->region = $region;
     $parsedresponse->message = $message;
@@ -304,6 +304,28 @@ function mod_bongo_create_mod_course() {
     global $DB;
 
     // If the course has already been inserted, use the previous one.
+    $courseid = mod_bongo_get_bongo_course();
+    if(!is_null($courseid)){
+        return $courseid;
+    }
+
+    $categoryid = mod_bongo_find_or_create_course_category();
+    $config = mod_bongo_create_course_object($categoryid);
+
+    create_course($config);
+    $courseid = mod_bongo_get_bongo_course();
+
+    return $courseid;
+}
+
+/**
+ * Finds the Bongo course if it has already been inserted, otherwise nothing.
+ *
+ * @return int|null
+ */
+function mod_bongo_get_bongo_course(){
+    global $DB;
+
     $courses = $DB->get_records('course', array('fullname' => get_string('bongoexamplecourse', 'mod_bongo')));
     if (!empty($courses)) {
         $id = -1;
@@ -313,15 +335,7 @@ function mod_bongo_create_mod_course() {
         return $id;
     }
 
-    $categoryid = mod_bongo_find_or_create_course_category();
-
-    $config = mod_bongo_create_course_object($categoryid);
-
-    create_course($config);
-    $course = $DB->get_record('course', array('fullname' => get_string('bongoexamplecourse', 'mod_bongo')));
-    $id = $course->id;
-
-    return $id;
+    return null;
 }
 
 /**
@@ -514,4 +528,47 @@ function mod_bongo_handle_rest_errors($parsedresponse) {
     $moodleerror->errormessage = $errormessage;
 
     return $moodleerror;
+}
+
+/**
+ * Turn off Bongo activity modules in Moodle.
+ *
+ * This is never supposed to be on. This is the Bongo Activity plugin. The Bongo plugin creates an external tool,
+ * which is the intended use case, rather than the Bongo Activity plugin. This should be called on every Bongo page to
+ * make sure that the Activity plugin is always disabled.
+ */
+function mod_bongo_disable_dummy_plugin(){
+    global $DB;
+
+    $bongoplugin = $DB->get_records('modules', array('name' => 'bongo'));
+    if (!empty($bongoplugin)) {
+        foreach ($bongoplugin as $plugin) {
+            $plugin->visible = 0;
+            $DB->update_record('modules', $plugin);
+        }
+    }
+}
+
+/**
+ * Failure case where the plugin failed to log its config data but correctly set up the lti information.
+ *
+ * @param $courseid
+ */
+function mod_bongo_insert_dummy_data($courseid){
+    global $DB;
+    $dbobject = new stdClass();
+    $dbobject->name = 'School Name';
+    $dbobject->customer_email = 'customer@email.edu';
+    $dbobject->access_code = 'bongoaccesscode';
+    $dbobject->timezone = date_default_timezone_get();
+    $dbobject->region = constants::MOD_BONGO_REGION_NA;
+
+    // We could probably search the repository for the config that was set before but that is unreliable.
+    $dbobject->hostname = '';
+    $dbobject->ltikey = '';
+    $dbobject->secret = '';
+    $dbobject->lti_type_id = 0;
+    $dbobject->course = $courseid;
+
+    $DB->insert_record('bongo', $dbobject);
 }

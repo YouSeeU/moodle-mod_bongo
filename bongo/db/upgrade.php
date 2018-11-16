@@ -30,6 +30,8 @@ if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
 }
 
+require_once($CFG->dirroot . '/mod/bongo/locallib.php');
+
 /**
  * Custom code called when the plugin is upgraded.  Migration from old code to new code and any new db actions.
  *
@@ -39,11 +41,41 @@ if (!defined('MOODLE_INTERNAL')) {
  * @return bool
  */
 function xmldb_bongo_upgrade($oldversion) {
-    global $CFG;
+    global $DB;
+    $dbmanager = $DB->get_manager();
 
     $result = true;
 
     // Insert PHP code from XMLDB Editor here.
+    if($oldversion < 2018111600){
+
+        // Drop unused field.
+        $table = new xmldb_table('bongo');
+        $field = new xmldb_field('premium_key');
+        if ($dbmanager->field_exists($table, $field)) {
+            $dbmanager->drop_field($table, $field, true, true);
+        }
+
+        // Rename field 'key' on table 'bongo' as it is a reserved word in MySQL.
+        $table = new xmldb_table('bongo');
+        $field = new xmldb_field('key');
+        if ($dbmanager->field_exists($table, $field)) {
+            $field->set_attributes(XMLDB_TYPE_CHAR, null, null, XMLDB_NOTNULL, null, null, 'groupid');
+            // Extend the execution time limit of the script to 5 minutes.
+            upgrade_set_timeout(300);
+            // Rename it to 'issystem'.
+            $dbmanager->rename_field($table, $field, 'ltikey');
+        }
+
+        // Try to find previous configuration.
+        $bongocourseid = mod_bongo_get_bongo_course();
+        if(!is_null($bongocourseid)){
+            // Plugin was previously configured. Insert dummy data because previous install failed. We cannot recover lost data.
+            mod_bongo_insert_dummy_data($bongocourseid);
+        }
+
+        upgrade_mod_savepoint(true, 2018111600, 'bongo');
+    }
 
     return $result;
 }

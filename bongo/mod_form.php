@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,15 +16,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Describes the administration configuration for your plugin.
+ * Landing page in case someone tries to use the Bongo Plugin dummy activity
  *
- * The setting names are supposed to be plugintype_pluginname/settingname (note the slash) and not
- * plugintype_pluginname_settingname or even just settingname. This makes them to be stored in the config_plugins
- * table without polluting the global $CFG object.
- *
- * Registers external configuration pages.
- *
- * File         settings.php
+ * File         mod_form.php
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
@@ -35,28 +30,26 @@
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
 }
-require_login();
 
-global $CFG;
-require_once($CFG->libdir . '/adminlib.php');
+require_once($CFG->dirroot.'/course/moodleform_mod.php');
 require_once($CFG->dirroot . '/mod/bongo/locallib.php');
 
-//if($ADMIN->fulltree){
-//    $bongoplugin = $DB->get_records('bongo', array());
-//    if (empty($bongoplugin)) {
-//        redirect(new moodle_url('/mod/bongo/index.php'));
-//    }
-//}
+/**
+ * Landing page in case someone tries to use the Bongo Plugin dummy activity
+ *
+ * @copyright   YouSeeU
+ * @author      Brian Kelly <brian.kelly@youseeu.com>
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class mod_bongo_mod_form extends moodleform_mod {
 
-// Add the Bongo configuration page to the main Admin Tree.
-$ADMIN->add('modsettings',
-    new admin_externalpage(
-        'mod_bongo_settings',
-        get_string('pluginname', 'mod_bongo'),
-        new moodle_url('/mod/bongo/index.php'),
-        'moodle/course:create'
-    )
-);
+    function definition(){
+        // Before we do anything, make sure the dummy version of the Bongo Activity plugin is disabled.
+        mod_bongo_disable_dummy_plugin();
 
-
-$settings = null;
+        redirect(
+            new moodle_url('/mod/bongo/index.php'),
+            get_string('bongopluginnotconfigured', 'mod_bongo')
+        );
+    }
+}
