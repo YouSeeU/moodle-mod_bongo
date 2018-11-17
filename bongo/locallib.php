@@ -582,3 +582,35 @@ function mod_bongo_insert_dummy_data($courseid){
 
     $DB->insert_record('bongo', $dbobject);
 }
+
+/**
+ * Check whether the Bongo config has been viewed at least once.
+ *
+ * @return int
+ */
+function mod_bongo_get_bongo_config_viewed() {
+    global $DB;
+    $sections = $DB->get_records('bongo_initial_view', array());
+    $id = null;
+    foreach ($sections as $section) {
+        $id = $section->id;
+    }
+
+    return $id;
+}
+
+/**
+ * Check whether the Bongo config has been viewed at least once.
+ */
+function mod_bongo_set_bongo_config_viewed() {
+    global $DB;
+    $views = $DB->get_records('bongo_initial_view', array());
+    $id = null;
+    foreach ($views as $section) {
+        return;
+    }
+
+    $view = new stdClass();
+    $view->bongo_viewed = 1;
+    $DB->insert_record('bongo_initial_view', $view);
+}
