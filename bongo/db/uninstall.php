@@ -38,8 +38,6 @@ global $CFG, $DB;
 require_once($CFG->dirroot . '/mod/lti/locallib.php');
 require_once($CFG->dirroot . '/mod/bongo/locallib.php');
 
-
-// Needs error handling around not configured instance.
 $bongorows = $DB->get_records('bongo', array());
 foreach ($bongorows as $bongorow) {
     $ltitype = $bongorow->lti_type_id;

@@ -47,7 +47,7 @@ function xmldb_bongo_upgrade($oldversion) {
     $result = true;
 
     // Insert PHP code from XMLDB Editor here.
-    if($oldversion < 2018111600){
+    if($oldversion < 2018111601){
 
         // Drop unused field.
         $table = new xmldb_table('bongo');
@@ -74,7 +74,7 @@ function xmldb_bongo_upgrade($oldversion) {
             mod_bongo_insert_dummy_data($bongocourseid);
         }
 
-        upgrade_mod_savepoint(true, 2018111600, 'bongo');
+        upgrade_mod_savepoint(true, 2018111601, 'bongo');
     }
 
     if ($oldversion < 2018111602) {

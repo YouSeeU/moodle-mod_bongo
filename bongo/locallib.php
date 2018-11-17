@@ -474,11 +474,21 @@ function mod_bongo_create_course_module_object($ltitypeid, $courseid, $sectionid
 function mod_bongo_unregister_bongo_integration() {
     $bongoconfig = get_config('mod_bongo');
 
+    if (is_null($bongoconfig)){
+        return;
+    }
+
+    $array = array(
+        constants::MOD_BONGO_NAME => $bongoconfig->name,
+        constants::MOD_BONGO_KEY => $bongoconfig->ltikey,
+        constants::MOD_BONGO_SECRET => $bongoconfig->secret,
+        constants::MOD_BONGO_REGION_NA => $bongoconfig->region,
+        constants::MOD_BONGO_REST_CALL_TYPE => constants::MOD_BONGO_REST_CALL_TYPE_UNINSTALL
+    );
+
     // If the plugin was not configured, don't bother with a rest call.
     if (isset($bongoconfig->key)) {
-        $requestfields = constants::MOD_BONGO_KEY . '=' . $bongoconfig->key
-            . '&' . constants::MOD_BONGO_REST_CALL_TYPE . '=' . constants::MOD_BONGO_REST_CALL_TYPE_UNINSTALL;
-        $resultresponse = mod_bongo_execute_rest_call(constants::MOD_BONGO_MOODLE_LAMBDA_ADDRESS, $requestfields);
+        $resultresponse = mod_bongo_execute_rest_call(constants::MOD_BONGO_MOODLE_LAMBDA_ADDRESS, json_encode($array));
     }
 }
 
