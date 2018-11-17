@@ -27,6 +27,10 @@
  *
  */
 
+if (!defined('MOODLE_INTERNAL')) {
+    die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
+}
+
 $capabilities = array(
     'mod/bongo:addinstance' => array(
         'riskbitmask' => RISK_XSS,

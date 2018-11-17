@@ -47,7 +47,7 @@ function xmldb_bongo_upgrade($oldversion) {
     $result = true;
 
     // Insert PHP code from XMLDB Editor here.
-    if($oldversion < 2018111601){
+    if ($oldversion < 2018111601) {
 
         // Drop unused field.
         $table = new xmldb_table('bongo');
@@ -69,7 +69,7 @@ function xmldb_bongo_upgrade($oldversion) {
 
         // Try to find previous configuration.
         $bongocourseid = mod_bongo_get_bongo_course();
-        if(!is_null($bongocourseid)){
+        if (!is_null($bongocourseid)) {
             // Plugin was previously configured. Insert dummy data because previous install failed. We cannot recover lost data.
             mod_bongo_insert_dummy_data($bongocourseid);
         }
