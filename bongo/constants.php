@@ -104,6 +104,26 @@ class constants{
     const MOD_BONGO_CODE = 'code';
 
     /**
+     * Object key for the 'verison' entry.
+     */
+    const MOD_BONGO_VERSION = 'version';
+
+    /**
+     * Object key for the 'moodle_verison' entry.
+     */
+    const MOD_BONGO_MOODLE_VERSION = 'moodle_version';
+
+    /**
+     * Object key for the 'moodle_dir_root' entry.
+     */
+    const MOD_BONGO_MOODLE_DIR_ROOT = 'moodle_dir_root';
+
+    /**
+     * Object key for the 'db_type' entry.
+     */
+    const MOD_BONGO_MOODLE_DB_TYPE = 'moodle_db_type';
+
+    /**
      * JSON key for the 'type' entry.
      */
     const MOD_BONGO_REST_CALL_TYPE = 'type';

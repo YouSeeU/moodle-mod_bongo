@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -43,7 +42,13 @@ require_once($CFG->dirroot . '/mod/bongo/locallib.php');
  */
 class mod_bongo_mod_form extends moodleform_mod {
 
-    function definition(){
+    /**
+     * Override parent function. This function is only used if someone has enabled the disabled part of the plugin.
+     *
+     * We do not want them to do this, but we need to gracefully handle it and guide them back in the right direction.
+     * We re-disable the plugin and guide them back to the Bongo config page.
+     */
+    public function definition() {
         // Before we do anything, make sure the dummy version of the Bongo Activity plugin is disabled.
         mod_bongo_disable_dummy_plugin();
 

@@ -128,12 +128,21 @@ function mod_bongo_set_up_bongo($requestobject) {
  * @return stdClass Bongo's response, parsed to extract errors, key, secret, url and any other messages for the Bongo plugin
  */
 function mod_bongo_register_with_bongo($requestobject) {
+    $bongoconfig = get_config('mod_bongo');
+    $siteconfig = get_config('');
+
     $array = array(
         constants::MOD_BONGO_NAME => $requestobject->name,
         constants::MOD_BONGO_REGION => $requestobject->region,
         constants::MOD_BONGO_ACCESS_CODE => $requestobject->access_code,
         constants::MOD_BONGO_CUSTOMER_EMAIL => $requestobject->customer_email,
         constants::MOD_BONGO_LMS_CODE => $requestobject->course_id,
+        constants::MOD_BONGO_VERSION => $bongoconfig->version,
+        // We collect site information so we can troubleshoot more easily without bothering the customer.
+        // For details on their system.
+        constants::MOD_BONGO_MOODLE_VERSION => $siteconfig->version,
+        constants::MOD_BONGO_MOODLE_DB_TYPE => $siteconfig->db_type,
+        constants::MOD_BONGO_MOODLE_DIR_ROOT => $siteconfig->dir_root,
         constants::MOD_BONGO_REST_CALL_TYPE => constants::MOD_BONGO_REST_CALL_TYPE_INSTALL
     );
 
@@ -305,7 +314,7 @@ function mod_bongo_create_mod_course() {
 
     // If the course has already been inserted, use the previous one.
     $courseid = mod_bongo_get_bongo_course();
-    if(!is_null($courseid)){
+    if (!is_null($courseid)) {
         return $courseid;
     }
 
@@ -323,7 +332,7 @@ function mod_bongo_create_mod_course() {
  *
  * @return int|null
  */
-function mod_bongo_get_bongo_course(){
+function mod_bongo_get_bongo_course() {
     global $DB;
 
     $courses = $DB->get_records('course', array('fullname' => get_string('bongoexamplecourse', 'mod_bongo')));
@@ -473,8 +482,9 @@ function mod_bongo_create_course_module_object($ltitypeid, $courseid, $sectionid
  */
 function mod_bongo_unregister_bongo_integration() {
     $bongoconfig = get_config('mod_bongo');
+    $siteconfig = get_config('');
 
-    if (is_null($bongoconfig)){
+    if (is_null($bongoconfig)) {
         return;
     }
 
@@ -483,6 +493,12 @@ function mod_bongo_unregister_bongo_integration() {
         constants::MOD_BONGO_KEY => $bongoconfig->ltikey,
         constants::MOD_BONGO_SECRET => $bongoconfig->secret,
         constants::MOD_BONGO_REGION_NA => $bongoconfig->region,
+        constants::MOD_BONGO_VERSION => $bongoconfig->version,
+        // We collect site information so we can troubleshoot more easily without bothering the customer.
+        // For details on their system.
+        constants::MOD_BONGO_MOODLE_VERSION => $siteconfig->version,
+        constants::MOD_BONGO_MOODLE_DB_TYPE => $siteconfig->db_type,
+        constants::MOD_BONGO_MOODLE_DIR_ROOT => $siteconfig->dir_root,
         constants::MOD_BONGO_REST_CALL_TYPE => constants::MOD_BONGO_REST_CALL_TYPE_UNINSTALL
     );
 
@@ -547,7 +563,7 @@ function mod_bongo_handle_rest_errors($parsedresponse) {
  * which is the intended use case, rather than the Bongo Activity plugin. This should be called on every Bongo page to
  * make sure that the Activity plugin is always disabled.
  */
-function mod_bongo_disable_dummy_plugin(){
+function mod_bongo_disable_dummy_plugin() {
     global $DB;
 
     $bongoplugin = $DB->get_records('modules', array('name' => 'bongo'));
@@ -562,9 +578,9 @@ function mod_bongo_disable_dummy_plugin(){
 /**
  * Failure case where the plugin failed to log its config data but correctly set up the lti information.
  *
- * @param $courseid
+ * @param int $courseid
  */
-function mod_bongo_insert_dummy_data($courseid){
+function mod_bongo_insert_dummy_data($courseid) {
     global $DB;
     $dbobject = new stdClass();
     $dbobject->name = 'School Name';
