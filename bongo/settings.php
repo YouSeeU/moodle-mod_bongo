@@ -41,12 +41,16 @@ global $CFG;
 require_once($CFG->libdir . '/adminlib.php');
 require_once($CFG->dirroot . '/mod/bongo/locallib.php');
 
-//if($ADMIN->fulltree){
-//    $bongoplugin = $DB->get_records('bongo', array());
-//    if (empty($bongoplugin)) {
-//        redirect(new moodle_url('/mod/bongo/index.php'));
-//    }
-//}
+if($ADMIN->fulltree){
+    $bongoplugin = $DB->get_records('bongo', array());
+    if (empty($bongoplugin)) {
+        // Only force viewing config if this is the first time they have seen the config.
+        $viewed = mod_bongo_get_bongo_config_viewed();
+        if(is_null($viewed)){
+            redirect(new moodle_url('/mod/bongo/index.php'));
+        }
+    }
+}
 
 // Add the Bongo configuration page to the main Admin Tree.
 $ADMIN->add('modsettings',

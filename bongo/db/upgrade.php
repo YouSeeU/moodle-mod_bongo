@@ -42,7 +42,7 @@ require_once($CFG->dirroot . '/mod/bongo/locallib.php');
  */
 function xmldb_bongo_upgrade($oldversion) {
     global $DB;
-    $dbmanager = $DB->get_manager();
+    $dbman = $DB->get_manager();
 
     $result = true;
 
@@ -52,19 +52,19 @@ function xmldb_bongo_upgrade($oldversion) {
         // Drop unused field.
         $table = new xmldb_table('bongo');
         $field = new xmldb_field('premium_key');
-        if ($dbmanager->field_exists($table, $field)) {
-            $dbmanager->drop_field($table, $field, true, true);
+        if ($dbman->field_exists($table, $field)) {
+            $dbman->drop_field($table, $field, true, true);
         }
 
         // Rename field 'key' on table 'bongo' as it is a reserved word in MySQL.
         $table = new xmldb_table('bongo');
         $field = new xmldb_field('key');
-        if ($dbmanager->field_exists($table, $field)) {
+        if ($dbman->field_exists($table, $field)) {
             $field->set_attributes(XMLDB_TYPE_CHAR, null, null, XMLDB_NOTNULL, null, null, 'groupid');
             // Extend the execution time limit of the script to 5 minutes.
             upgrade_set_timeout(300);
             // Rename it to 'issystem'.
-            $dbmanager->rename_field($table, $field, 'ltikey');
+            $dbman->rename_field($table, $field, 'ltikey');
         }
 
         // Try to find previous configuration.
@@ -75,6 +75,20 @@ function xmldb_bongo_upgrade($oldversion) {
         }
 
         upgrade_mod_savepoint(true, 2018111600, 'bongo');
+    }
+
+    if ($oldversion < 2018111602) {
+
+        // Define field id to be added to bongo_initial_view.
+        $table = new xmldb_table('bongo_initial_view');
+        $field = new xmldb_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null);
+
+        // Conditionally launch add field id.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        upgrade_mod_savepoint(true, 2018111602, 'bongo');
     }
 
     return $result;
