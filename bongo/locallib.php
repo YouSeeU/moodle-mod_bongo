@@ -576,7 +576,7 @@ function mod_bongo_disable_dummy_plugin(){
 /**
  * Failure case where the plugin failed to log its config data but correctly set up the lti information.
  *
- * @param $courseid
+ * @param int $courseid
  */
 function mod_bongo_insert_dummy_data($courseid){
     global $DB;
