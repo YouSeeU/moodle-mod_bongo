@@ -128,12 +128,20 @@ function mod_bongo_set_up_bongo($requestobject) {
  * @return stdClass Bongo's response, parsed to extract errors, key, secret, url and any other messages for the Bongo plugin
  */
 function mod_bongo_register_with_bongo($requestobject) {
+    $bongoconfig = get_config('mod_bongo');
+    $siteconfig = get_config('');
+
     $array = array(
         constants::MOD_BONGO_NAME => $requestobject->name,
         constants::MOD_BONGO_REGION => $requestobject->region,
         constants::MOD_BONGO_ACCESS_CODE => $requestobject->access_code,
         constants::MOD_BONGO_CUSTOMER_EMAIL => $requestobject->customer_email,
         constants::MOD_BONGO_LMS_CODE => $requestobject->course_id,
+        constants::MOD_BONGO_VERSION => $bongoconfig->version,
+        // We collect site information so we can troubleshoot more easily without bothering the customer for details on their system.
+        constants::MOD_BONGO_MOODLE_VERSION => $siteconfig->version,
+        constants::MOD_BONGO_MOODLE_DB_TYPE => $siteconfig->db_type,
+        constants::MOD_BONGO_MOODLE_DIR_ROOT => $siteconfig->dir_root,
         constants::MOD_BONGO_REST_CALL_TYPE => constants::MOD_BONGO_REST_CALL_TYPE_INSTALL
     );
 
@@ -473,6 +481,7 @@ function mod_bongo_create_course_module_object($ltitypeid, $courseid, $sectionid
  */
 function mod_bongo_unregister_bongo_integration() {
     $bongoconfig = get_config('mod_bongo');
+    $siteconfig = get_config('');
 
     if (is_null($bongoconfig)){
         return;
@@ -483,6 +492,11 @@ function mod_bongo_unregister_bongo_integration() {
         constants::MOD_BONGO_KEY => $bongoconfig->ltikey,
         constants::MOD_BONGO_SECRET => $bongoconfig->secret,
         constants::MOD_BONGO_REGION_NA => $bongoconfig->region,
+        constants::MOD_BONGO_VERSION => $bongoconfig->version,
+        // We collect site information so we can troubleshoot more easily without bothering the customer for details on their system.
+        constants::MOD_BONGO_MOODLE_VERSION => $siteconfig->version,
+        constants::MOD_BONGO_MOODLE_DB_TYPE => $siteconfig->db_type,
+        constants::MOD_BONGO_MOODLE_DIR_ROOT => $siteconfig->dir_root,
         constants::MOD_BONGO_REST_CALL_TYPE => constants::MOD_BONGO_REST_CALL_TYPE_UNINSTALL
     );
 
