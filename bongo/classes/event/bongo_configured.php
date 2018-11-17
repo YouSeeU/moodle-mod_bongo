@@ -40,8 +40,7 @@ class bongo_configured extends \core\event\base {
     protected function init() {
         $this->data['crud'] = 'c';
         $this->data['edulevel'] = self::LEVEL_OTHER;
-        $this->data['objecttable'] = 'mod_bongo';
-        $this->context = \context_system::instance();
+        $this->data['objecttable'] = 'bongo';
     }
 
     /**
