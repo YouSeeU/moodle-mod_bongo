@@ -141,8 +141,8 @@ function mod_bongo_register_with_bongo($requestobject) {
         // We collect site information so we can troubleshoot more easily without bothering the customer.
         // For details on their system.
         constants::MOD_BONGO_MOODLE_VERSION => $siteconfig->version,
-        constants::MOD_BONGO_MOODLE_DB_TYPE => $siteconfig->db_type,
-        constants::MOD_BONGO_MOODLE_DIR_ROOT => $siteconfig->dir_root,
+        constants::MOD_BONGO_MOODLE_DB_TYPE => $siteconfig->dbtype,
+        constants::MOD_BONGO_MOODLE_DIR_ROOT => $siteconfig->dirroot,
         constants::MOD_BONGO_REST_CALL_TYPE => constants::MOD_BONGO_REST_CALL_TYPE_INSTALL
     );
 
@@ -497,8 +497,8 @@ function mod_bongo_unregister_bongo_integration() {
         // We collect site information so we can troubleshoot more easily without bothering the customer.
         // For details on their system.
         constants::MOD_BONGO_MOODLE_VERSION => $siteconfig->version,
-        constants::MOD_BONGO_MOODLE_DB_TYPE => $siteconfig->db_type,
-        constants::MOD_BONGO_MOODLE_DIR_ROOT => $siteconfig->dir_root,
+        constants::MOD_BONGO_MOODLE_DB_TYPE => $siteconfig->dbtype,
+        constants::MOD_BONGO_MOODLE_DIR_ROOT => $siteconfig->dirroot,
         constants::MOD_BONGO_REST_CALL_TYPE => constants::MOD_BONGO_REST_CALL_TYPE_UNINSTALL
     );
 
