@@ -73,8 +73,7 @@ included at the top level of the zipped file.
 * Create a Course and activity on the Moodle server and attach the activity to the LTI Type
 * Describe to the user what the plugin just created
 * Launch into Bongo
-* After installation, the user and any administrators to create activities in courses that will use the Bongo
-application from the 'Add Activity/Resource' in any course
+* After installation, the user and any administrators can use the Bongo application from the 'Add Activity/Resource' in any course to add Bongo as an activity to any course.
 
 ## Potential issues
 * Write access needs to be allowed on <Moodle root>/admin/tool
