@@ -26,9 +26,6 @@
                 <KEY NAME="primary" TYPE="primary" FIELDS="id"
                      COMMENT="It is convention to have the ID be the primary key"/>
             </KEYS>
-            <INDEXES>
-                <INDEX NAME="name" UNIQUE="true" FIELDS="name"/>
-            </INDEXES>
         </TABLE>
         <TABLE NAME="bongo_initial_view" COMMENT="Check whether initial view of Bongo config was reached">
             <FIELDS>
