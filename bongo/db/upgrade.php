@@ -91,5 +91,20 @@ function xmldb_bongo_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2018111602, 'bongo');
     }
 
+    if ($oldversion < 2018112605) {
+
+        // Define index name (unique) to be dropped form bongo.
+        $table = new xmldb_table('bongo');
+        $index = new xmldb_index('name', XMLDB_INDEX_UNIQUE, array('name'));
+
+        // Conditionally launch drop index name.
+        if ($dbman->index_exists($table, $index)) {
+            $dbman->drop_index($table, $index);
+        }
+
+        // Bongo savepoint reached.
+        upgrade_mod_savepoint(true, 2018112605, 'bongo');
+    }
+
     return $result;
 }
