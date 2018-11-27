@@ -106,5 +106,7 @@ function xmldb_bongo_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2018112605, 'bongo');
     }
 
+    // No change for 2018112706.
+
     return $result;
 }
