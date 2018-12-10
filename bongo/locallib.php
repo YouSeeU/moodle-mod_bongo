@@ -583,8 +583,8 @@ function mod_bongo_disable_dummy_plugin() {
 function mod_bongo_insert_dummy_data($courseid) {
     global $DB;
     $dbobject = new stdClass();
-    $dbobject->name = 'School Name';
-    $dbobject->customer_email = 'customer@email.edu';
+    $dbobject->name = 'Customer Name';
+    $dbobject->customer_email = 'customer@example.com';
     $dbobject->access_code = 'bongoaccesscode';
     $dbobject->timezone = date_default_timezone_get();
     $dbobject->region = constants::MOD_BONGO_REGION_NA;
