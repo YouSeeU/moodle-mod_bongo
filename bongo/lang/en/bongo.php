@@ -17,7 +17,7 @@
 /**
  * English strings for the plugin are defined here. Only string that appear to the user are listed.
  *
- * For internal strings see the constants.php file.
+ * For internal strings see the modbongoconstants.php file.
  * At least $string['pluginname'] must be present.
  * String API provides information about the string files.
  *
