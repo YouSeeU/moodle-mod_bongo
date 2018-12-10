@@ -94,3 +94,5 @@ $string['bongosubmitting_label'] = 'Please wait while your Bongo instance is bei
 $string['bongoconfiguredeventdescription'] = 'Bongo has been configured and is ready to use.';
 $string['bongoconfiguredevent'] = 'Bongo has been configured and is ready to use.';
 
+// GDPR Notice.
+$string['privacy:metadata:core_files'] = 'Bongo stores the email and name added by the user to the Bongo configuration.';
