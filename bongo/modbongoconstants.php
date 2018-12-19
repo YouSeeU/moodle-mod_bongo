@@ -37,7 +37,7 @@ if (!defined('MOODLE_INTERNAL')) {
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class constants{
+class modbongoconstants{
     /**
      * The address of the REST Url endpoint in Bongo.
      */
