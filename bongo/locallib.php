@@ -45,7 +45,7 @@ if (!defined('MOODLE_INTERNAL')) {
 require_once($CFG->dirroot . '/mod/lti/locallib.php');
 require_once($CFG->dirroot . '/course/lib.php');
 require_once($CFG->dirroot . '/course/modlib.php');
-require_once($CFG->dirroot . '/mod/bongo/modbongoconstants.php');
+require_once($CFG->dirroot . '/mod/bongo/classes/modbongoconstants.php');
 
 
 /**

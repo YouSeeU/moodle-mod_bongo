@@ -105,7 +105,7 @@ if ($form->is_cancelled()) {
     }
 
     // Trigger a bongo configured event.
-    \mod_bongo\event\bongo_configured::create(array('context' => context_system::instance()))->trigger();
+    \mod_bongo\event\bongo_configured::create(array('context' => context_system::instance(), 'objectid' => $dbobject->course))->trigger();
 
     redirect(
         new moodle_url('/mod/bongo/view.php?moduleid=' . $registrationresponse->module_id),
