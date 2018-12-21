@@ -17,7 +17,7 @@
 /**
  * English strings for the plugin are defined here. Only string that appear to the user are listed.
  *
- * For internal strings see the constants.php file.
+ * For internal strings see the modbongoconstants.php file.
  * At least $string['pluginname'] must be present.
  * String API provides information about the string files.
  *
@@ -57,17 +57,17 @@ $string['pluginsettingscanceled'] = 'Bongo configuration canceled';
 
 // Form info.
 $string['bongochangessaved'] = 'Changes saved!';
-$string['bongopremiumkey'] = 'Bongo Access Code';
+$string['bongopremiumkey'] = 'Bongo access code';
 $string['bongopremiumkey_help'] = ' If you do not have an access code please <a href="https://www.bongolearn.com/activation-code">visit our site</a>.';
 $string['bongopremiumkeyformat'] = 'Please use only letters, numbers and dashes (-)';
-$string['bongoschoolname'] = 'Moodle Institution';
+$string['bongoschoolname'] = 'Moodle institution';
 $string['bongoschoolname_help'] = 'Name of the school you are associated with.';
 $string['bongoschoolformat'] = 'Please use only letters, numbers, and spaces';
 $string['bongoregion'] = 'Region';
 $string['bongoregion_help'] = 'What area of the world are you installing this plugin to?';
-$string['bongoemail'] = 'Email Address';
-$string['bongoemail_help'] = 'Email Address that Bongo can use to contact you about your trial';
-$string['bongolanguages'] = 'Bongo Supported Languages: English, Arabic, French, German, Dutch, Brazillian Portuguese, Spanish';
+$string['bongoemail'] = 'Email address';
+$string['bongoemail_help'] = 'Email address that Bongo can use to contact you about your trial';
+$string['bongolanguages'] = 'Bongo supported languages: English, Arabic, French, German, Dutch, Brazillian Portuguese, Spanish';
 
 
 // Regions.

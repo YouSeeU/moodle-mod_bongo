@@ -15,13 +15,13 @@ fi
 if [ -z "$MODULE_VERSION" ]
 then
       echo "\$MODULE_VERSION is empty, defaulting to 'version'"
-      MODULE_VERSION="bongo"
+      MODULE_VERSION="version"
 fi
 
 echo 'File name: '
 echo $MOODLE_NAME-$MODULE_VERSION.zip
 
-#Zip all folder contents including top level plugin name directory
+#Zip all folder contents of folder excluding the git, idea and circleci build folders
 rm -f bongo.zip
 rm -f $MOODLE_NAME-$MODULE_VERSION.zip
-zip -r $MOODLE_NAME-$MODULE_VERSION.zip bongo/
+zip -r $MOODLE_NAME-$MODULE_VERSION.zip ./ -x *.git* *.idea* *.circleci* *.zip *.travis*
