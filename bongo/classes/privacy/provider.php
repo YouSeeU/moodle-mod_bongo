@@ -29,11 +29,12 @@
 
 function get_metadata(collection $collection) : collection {
 
-    $collection->add_subsystem_link(
-        'core_files',
-        [],
-        'privacy:metadata:core_files'
-    );
+    // No user data is stored on the Moodle server.
+    // Any user data used by Bongo is stored remotely on the Bongo servers.
+
+    $collection->add_external_location_link('lti_client', [
+        'email' => 'privacy:metadata:email',
+    ], 'privacy:metadata:lti_client');
 
     return $collection;
 }
