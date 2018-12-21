@@ -46,6 +46,7 @@ require_once($CFG->dirroot . '/mod/lti/locallib.php');
 require_once($CFG->dirroot . '/course/lib.php');
 require_once($CFG->dirroot . '/course/modlib.php');
 require_once($CFG->dirroot . '/mod/bongo/classes/modbongoconstants.php');
+require_once($CFG->libdir.'/filelib.php');
 
 
 /**
@@ -162,25 +163,20 @@ function mod_bongo_register_with_bongo($requestobject) {
  * @return stdClass
  */
 function mod_bongo_execute_rest_call($urladdress, $postfields) {
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $urladdress);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS,
-        $postfields
-    );
-    curl_setopt($ch, CURLOPT_POST, 1);
+    $curl = new curl();
 
     $headers = array();
-    $headers[] = 'Content-Type: application/x-www-form-urlencoded';
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    $headers[] = 'Content-Type: text/plain';
+    $headers[] = 'Accept-Content: application/json';
 
-    $result = curl_exec($ch);
-    if (curl_errno($ch)) {
-        print 'Error:' . curl_error($ch);
+    $curl->setHeader($headers);
+    $curlresponse = $curl->post($urladdress, $postfields);
+    if ($curl->get_errno() != 0) {
+        $message = array('errors' => get_string('bongoresterror', 'mod_bongo'));
+        $curlresponse = json_encode($message);
     }
-    curl_close($ch);
 
-    return $result;
+    return $curlresponse;
 }
 
 /**
