@@ -171,6 +171,10 @@ function mod_bongo_execute_rest_call($urladdress, $postfields) {
 
     $curl->setHeader($headers);
     $curlresponse = $curl->post($urladdress, $postfields);
+    if ($curl->get_errno() != 0) {
+        $message = array('errors' => get_string('bongoresterror', 'mod_bongo'));
+        $curlresponse = json_encode($message);
+    }
 
     return $curlresponse;
 }
