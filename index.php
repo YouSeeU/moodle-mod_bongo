@@ -21,7 +21,7 @@
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
- * @package     mod_bongo
+ * @package     local_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -30,7 +30,7 @@
 require_once('../../config.php');
 global $CFG, $DB;
 require_once($CFG->libdir . '/adminlib.php');
-require_once($CFG->dirroot . '/mod/bongo/locallib.php');
+require_once($CFG->dirroot . '/local/bongo/locallib.php');
 
 defined('MOODLE_INTERNAL') || die();
 require_login();
@@ -43,25 +43,25 @@ if (
     and has_capability('moodle/site:config', $context)
 )
 ) {
-    redirect(new moodle_url('/'), get_string('bongoaccessdenied', 'mod_bongo'));
+    redirect(new moodle_url('/'), get_string('bongoaccessdenied', 'local_bongo'));
 }
 
 $PAGE->set_context($context);
-$PAGE->set_url('/mod/bongo/index.php');
-$PAGE->set_title(get_string('pluginsettings', 'mod_bongo'));
-$PAGE->set_heading(get_string('pluginsettings', 'mod_bongo'));
+$PAGE->set_url('/local/bongo/index.php');
+$PAGE->set_title(get_string('pluginsettings', 'local_bongo'));
+$PAGE->set_heading(get_string('pluginsettings', 'local_bongo'));
 $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('standard');
 
-admin_externalpage_setup('mod_bongo_settings');
+admin_externalpage_setup('local_bongo_settings');
 
 // Before we do anything, make sure the dummy version of the Bongo Activity plugin is disabled.
-mod_bongo_disable_dummy_plugin();
+local_bongo_disable_dummy_plugin();
 
 // Log that we have seen the bongo config at least once.
-mod_bongo_set_bongo_config_viewed();
+local_bongo_set_bongo_config_viewed();
 
-$form = new \mod_bongo\forms\bongosetupform();
+$form = new \local_bongo\forms\bongosetupform();
 
 if ($form->is_cancelled()) {
     redirect(new moodle_url('/admin/search.php'));
@@ -71,22 +71,22 @@ if ($form->is_cancelled()) {
     $dbobject->customer_email = $data->bongo_email;
     $dbobject->access_code = $data->bongo_access_code;
     $dbobject->timezone = date_default_timezone_get();
-    $dbobject->region = modbongoconstants::MOD_BONGO_REGION_NA;
+    $dbobject->region = localbongoconstants::LOCAL_BONGO_REGION_NA;
 
     $bongorecords = $DB->get_records('bongo', array());
     if (!empty($bongorecords)) {
         redirect(
-            new moodle_url('/mod/bongo/index.php'),
-            get_string('pluginsettingsalreadyconfigured', 'mod_bongo')
+            new moodle_url('/local/bongo/index.php'),
+            get_string('pluginsettingsalreadyconfigured', 'local_bongo')
         );
     }
 
-    $registrationresponse = mod_bongo_set_up_bongo($dbobject);
+    $registrationresponse = local_bongo_set_up_bongo($dbobject);
 
     // If there was an error in the call to Bongo, display the parsed error and redirect the page.
     if ($registrationresponse->errorexists == true || is_null($registrationresponse->url)) {
         redirect(
-            new moodle_url('/mod/bongo/index.php'),
+            new moodle_url('/local/bongo/index.php'),
             $registrationresponse->errormessage
         );
     }
@@ -102,20 +102,20 @@ if ($form->is_cancelled()) {
 
     // Save plugin config.
     foreach ($dbobject as $name => $value) {
-        set_config($name, $value, 'mod_bongo');
+        set_config($name, $value, 'local_bongo');
     }
 
     // Trigger a bongo configured event.
-    \mod_bongo\event\bongo_configured::create(array('context' => context_system::instance(), 'objectid' => $dbobject->course))->trigger();
+    \local_bongo\event\bongo_configured::create(array('context' => context_system::instance(), 'objectid' => $dbobject->course))->trigger();
 
     redirect(
-        new moodle_url('/mod/bongo/view.php?moduleid=' . $registrationresponse->module_id),
-        get_string('bongochangessaved', 'mod_bongo')
+        new moodle_url('/local/bongo/view.php?moduleid=' . $registrationresponse->module_id),
+        get_string('bongochangessaved', 'local_bongo')
     );
 }
 
 // Build the page output.
 echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('pluginsettings', 'mod_bongo'));
+echo $OUTPUT->heading(get_string('pluginsettings', 'local_bongo'));
 $form->display();
 echo $OUTPUT->footer();

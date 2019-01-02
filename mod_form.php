@@ -21,7 +21,7 @@
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
- * @package     mod_bongo
+ * @package     local_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -31,7 +31,7 @@ if (!defined('MOODLE_INTERNAL')) {
 }
 
 require_once($CFG->dirroot.'/course/moodleform_mod.php');
-require_once($CFG->dirroot . '/mod/bongo/locallib.php');
+require_once($CFG->dirroot . '/local/bongo/locallib.php');
 
 /**
  * Landing page in case someone tries to use the Bongo Plugin dummy activity
@@ -40,7 +40,7 @@ require_once($CFG->dirroot . '/mod/bongo/locallib.php');
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class mod_bongo_mod_form extends moodleform_mod {
+class local_bongo_mod_form extends moodleform_mod {
 
     /**
      * Override parent function. This function is only used if someone has enabled the disabled part of the plugin.
@@ -50,11 +50,11 @@ class mod_bongo_mod_form extends moodleform_mod {
      */
     public function definition() {
         // Before we do anything, make sure the dummy version of the Bongo Activity plugin is disabled.
-        mod_bongo_disable_dummy_plugin();
+        local_bongo_disable_dummy_plugin();
 
         redirect(
-            new moodle_url('/mod/bongo/index.php'),
-            get_string('bongopluginnotconfigured', 'mod_bongo')
+            new moodle_url('/local/bongo/index.php'),
+            get_string('bongopluginnotconfigured', 'local_bongo')
         );
     }
 }

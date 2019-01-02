@@ -21,14 +21,14 @@
  * At least $string['pluginname'] must be present.
  * String API provides information about the string files.
  *
- * Usage: get_string('pluginname', 'mod_bongo')
+ * Usage: get_string('pluginname', 'local_bongo')
  *  - first argument is the string index, the second is the plugin that owns the string index
  *
- * File         mod_bongo.php
+ * File         local_bongo.php
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
- * @package     mod_bongo
+ * @package     local_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *

@@ -1,5 +1,5 @@
 {
-  "name": "moodle-mod_bongo",
+  "name": "moodle-local_bongo",
   "devDependencies": {
     "grunt": "^1.0.3",
     "grunt-load-gruntfile": "0.0.2"

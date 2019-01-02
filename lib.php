@@ -28,7 +28,7 @@
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
- * @package     mod_bongo
+ * @package     local_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -43,7 +43,7 @@ if (!defined('MOODLE_INTERNAL')) {
  *
  * @param \global_navigation $nav
  */
-function mod_bongo_extend_navigation(\global_navigation $nav) {
+function local_bongo_extend_navigation(\global_navigation $nav) {
     return;
 }
 

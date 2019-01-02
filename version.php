@@ -22,7 +22,7 @@
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
- * @package     mod_bongo
+ * @package     local_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -39,7 +39,7 @@ $plugin->version = 2019010201;
 $plugin->requires = 2014051200;
 
 // Name of the plugin inside of moodle.
-$plugin->component = 'mod_bongo';
+$plugin->component = 'local_bongo';
 
 // How stable the plugin is: MATURITY_ALPHA, MATURITY_BETA, MATURITY_RC or MATURITY_STABLE.
 $plugin->maturity = MATURITY_STABLE;

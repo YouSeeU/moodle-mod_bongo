@@ -12,13 +12,13 @@ the Moodle to make regular LTI requests against Bongo.
 Moodle version 2.7 and higher are supported.
 
 ## Code repository name
-The code repository name is moodle-mod_bongo.
+The code repository name is moodle-local_bongo.
 
 ## Source control URL
-See https://github.com/YouSeeU/moodle-mod_bongo
+See https://github.com/YouSeeU/moodle-local_bongo
 
 ## Bug tracker
-See https://github.com/YouSeeU/moodle-mod_bongo/issues
+See https://github.com/YouSeeU/moodle-local_bongo/issues
 
 ## Learn more about the Bongo solution
 Please visit https://www.bongolearn.com

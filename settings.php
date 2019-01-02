@@ -27,7 +27,7 @@
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
- * @package     mod_bongo
+ * @package     local_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -39,29 +39,29 @@ require_login();
 
 global $CFG;
 require_once($CFG->libdir . '/adminlib.php');
-require_once($CFG->dirroot . '/mod/bongo/locallib.php');
+require_once($CFG->dirroot . '/local/bongo/locallib.php');
 
 if ($ADMIN->fulltree) {
     $bongoplugin = $DB->get_records('bongo', array());
     if (empty($bongoplugin)) {
         // Only force viewing config if this is the first time they have seen the config.
-        $viewed = mod_bongo_get_bongo_config_viewed();
+        $viewed = local_bongo_get_bongo_config_viewed();
         if (is_null($viewed)) {
-            redirect(new moodle_url('/mod/bongo/index.php'));
+            redirect(new moodle_url('/local/bongo/index.php'));
         }
     }
 }
 
-$url = new moodle_url('/mod/bongo/index.php');
-$link = html_writer::link($url, get_string('pluginname', 'mod_bongo'));
-$settings->add(new admin_setting_heading('mod_bongo', '', $link));
+$url = new moodle_url('/local/bongo/index.php');
+$link = html_writer::link($url, get_string('pluginname', 'local_bongo'));
+//$settings->add(new admin_setting_heading('local_bongo', '', $link));
 
 // Add the Bongo configuration page to the main Admin Tree.
 $ADMIN->add('modsettings',
     new admin_externalpage(
-        'mod_bongo_settings',
-        get_string('pluginname', 'mod_bongo'),
-        new moodle_url('/mod/bongo/index.php'),
+        'local_bongo_settings',
+        get_string('pluginname', 'local_bongo'),
+        new moodle_url('/local/bongo/index.php'),
         'moodle/course:create'
     )
 );

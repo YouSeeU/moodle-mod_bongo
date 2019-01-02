@@ -21,7 +21,7 @@
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
- * @package     mod_bongo
+ * @package     local_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -32,7 +32,7 @@ if (!defined('MOODLE_INTERNAL')) {
 }
 
 $capabilities = array(
-    'mod/bongo:addinstance' => array(
+    'local/bongo:addinstance' => array(
         'riskbitmask' => RISK_XSS,
 
         'captype' => 'write',

@@ -21,7 +21,7 @@
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
- * @package     mod_bongo
+ * @package     local_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -30,7 +30,7 @@ if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
 }
 
-require_once($CFG->dirroot . '/mod/bongo/locallib.php');
+require_once($CFG->dirroot . '/local/bongo/locallib.php');
 
 /**
  * Custom code called when the plugin is upgraded.  Migration from old code to new code and any new db actions.
@@ -40,7 +40,7 @@ require_once($CFG->dirroot . '/mod/bongo/locallib.php');
  * @param integer $oldversion
  * @return bool
  */
-function xmldb_bongo_upgrade($oldversion) {
+function xmldb_local_bongo_upgrade($oldversion) {
     global $DB;
     $dbman = $DB->get_manager();
 
@@ -68,10 +68,10 @@ function xmldb_bongo_upgrade($oldversion) {
         }
 
         // Try to find previous configuration.
-        $bongocourseid = mod_bongo_get_bongo_course();
+        $bongocourseid = local_bongo_get_bongo_course();
         if (!is_null($bongocourseid)) {
             // Plugin was previously configured. Insert dummy data because previous install failed. We cannot recover lost data.
-            mod_bongo_insert_dummy_data($bongocourseid);
+            local_bongo_insert_dummy_data($bongocourseid);
         }
 
         upgrade_mod_savepoint(true, 2018111601, 'bongo');

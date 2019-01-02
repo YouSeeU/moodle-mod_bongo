@@ -24,12 +24,12 @@
  *
  *
  * @copyright   YouSeeU
- * @package     mod_bongo
+ * @package     local_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_bongo\forms;
+namespace local_bongo\forms;
 
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
@@ -37,10 +37,10 @@ if (!defined('MOODLE_INTERNAL')) {
 global $CFG, $PAGE;
 
 // Load javascript into page.
-$PAGE->requires->js_call_amd('mod_bongo/app', 'init');
+$PAGE->requires->js_call_amd('local_bongo/app', 'init');
 
 require_once($CFG->libdir . '/formslib.php');
-require_once($CFG->dirroot . '/mod/bongo/locallib.php');
+require_once($CFG->dirroot . '/local/bongo/locallib.php');
 
 /**
  * Default setup/settings form for bongo.
@@ -57,34 +57,34 @@ class bongosetupform extends \moodleform {
     public function definition() {
         $mform = &$this->_form;
         // Bongo information.
-        $mform->addElement('html', get_string('bongoinfo', 'mod_bongo'));
+        $mform->addElement('html', get_string('bongoinfo', 'local_bongo'));
 
         // Moodle School Name.
-        $mform->addElement('text', 'bongo_school_name', get_string('bongoschoolname', 'mod_bongo'));
-        $mform->addHelpButton('bongo_school_name', 'bongoschoolname', 'mod_bongo');
+        $mform->addElement('text', 'bongo_school_name', get_string('bongoschoolname', 'local_bongo'));
+        $mform->addHelpButton('bongo_school_name', 'bongoschoolname', 'local_bongo');
         $mform->addRule('bongo_school_name', null, 'required', null, 'client');
         $mform->addRule(
             'bongo_school_name',
-            get_string('bongoschoolformat', 'mod_bongo'),
+            get_string('bongoschoolformat', 'local_bongo'),
             'regex',
             '/^[A-Za-z0-9 ]+$/',
             'server'
         );
         $mform->setType('bongo_school_name', PARAM_RAW);
 
-        $mform->addElement('text', 'bongo_email', get_string('bongoemail', 'mod_bongo'));
-        $mform->addHelpButton('bongo_email', 'bongoemail', 'mod_bongo');
+        $mform->addElement('text', 'bongo_email', get_string('bongoemail', 'local_bongo'));
+        $mform->addHelpButton('bongo_email', 'bongoemail', 'local_bongo');
         $mform->addRule('bongo_email', null, 'required', null, 'client');
         $mform->addRule('bongo_email', get_string('err_email', 'form'), 'email', null, 'client');
         $mform->setType('bongo_email', PARAM_RAW);
 
         // Bongo Premium Key.
-        $mform->addElement('text', 'bongo_access_code', get_string('bongopremiumkey', 'mod_bongo'));
-        $mform->addHelpButton('bongo_access_code', 'bongopremiumkey', 'mod_bongo');
+        $mform->addElement('text', 'bongo_access_code', get_string('bongopremiumkey', 'local_bongo'));
+        $mform->addHelpButton('bongo_access_code', 'bongopremiumkey', 'local_bongo');
         $mform->addRule('bongo_access_code', null, 'required', null, 'client');
         $mform->addRule(
             'bongo_access_code',
-            get_string('bongopremiumkeyformat', 'mod_bongo'),
+            get_string('bongopremiumkeyformat', 'local_bongo'),
             'regex',
             '/^[A-Za-z0-9-]+$/',
             'server'
@@ -92,7 +92,7 @@ class bongosetupform extends \moodleform {
         $mform->setType('bongo_access_code', PARAM_RAW);
 
         // Bongo Region selection.
-//        $regions = mod_bongo_regions();
+//        $regions = local_bongo_regions();
 //        $radioarray = array();
 //        for ($i = 0; $i < count($regions); $i++) {
 //            $region = $regions[$i];
@@ -104,26 +104,26 @@ class bongosetupform extends \moodleform {
 
         // Add Bongo regions to form.
 
-//        $mform->addGroup($radioarray, 'bongo_region_radio_array', get_string('bongoregion', 'mod_bongo'), array('</p>'), false);
-//        $mform->addHelpButton('bongo_region_radio_array', 'bongoregion', 'mod_bongo');
+//        $mform->addGroup($radioarray, 'bongo_region_radio_array', get_string('bongoregion', 'local_bongo'), array('</p>'), false);
+//        $mform->addHelpButton('bongo_region_radio_array', 'bongoregion', 'local_bongo');
 //        $mform->addRule('bongo_region_radio_array', null, 'required', null, 'client');
 
         $mform->addElement(
             'static',
-            get_string('bongopremiumkey_help', 'mod_bongo'),
+            get_string('bongopremiumkey_help', 'local_bongo'),
             '',
-            get_string('bongopremiumkey_help', 'mod_bongo')
+            get_string('bongopremiumkey_help', 'local_bongo')
         );
         $mform->addElement(
             'static',
-            get_string('bongolanguages', 'mod_bongo'),
+            get_string('bongolanguages', 'local_bongo'),
             '',
-            get_string('bongolanguages', 'mod_bongo')
+            get_string('bongolanguages', 'local_bongo')
         );
 
-        $this->add_action_buttons(true, get_string('bongosubmitbutton_label', 'mod_bongo'));
+        $this->add_action_buttons(true, get_string('bongosubmitbutton_label', 'local_bongo'));
         $mform->addElement('html', '<div id=\'bongo-submitting-loader\' style=\'display:none\'>'.
             '<div id=\'bongo-submitting-loader-icon\'/></div>'.
-            '<span id=\'bongo-submitting-loader-text\'>' . get_string('bongosubmitting_label', 'mod_bongo') . '</span></div>');
+            '<span id=\'bongo-submitting-loader-text\'>' . get_string('bongosubmitting_label', 'local_bongo') . '</span></div>');
     }
 }
