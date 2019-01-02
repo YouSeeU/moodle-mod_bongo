@@ -55,16 +55,23 @@ mod_bongo_disable_dummy_plugin();
 $config = get_config('mod_bongo');
 $form = new \mod_bongo\forms\bongoinformationform();
 
-if (isset($_GET['moduleid'])) {
-    $moduleid = $_GET['moduleid'];
-    $addedtoform['bongo_module_id'] = $moduleid;
-    $form->set_data($addedtoform);
+$bongoconfig = get_config('mod_bongo');
+$moduleid = null;
+if(!is_null($bongoconfig)){
+    if(!is_null($bongoconfig->module_id)){
+        $moduleid = $bongoconfig->module_id;
+    }
 }
 
 if ($form->is_cancelled()) {
     redirect(new moodle_url('/admin/search.php'));
 } else if ($data = $form->get_data()) {
-    redirect(new moodle_url('/mod/lti/view.php?id=' . $data->bongo_module_id));
+    if(!is_null($moduleid)){
+        redirect(new moodle_url('/mod/lti/view.php?id=' . $moduleid));
+    }
+    else{
+        redirect(new moodle_url('/mod/bongo/view.php', get_string('bongopluginnotconfigured', 'mod_bongo')));
+    }
 }
 
 echo $OUTPUT->header();

@@ -96,6 +96,7 @@ if ($form->is_cancelled()) {
     $dbobject->secret = $registrationresponse->secret;
     $dbobject->lti_type_id = $registrationresponse->lti_type_id;
     $dbobject->course = $registrationresponse->course_id;
+    $dbobject->module_id = $registrationresponse->module_id;
 
     $DB->insert_record('bongo', $dbobject);
 
