@@ -35,7 +35,7 @@ Initial installation of the Bongo plugin provisions a free trial of Bongo. The t
 Must be using Moodle 2.7 or higher
 Must have mod_lti
 
-## Cross database compatibilty
+## Cross database compatibility
 Verfied to work with MySQL, PostgreSQL, MS SQL and Oracle.
 
 ### Linux
@@ -43,8 +43,11 @@ There is a shell script at the top level of the repo (./package_plugin.sh) that 
 will only work on linux.
 
 ### Windows
-Right click on the .\bongo\ directory and zip the folder. You will want to make sure that the .\bongo\ directory is
-included at the top level of the zipped file.
+Create a new folder called 'bongo' and copy the contents of the repo into it, excluding:
+* The .circleci directory
+* .travis.yml
+
+Then zip the new 'bongo' folder.
 
 ## How to install on Moodle
 * Log into Moodle as an administrator
@@ -76,5 +79,5 @@ included at the top level of the zipped file.
 * After installation, the user and any administrators can use the Bongo application from the 'Add Activity/Resource' in any course to add Bongo as an activity to any course.
 
 ## Potential issues
-* Write access needs to be allowed on <Moodle root>/admin/tool
+* Write access needs to be allowed on <Moodle root>/admin/tool for installation from zip file
 * Access to the internet so the plugin can call the Bongo REST API
