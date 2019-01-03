@@ -41,6 +41,7 @@ global $CFG;
 require_once($CFG->libdir . '/adminlib.php');
 require_once($CFG->dirroot . '/local/bongo/locallib.php');
 
+// If plugin was just installed, view the config page once.
 if ($ADMIN->fulltree) {
     $bongoplugin = $DB->get_records('bongo', array());
     if (empty($bongoplugin)) {
@@ -52,6 +53,7 @@ if ($ADMIN->fulltree) {
     }
 }
 
+// Add settings page to the main admin tree.
 if ($hassiteconfig) { // needs this condition or there is error on login page
     $ADMIN->add('localplugins',
         new admin_externalpage(
