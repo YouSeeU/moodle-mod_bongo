@@ -95,4 +95,4 @@ $string['bongoconfiguredeventdescription'] = 'Bongo has been configured and is r
 $string['bongoconfiguredevent'] = 'Bongo has been configured and is ready to use.';
 
 // GDPR Notice.
-$string['privacy:metadata:core_files'] = 'Bongo stores the email and name added by the user to the Bongo configuration.';
+$string['privacy:metadata'] = 'Bongo does not store any personal information on Moodle.';

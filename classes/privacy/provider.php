@@ -30,15 +30,20 @@ namespace local_bongo\privacy;
 
 use core_privacy\local\metadata\collection;
 
-class provider implements \core_privacy\local\metadata\provider, \core_privacy\local\request\data_provider {
-    public static function get_metadata(collection $collection) : collection {
+class provider implements
+    // This plugin does not store any personal user data.
+    \core_privacy\local\metadata\null_provider {
+
+    /**
+     * Get the language string identifier with the component's language
+     * file to explain why this plugin stores no data.
+     *
+     * @return  string
+     */
+    public static function get_reason() : string {
         // No user data is stored on the Moodle server.
-        // Any user data used by Bongo is stored remotely on the Bongo servers, which have a different check.
-
-        $collection->add_external_location_link('lti_client', [
-            'email' => 'privacy:metadata:email',
-        ], 'privacy:metadata:lti_client');
-
-        return $collection;
+        // Any user data used by Bongo is stored remotely on the Bongo servers.
+        // It is accessible from the Bongo environment.
+        return 'privacy:metadata';
     }
 }
