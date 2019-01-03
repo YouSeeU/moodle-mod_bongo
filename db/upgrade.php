@@ -47,66 +47,9 @@ function xmldb_local_bongo_upgrade($oldversion) {
     $result = true;
 
     // Insert PHP code from XMLDB Editor here.
-    if ($oldversion < 2018111601) {
+    if ($oldversion < 2019010301) {
 
-        // Drop unused field.
-        $table = new xmldb_table('bongo');
-        $field = new xmldb_field('premium_key');
-        if ($dbman->field_exists($table, $field)) {
-            $dbman->drop_field($table, $field, true, true);
-        }
-
-        // Rename field 'key' on table 'bongo' as it is a reserved word in MySQL.
-        $table = new xmldb_table('bongo');
-        $field = new xmldb_field('key');
-        if ($dbman->field_exists($table, $field)) {
-            $field->set_attributes(XMLDB_TYPE_CHAR, null, null, XMLDB_NOTNULL, null, null, 'groupid');
-            // Extend the execution time limit of the script to 5 minutes.
-            upgrade_set_timeout(300);
-            // Rename it to 'issystem'.
-            $dbman->rename_field($table, $field, 'ltikey');
-        }
-
-        // Try to find previous configuration.
-        $bongocourseid = local_bongo_get_bongo_course();
-        if (!is_null($bongocourseid)) {
-            // Plugin was previously configured. Insert dummy data because previous install failed. We cannot recover lost data.
-            local_bongo_insert_dummy_data($bongocourseid);
-        }
-
-        upgrade_mod_savepoint(true, 2018111601, 'bongo');
     }
-
-    if ($oldversion < 2018111602) {
-
-        // Define field id to be added to bongo_initial_view.
-        $table = new xmldb_table('bongo_initial_view');
-        $field = new xmldb_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null);
-
-        // Conditionally launch add field id.
-        if (!$dbman->field_exists($table, $field)) {
-            $dbman->add_field($table, $field);
-        }
-
-        upgrade_mod_savepoint(true, 2018111602, 'bongo');
-    }
-
-    if ($oldversion < 2018112605) {
-
-        // Define index name (unique) to be dropped form bongo.
-        $table = new xmldb_table('bongo');
-        $index = new xmldb_index('name', XMLDB_INDEX_UNIQUE, array('name'));
-
-        // Conditionally launch drop index name.
-        if ($dbman->index_exists($table, $index)) {
-            $dbman->drop_index($table, $index);
-        }
-
-        // Bongo savepoint reached.
-        upgrade_mod_savepoint(true, 2018112605, 'bongo');
-    }
-
-    // No change for 2018112706.
 
     return $result;
 }
