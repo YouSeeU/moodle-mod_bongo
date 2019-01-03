@@ -24,7 +24,7 @@
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
- * @package     mod_bongo
+ * @package     local_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -33,7 +33,7 @@ defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
 
-require_once($CFG->dirroot.'/mod/bongo/locallib.php');
+require_once($CFG->dirroot.'/local/bongo/locallib.php');
 
 
 /**
@@ -43,18 +43,18 @@ require_once($CFG->dirroot.'/mod/bongo/locallib.php');
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class mod_bongo_parse_rest_errors_testcase extends basic_testcase {
+class local_bongo_parse_rest_errors_testcase extends basic_testcase {
 
     /**
      * Test the rest parser's ability to find errors in messages.
      */
-    public function mod_bongo_get_rest_errors() {
+    public function local_bongo_get_rest_errors() {
         $this->resetAfterTest(true);
 
         $parsedresponse = new stdClass();
         $parsedresponse->message = 'Internal Server Error';
 
-        $resterror = mod_bongo_handle_rest_errors($parsedresponse);
+        $resterror = local_bongo_handle_rest_errors($parsedresponse);
 
         assert($resterror->errorexists == true, 'Rest error does not exist in parsed object!');
     }

@@ -17,12 +17,12 @@
 /**
  * The bongo_configured event.
  *
- * @package    mod_bongo
+ * @package    local_bongo
  * @copyright  2014 onwards Ankit Agarwal <ankit.agrr@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_bongo\event;
+namespace local_bongo\event;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -49,7 +49,7 @@ class bongo_configured extends \core\event\base {
      * @return string
      */
     public static function get_name() {
-        return get_string('bongoconfiguredevent', 'mod_bongo');
+        return get_string('bongoconfiguredevent', 'local_bongo');
     }
 
     /**
@@ -58,7 +58,7 @@ class bongo_configured extends \core\event\base {
      * @return string
      */
     public function get_description() {
-        return get_string('bongoconfiguredeventdescription', 'mod_bongo');
+        return get_string('bongoconfiguredeventdescription', 'local_bongo');
     }
 
     /**
@@ -67,6 +67,6 @@ class bongo_configured extends \core\event\base {
      * @return \moodle_url
      */
     public function get_url() {
-        return new \moodle_url('/mod/bongo/index.php');
+        return new \moodle_url('/local/bongo/index.php');
     }
 }

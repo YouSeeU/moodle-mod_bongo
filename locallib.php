@@ -32,7 +32,7 @@
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
- * @package     mod_bongo
+ * @package     local_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -45,7 +45,7 @@ if (!defined('MOODLE_INTERNAL')) {
 require_once($CFG->dirroot . '/mod/lti/locallib.php');
 require_once($CFG->dirroot . '/course/lib.php');
 require_once($CFG->dirroot . '/course/modlib.php');
-require_once($CFG->dirroot . '/mod/bongo/classes/modbongoconstants.php');
+require_once($CFG->dirroot . '/local/bongo/classes/localbongoconstants.php');
 require_once($CFG->libdir.'/filelib.php');
 
 
@@ -54,30 +54,30 @@ require_once($CFG->libdir.'/filelib.php');
  *
  * @return array
  */
-function mod_bongo_regions() {
+function local_bongo_regions() {
     $naregion = new stdClass();
-    $naregion->translated_name = get_string('bongona', 'mod_bongo');
-    $naregion->value = modbongoconstants::MOD_BONGO_REGION_NA;
+    $naregion->translated_name = get_string('bongona', 'local_bongo');
+    $naregion->value = localbongoconstants::LOCAL_BONGO_REGION_NA;
     $naregion->is_default = 1;
 
     $saregion = new stdClass();
-    $saregion->translated_name = get_string('bongosa', 'mod_bongo');
-    $saregion->value = modbongoconstants::MOD_BONGO_REGION_SA;
+    $saregion->translated_name = get_string('bongosa', 'local_bongo');
+    $saregion->value = localbongoconstants::LOCAL_BONGO_REGION_SA;
     $saregion->is_default = 0;
 
     $caregion = new stdClass();
-    $caregion->translated_name = get_string('bongoca', 'mod_bongo');
-    $caregion->value = modbongoconstants::MOD_BONGO_REGION_CA;
+    $caregion->translated_name = get_string('bongoca', 'local_bongo');
+    $caregion->value = localbongoconstants::LOCAL_BONGO_REGION_CA;
     $caregion->is_default = 0;
 
     $euregion = new stdClass();
-    $euregion->translated_name = get_string('bongoeu', 'mod_bongo');
-    $euregion->value = modbongoconstants::MOD_BONGO_REGION_EU;
+    $euregion->translated_name = get_string('bongoeu', 'local_bongo');
+    $euregion->value = localbongoconstants::LOCAL_BONGO_REGION_EU;
     $euregion->is_default = 0;
 
     $auregion = new stdClass();
-    $auregion->translated_name = get_string('bongoau', 'mod_bongo');
-    $auregion->value = modbongoconstants::MOD_BONGO_REGION_AU;
+    $auregion->translated_name = get_string('bongoau', 'local_bongo');
+    $auregion->value = localbongoconstants::LOCAL_BONGO_REGION_AU;
     $auregion->is_default = 0;
     return array(
         $naregion,
@@ -99,19 +99,19 @@ function mod_bongo_regions() {
  * @param stdClass $requestobject
  * @return stdClass
  */
-function mod_bongo_set_up_bongo($requestobject) {
-    $courseid = mod_bongo_create_mod_course();
-    $coursesection = mod_bongo_get_course_section_id($courseid);
-    $ltimoduleid = mod_bongo_get_lti_module_id();
+function local_bongo_set_up_bongo($requestobject) {
+    $courseid = local_bongo_create_mod_course();
+    $coursesection = local_bongo_get_course_section_id($courseid);
+    $ltimoduleid = local_bongo_get_lti_module_id();
 
     // Bongo will need the ID of the course that was created for linking.
     $requestobject->course_id = $courseid;
 
     // Format and execute rest call to Bongo to register.
-    $parsedresponse = mod_bongo_register_with_bongo($requestobject);
+    $parsedresponse = local_bongo_register_with_bongo($requestobject);
     if ($parsedresponse->errorexists == false && !is_null($parsedresponse->url)) {
-        $ltitypeid = mod_bongo_create_lti_tool($parsedresponse->secret, $parsedresponse->ltikey, $parsedresponse->url);
-        $coursemoduleid = mod_bongo_create_course_module($courseid, $coursesection, $ltitypeid, $ltimoduleid);
+        $ltitypeid = local_bongo_create_lti_tool($parsedresponse->secret, $parsedresponse->ltikey, $parsedresponse->url);
+        $coursemoduleid = local_bongo_create_course_module($courseid, $coursesection, $ltitypeid, $ltimoduleid);
         $parsedresponse->lti_type_id = $ltitypeid;
         $parsedresponse->module_id = $coursemoduleid;
         $parsedresponse->course_id = $courseid;
@@ -126,29 +126,29 @@ function mod_bongo_set_up_bongo($requestobject) {
  * @param stdClass $requestobject
  * @return stdClass Bongo's response, parsed to extract errors, key, secret, url and any other messages for the Bongo plugin
  */
-function mod_bongo_register_with_bongo($requestobject) {
-    $bongoconfig = get_config('mod_bongo');
+function local_bongo_register_with_bongo($requestobject) {
+    $bongoconfig = get_config('local_bongo');
     $siteconfig = get_config('');
 
     $array = array(
-        modbongoconstants::MOD_BONGO_NAME => $requestobject->name,
-        modbongoconstants::MOD_BONGO_REGION => $requestobject->region,
-        modbongoconstants::MOD_BONGO_ACCESS_CODE => $requestobject->access_code,
-        modbongoconstants::MOD_BONGO_CUSTOMER_EMAIL => $requestobject->customer_email,
-        modbongoconstants::MOD_BONGO_LMS_CODE => $requestobject->course_id,
-        modbongoconstants::MOD_BONGO_VERSION => $bongoconfig->version,
+        localbongoconstants::LOCAL_BONGO_NAME => $requestobject->name,
+        localbongoconstants::LOCAL_BONGO_REGION => $requestobject->region,
+        localbongoconstants::LOCAL_BONGO_ACCESS_CODE => $requestobject->access_code,
+        localbongoconstants::LOCAL_BONGO_CUSTOMER_EMAIL => $requestobject->customer_email,
+        localbongoconstants::LOCAL_BONGO_LMS_CODE => $requestobject->course_id,
+        localbongoconstants::LOCAL_BONGO_VERSION => $bongoconfig->version,
         // We collect site information so we can troubleshoot more easily without bothering the customer.
         // For details on their system.
-        modbongoconstants::MOD_BONGO_MOODLE_VERSION => $siteconfig->version,
-        modbongoconstants::MOD_BONGO_MOODLE_DB_TYPE => $siteconfig->dbtype,
-        modbongoconstants::MOD_BONGO_MOODLE_DIR_ROOT => $siteconfig->dirroot,
-        modbongoconstants::MOD_BONGO_REST_CALL_TYPE => modbongoconstants::MOD_BONGO_REST_CALL_TYPE_INSTALL
+        localbongoconstants::LOCAL_BONGO_MOODLE_VERSION => $siteconfig->version,
+        localbongoconstants::LOCAL_BONGO_MOODLE_DB_TYPE => $siteconfig->dbtype,
+        localbongoconstants::LOCAL_BONGO_MOODLE_DIR_ROOT => $siteconfig->dirroot,
+        localbongoconstants::LOCAL_BONGO_REST_CALL_TYPE => localbongoconstants::LOCAL_BONGO_REST_CALL_TYPE_INSTALL
     );
 
-    $resultresponse = mod_bongo_execute_rest_call(modbongoconstants::MOD_BONGO_MOODLE_LAMBDA_ADDRESS, json_encode($array));
-    $parsedresponse = mod_bongo_parse_response($resultresponse);
+    $resultresponse = local_bongo_execute_rest_call(localbongoconstants::LOCAL_BONGO_MOODLE_LAMBDA_ADDRESS, json_encode($array));
+    $parsedresponse = local_bongo_parse_response($resultresponse);
 
-    $errorresponse = mod_bongo_handle_rest_errors($parsedresponse);
+    $errorresponse = local_bongo_handle_rest_errors($parsedresponse);
     $parsedresponse->errorexists = $errorresponse->errorexists;
     $parsedresponse->errormessage = $errorresponse->errormessage;
 
@@ -162,7 +162,7 @@ function mod_bongo_register_with_bongo($requestobject) {
  * @param string $postfields
  * @return stdClass
  */
-function mod_bongo_execute_rest_call($urladdress, $postfields) {
+function local_bongo_execute_rest_call($urladdress, $postfields) {
     $curl = new curl();
 
     $headers = array();
@@ -172,7 +172,7 @@ function mod_bongo_execute_rest_call($urladdress, $postfields) {
     $curl->setHeader($headers);
     $curlresponse = $curl->post($urladdress, $postfields);
     if ($curl->get_errno() != 0) {
-        $message = array('errors' => get_string('bongoresterror', 'mod_bongo'));
+        $message = array('errors' => get_string('bongoresterror', 'local_bongo'));
         $curlresponse = json_encode($message);
     }
 
@@ -185,7 +185,7 @@ function mod_bongo_execute_rest_call($urladdress, $postfields) {
  * @param string $jsonresult
  * @return stdClass
  */
-function mod_bongo_parse_response($jsonresult) {
+function local_bongo_parse_response($jsonresult) {
     $jsonresponse = json_decode($jsonresult, true, 512);
     $errorsexist = array_key_exists('errors', $jsonresponse);
     $dataexists = array_key_exists('data', $jsonresponse);
@@ -199,12 +199,12 @@ function mod_bongo_parse_response($jsonresult) {
 
     if ($dataexists) {
         $body = $jsonresponse['data'];
-        $code = (array_key_exists(modbongoconstants::MOD_BONGO_CODE, $body) ? $body[modbongoconstants::MOD_BONGO_CODE] : null);
-        $message = (array_key_exists(modbongoconstants::MOD_BONGO_MESSAGE, $body) ? $body[modbongoconstants::MOD_BONGO_MESSAGE] : null);
-        $secret = (array_key_exists(modbongoconstants::MOD_BONGO_SECRET, $body) ? $body[modbongoconstants::MOD_BONGO_SECRET] : null);
-        $ltikey = (array_key_exists(modbongoconstants::MOD_BONGO_KEY, $body) ? $body[modbongoconstants::MOD_BONGO_KEY] : null);
-        $url = (array_key_exists(modbongoconstants::MOD_BONGO_URL, $body) ? $body[modbongoconstants::MOD_BONGO_URL] : null);
-        $region = (array_key_exists(modbongoconstants::MOD_BONGO_REGION, $body) ? $body[modbongoconstants::MOD_BONGO_REGION] : null);
+        $code = (array_key_exists(localbongoconstants::LOCAL_BONGO_CODE, $body) ? $body[localbongoconstants::LOCAL_BONGO_CODE] : null);
+        $message = (array_key_exists(localbongoconstants::LOCAL_BONGO_MESSAGE, $body) ? $body[localbongoconstants::LOCAL_BONGO_MESSAGE] : null);
+        $secret = (array_key_exists(localbongoconstants::LOCAL_BONGO_SECRET, $body) ? $body[localbongoconstants::LOCAL_BONGO_SECRET] : null);
+        $ltikey = (array_key_exists(localbongoconstants::LOCAL_BONGO_KEY, $body) ? $body[localbongoconstants::LOCAL_BONGO_KEY] : null);
+        $url = (array_key_exists(localbongoconstants::LOCAL_BONGO_URL, $body) ? $body[localbongoconstants::LOCAL_BONGO_URL] : null);
+        $region = (array_key_exists(localbongoconstants::LOCAL_BONGO_REGION, $body) ? $body[localbongoconstants::LOCAL_BONGO_REGION] : null);
     }
     if ($errorsexist) {
         $message = $jsonresponse['errors'];
@@ -229,11 +229,11 @@ function mod_bongo_parse_response($jsonresult) {
  * @param string $url
  * @return int id
  */
-function mod_bongo_create_lti_tool($secret, $key, $url) {
+function local_bongo_create_lti_tool($secret, $key, $url) {
     global $DB;
 
     // If the lti tool has already been inserted, use the previous one.
-    $ltitypes = $DB->get_records('lti_types', array('name' => get_string('pluginname', 'mod_bongo')));
+    $ltitypes = $DB->get_records('lti_types', array('name' => get_string('pluginname', 'local_bongo')));
     if (!empty($ltitypes)) {
         $id = -1;
         foreach ($ltitypes as $type) {
@@ -244,13 +244,13 @@ function mod_bongo_create_lti_tool($secret, $key, $url) {
         return $id;
     }
 
-    $config = mod_bongo_create_lti_type_config($url, $key, $secret);
+    $config = local_bongo_create_lti_type_config($url, $key, $secret);
 
     $type = new \stdClass();
     $type->state = LTI_TOOL_STATE_CONFIGURED;
 
     lti_add_type($type, $config);
-    $ltitype = $DB->get_record('lti_types', array('name' => get_string('pluginname', 'mod_bongo')));
+    $ltitype = $DB->get_record('lti_types', array('name' => get_string('pluginname', 'local_bongo')));
     $id = $ltitype->id;
 
     return $id;
@@ -264,15 +264,15 @@ function mod_bongo_create_lti_tool($secret, $key, $url) {
  * @param String $secret unique secret to authenticate to Bongo
  * @return stdClass database-ready object containing necessary fields for persisting
  */
-function mod_bongo_create_lti_type_config($url, $key, $secret) {
+function local_bongo_create_lti_type_config($url, $key, $secret) {
     // Create built in LTI tool.
     $config = new \stdClass();
     $config->lti_toolurl = $url;
-    $config->lti_typename = get_string('pluginname', 'mod_bongo');
-    $config->lti_description = get_string('plugindescription', 'mod_bongo');
+    $config->lti_typename = get_string('pluginname', 'local_bongo');
+    $config->lti_description = get_string('plugindescription', 'local_bongo');
     $config->lti_coursevisible = 2;
-    $config->lti_icon = modbongoconstants::MOD_BONGO_FAVICON_URL;
-    $config->lti_secureicon = modbongoconstants::MOD_BONGO_FAVICON_URL;
+    $config->lti_icon = localbongoconstants::LOCAL_BONGO_FAVICON_URL;
+    $config->lti_secureicon = localbongoconstants::LOCAL_BONGO_FAVICON_URL;
     $config->lti_state = 1;
     $config->lti_resourcekey = $key;
     $config->lti_password = $secret;
@@ -291,7 +291,7 @@ function mod_bongo_create_lti_type_config($url, $key, $secret) {
  *
  * @return int id
  */
-function mod_bongo_get_lti_module_id() {
+function local_bongo_get_lti_module_id() {
     global $DB;
     $module = $DB->get_record('modules', array('name' => 'lti'));
 
@@ -303,20 +303,20 @@ function mod_bongo_get_lti_module_id() {
  *
  * @return int
  */
-function mod_bongo_create_mod_course() {
+function local_bongo_create_mod_course() {
     global $DB;
 
     // If the course has already been inserted, use the previous one.
-    $courseid = mod_bongo_get_bongo_course();
+    $courseid = local_bongo_get_bongo_course();
     if (!is_null($courseid)) {
         return $courseid;
     }
 
-    $categoryid = mod_bongo_find_or_create_course_category();
-    $config = mod_bongo_create_course_object($categoryid);
+    $categoryid = local_bongo_find_or_create_course_category();
+    $config = local_bongo_create_course_object($categoryid);
 
     create_course($config);
-    $courseid = mod_bongo_get_bongo_course();
+    $courseid = local_bongo_get_bongo_course();
 
     return $courseid;
 }
@@ -326,10 +326,10 @@ function mod_bongo_create_mod_course() {
  *
  * @return int|null
  */
-function mod_bongo_get_bongo_course() {
+function local_bongo_get_bongo_course() {
     global $DB;
 
-    $courses = $DB->get_records('course', array('fullname' => get_string('bongoexamplecourse', 'mod_bongo')));
+    $courses = $DB->get_records('course', array('fullname' => get_string('bongoexamplecourse', 'local_bongo')));
     if (!empty($courses)) {
         $id = -1;
         foreach ($courses as $course) {
@@ -350,7 +350,7 @@ function mod_bongo_get_bongo_course() {
  *
  * @return mixed
  */
-function mod_bongo_find_or_create_course_category() {
+function local_bongo_find_or_create_course_category() {
     global $DB;
 
     // Use the Miscellaneous category by default.
@@ -382,11 +382,11 @@ function mod_bongo_find_or_create_course_category() {
  * @param integer $categoryid
  * @return stdClass
  */
-function mod_bongo_create_course_object($categoryid) {
+function local_bongo_create_course_object($categoryid) {
     $config = new stdClass();
-    $config->fullname = get_string('bongoexamplecourse', 'mod_bongo');
-    $config->shortname = get_string('bongoexamplecourse', 'mod_bongo');
-    $config->summary = get_string('bongoexamplecourse', 'mod_bongo');
+    $config->fullname = get_string('bongoexamplecourse', 'local_bongo');
+    $config->shortname = get_string('bongoexamplecourse', 'local_bongo');
+    $config->summary = get_string('bongoexamplecourse', 'local_bongo');
     $config->category = $categoryid;
     $config->startdate = time();
     $config->timecreated = time();
@@ -401,7 +401,7 @@ function mod_bongo_create_course_object($categoryid) {
  * @param int $courseid
  * @return int section id
  */
-function mod_bongo_get_course_section_id($courseid) {
+function local_bongo_get_course_section_id($courseid) {
     global $DB;
     $sections = $DB->get_records('course_sections', array('course' => $courseid));
     $id = -1;
@@ -421,8 +421,8 @@ function mod_bongo_get_course_section_id($courseid) {
  * @param int $ltimoduleid
  * @return int coursemodule id
  */
-function mod_bongo_create_course_module($courseid, $sectionid, $ltitypeid, $ltimoduleid) {
-    $moduleinfo = mod_bongo_create_course_module_object($ltitypeid, $courseid, $sectionid, $ltimoduleid);
+function local_bongo_create_course_module($courseid, $sectionid, $ltitypeid, $ltimoduleid) {
+    $moduleinfo = local_bongo_create_course_module_object($ltitypeid, $courseid, $sectionid, $ltimoduleid);
 
     $course = new stdClass();
     $course->id = $courseid;
@@ -440,12 +440,12 @@ function mod_bongo_create_course_module($courseid, $sectionid, $ltitypeid, $ltim
  * @param int $ltimoduleid database id of the lti module that was created
  * @return stdClass database persist-ready object
  */
-function mod_bongo_create_course_module_object($ltitypeid, $courseid, $sectionid, $ltimoduleid) {
+function local_bongo_create_course_module_object($ltitypeid, $courseid, $sectionid, $ltimoduleid) {
     // Module test values.
     $moduleinfo = new stdClass();
 
     // Always mandatory generic values to any module.
-    $moduleinfo->name = get_string('bongoactivity', 'mod_bongo');;
+    $moduleinfo->name = get_string('bongoactivity', 'local_bongo');;
     $moduleinfo->showdescription = 0;
     $moduleinfo->showtitlelaunch = 1;
     $moduleinfo->typeid = $ltitypeid;
@@ -460,9 +460,9 @@ function mod_bongo_create_course_module_object($ltitypeid, $courseid, $sectionid
     $moduleinfo->course = $courseid;
     $moduleinfo->section = $sectionid; // This is the section number in the course. Not the section id in the database.
     $moduleinfo->module = $ltimoduleid;
-    $moduleinfo->modulename = modbongoconstants::MOD_BONGO_LTI;
+    $moduleinfo->modulename = localbongoconstants::LOCAL_BONGO_LTI;
     $moduleinfo->instance = $ltitypeid;
-    $moduleinfo->add = modbongoconstants::MOD_BONGO_LTI;
+    $moduleinfo->add = localbongoconstants::LOCAL_BONGO_LTI;
     $moduleinfo->update = 0;
     $moduleinfo->return = 0;
 
@@ -474,31 +474,31 @@ function mod_bongo_create_course_module_object($ltitypeid, $courseid, $sectionid
  *
  * This allows Bongo to cleanup unwanted installations and de-provision them.
  */
-function mod_bongo_unregister_bongo_integration() {
-    $bongoconfig = get_config('mod_bongo');
+function local_bongo_unregister_bongo_integration() {
+    $bongoconfig = get_config('local_bongo');
     $siteconfig = get_config('');
 
-    if (is_null($bongoconfig)) {
+    if (is_null($bongoconfig) || is_null($bongoconfig->name)) {
         return;
     }
 
     $array = array(
-        modbongoconstants::MOD_BONGO_NAME => $bongoconfig->name,
-        modbongoconstants::MOD_BONGO_KEY => $bongoconfig->ltikey,
-        modbongoconstants::MOD_BONGO_SECRET => $bongoconfig->secret,
-        modbongoconstants::MOD_BONGO_REGION_NA => $bongoconfig->region,
-        modbongoconstants::MOD_BONGO_VERSION => $bongoconfig->version,
+        localbongoconstants::LOCAL_BONGO_NAME => $bongoconfig->name,
+        localbongoconstants::LOCAL_BONGO_KEY => $bongoconfig->ltikey,
+        localbongoconstants::LOCAL_BONGO_SECRET => $bongoconfig->secret,
+        localbongoconstants::LOCAL_BONGO_REGION_NA => $bongoconfig->region,
+        localbongoconstants::LOCAL_BONGO_VERSION => $bongoconfig->version,
         // We collect site information so we can troubleshoot more easily without bothering the customer.
         // For details on their system.
-        modbongoconstants::MOD_BONGO_MOODLE_VERSION => $siteconfig->version,
-        modbongoconstants::MOD_BONGO_MOODLE_DB_TYPE => $siteconfig->dbtype,
-        modbongoconstants::MOD_BONGO_MOODLE_DIR_ROOT => $siteconfig->dirroot,
-        modbongoconstants::MOD_BONGO_REST_CALL_TYPE => modbongoconstants::MOD_BONGO_REST_CALL_TYPE_UNINSTALL
+        localbongoconstants::LOCAL_BONGO_MOODLE_VERSION => $siteconfig->version,
+        localbongoconstants::LOCAL_BONGO_MOODLE_DB_TYPE => $siteconfig->dbtype,
+        localbongoconstants::LOCAL_BONGO_MOODLE_DIR_ROOT => $siteconfig->dirroot,
+        localbongoconstants::LOCAL_BONGO_REST_CALL_TYPE => localbongoconstants::LOCAL_BONGO_REST_CALL_TYPE_UNINSTALL
     );
 
     // If the plugin was not configured, don't bother with a rest call.
     if (isset($bongoconfig->key)) {
-        $resultresponse = mod_bongo_execute_rest_call(modbongoconstants::MOD_BONGO_MOODLE_LAMBDA_ADDRESS, json_encode($array));
+        $resultresponse = local_bongo_execute_rest_call(localbongoconstants::LOCAL_BONGO_MOODLE_LAMBDA_ADDRESS, json_encode($array));
     }
 }
 
@@ -507,7 +507,7 @@ function mod_bongo_unregister_bongo_integration() {
  * @param stdClass $parsedresponse
  * @return stdClass if there was an error in the rest response
  */
-function mod_bongo_handle_rest_errors($parsedresponse) {
+function local_bongo_handle_rest_errors($parsedresponse) {
     $moodleerror = new stdClass();
     $errorexists = false;
     $errormessage = false;
@@ -524,25 +524,25 @@ function mod_bongo_handle_rest_errors($parsedresponse) {
             case 'Institution not created':
             case 'Invalid backend':
                 $errorexists = true;
-                $errormessage = get_string('bongoresterror', 'mod_bongo');
+                $errormessage = get_string('bongoresterror', 'local_bongo');
                 break;
             case 'Invalid accessCode':
                 $errorexists = true;
-                $errormessage = get_string('bongoresterrorinvalidtoken', 'mod_bongo');
+                $errormessage = get_string('bongoresterrorinvalidtoken', 'local_bongo');
                 break;
             case 'Expired accessCode':
                 $errorexists = true;
-                $errormessage = get_string('bongoresterrorexpiredtoken', 'mod_bongo');
+                $errormessage = get_string('bongoresterrorexpiredtoken', 'local_bongo');
                 break;
             default:
                 // No known errors were found! Give a generic error.
                 $errorexists = true;
-                $errormessage = get_string('bongoresterror', 'mod_bongo');
+                $errormessage = get_string('bongoresterror', 'local_bongo');
                 break;
         }
     } else if (is_null($parsedresponse->url)) {
         $errorexists = true;
-        $errormessage = get_string('bongoresterror', 'mod_bongo');
+        $errormessage = get_string('bongoresterror', 'local_bongo');
     }
     $moodleerror->errorexists = $errorexists;
     $moodleerror->errormessage = $errormessage;
@@ -557,7 +557,7 @@ function mod_bongo_handle_rest_errors($parsedresponse) {
  * which is the intended use case, rather than the Bongo Activity plugin. This should be called on every Bongo page to
  * make sure that the Activity plugin is always disabled.
  */
-function mod_bongo_disable_dummy_plugin() {
+function local_bongo_disable_dummy_plugin() {
     global $DB;
 
     $bongoplugin = $DB->get_records('modules', array('name' => 'bongo'));
@@ -574,14 +574,14 @@ function mod_bongo_disable_dummy_plugin() {
  *
  * @param int $courseid
  */
-function mod_bongo_insert_dummy_data($courseid) {
+function local_bongo_insert_dummy_data($courseid) {
     global $DB;
     $dbobject = new stdClass();
     $dbobject->name = 'Customer Name';
     $dbobject->customer_email = 'customer@example.com';
     $dbobject->access_code = 'bongoaccesscode';
     $dbobject->timezone = date_default_timezone_get();
-    $dbobject->region = modbongoconstants::MOD_BONGO_REGION_NA;
+    $dbobject->region = localbongoconstants::LOCAL_BONGO_REGION_NA;
 
     // We could probably search the repository for the config that was set before but that is unreliable.
     $dbobject->hostname = '';
@@ -598,7 +598,7 @@ function mod_bongo_insert_dummy_data($courseid) {
  *
  * @return int
  */
-function mod_bongo_get_bongo_config_viewed() {
+function local_bongo_get_bongo_config_viewed() {
     global $DB;
     $sections = $DB->get_records('bongo_initial_view', array());
     $id = null;
@@ -612,7 +612,7 @@ function mod_bongo_get_bongo_config_viewed() {
 /**
  * Check whether the Bongo config has been viewed at least once.
  */
-function mod_bongo_set_bongo_config_viewed() {
+function local_bongo_set_bongo_config_viewed() {
     global $DB;
     $views = $DB->get_records('bongo_initial_view', array());
     $id = null;

@@ -21,7 +21,7 @@
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
- * @package     mod_bongo
+ * @package     local_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -37,129 +37,129 @@ if (!defined('MOODLE_INTERNAL')) {
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class modbongoconstants{
+class localbongoconstants{
     /**
      * The address of the REST Url endpoint in Bongo.
      */
-    const MOD_BONGO_MOODLE_LAMBDA_ADDRESS = 'https://bongo-gss.youseeu.com/api/provision';
+    const LOCAL_BONGO_MOODLE_LAMBDA_ADDRESS = 'https://bongo-gss.youseeu.com/api/provision';
 
     /**
      * The address of the Bongo Favicon used when a Bongo activity is added to a class.
      */
-    const MOD_BONGO_FAVICON_URL = 'https://s3.amazonaws.com/ysumisc/Bongo_Favicon.png';
+    const LOCAL_BONGO_FAVICON_URL = 'https://s3.amazonaws.com/ysumisc/Bongo_Favicon.png';
 
     /**
      * JSON key for the incoming 'secret' entry.
      */
-    const MOD_BONGO_SECRET = 'secret';
+    const LOCAL_BONGO_SECRET = 'secret';
 
     /**
      * JSON key for the incoming 'key' entry.
      */
-    const MOD_BONGO_KEY = 'key';
+    const LOCAL_BONGO_KEY = 'key';
 
     /**
      * JSON key for the incoming 'url' entry.
      */
-    const MOD_BONGO_URL = 'url';
+    const LOCAL_BONGO_URL = 'url';
 
     /**
      * JSON key for the outgoing 'bongoRegion' entry.
      */
-    const MOD_BONGO_REGION = 'bongoRegion';
+    const LOCAL_BONGO_REGION = 'bongoRegion';
 
     /**
      * JSON key for the outgoing 'institutionName' entry.
      */
-    const MOD_BONGO_NAME = 'institutionName';
+    const LOCAL_BONGO_NAME = 'institutionName';
 
     /**
      * JSON key for the outgoing 'accessCode' entry.
      */
-    const MOD_BONGO_ACCESS_CODE = 'accessCode';
+    const LOCAL_BONGO_ACCESS_CODE = 'accessCode';
 
     /**
      * JSON key for the outgoing 'customerEmail' entry.
      */
-    const MOD_BONGO_CUSTOMER_EMAIL = 'customerEmail';
+    const LOCAL_BONGO_CUSTOMER_EMAIL = 'customerEmail';
 
     /**
      * JSON key for the outgoing 'lmsCode' entry.
      */
-    const MOD_BONGO_LMS_CODE = 'lmsCode';
+    const LOCAL_BONGO_LMS_CODE = 'lmsCode';
 
     /**
      * Object key for the creating the lti type.
      */
-    const MOD_BONGO_LTI = 'lti';
+    const LOCAL_BONGO_LTI = 'lti';
 
     /**
      * JSON key for the 'message' entry.
      */
-    const MOD_BONGO_MESSAGE = 'message';
+    const LOCAL_BONGO_MESSAGE = 'message';
 
     /**
      * Object key for the 'code' entry.
      */
-    const MOD_BONGO_CODE = 'code';
+    const LOCAL_BONGO_CODE = 'code';
 
     /**
      * Object key for the 'verison' entry.
      */
-    const MOD_BONGO_VERSION = 'version';
+    const LOCAL_BONGO_VERSION = 'version';
 
     /**
      * Object key for the 'moodle_verison' entry.
      */
-    const MOD_BONGO_MOODLE_VERSION = 'moodle_version';
+    const LOCAL_BONGO_MOODLE_VERSION = 'moodle_version';
 
     /**
      * Object key for the 'moodle_dir_root' entry.
      */
-    const MOD_BONGO_MOODLE_DIR_ROOT = 'moodle_dir_root';
+    const LOCAL_BONGO_MOODLE_DIR_ROOT = 'moodle_dir_root';
 
     /**
      * Object key for the 'db_type' entry.
      */
-    const MOD_BONGO_MOODLE_DB_TYPE = 'moodle_db_type';
+    const LOCAL_BONGO_MOODLE_DB_TYPE = 'moodle_db_type';
 
     /**
      * JSON key for the 'type' entry.
      */
-    const MOD_BONGO_REST_CALL_TYPE = 'type';
+    const LOCAL_BONGO_REST_CALL_TYPE = 'type';
 
     /**
      * JSON value for the 'type' entry.
      */
-    const MOD_BONGO_REST_CALL_TYPE_INSTALL = 'install';
+    const LOCAL_BONGO_REST_CALL_TYPE_INSTALL = 'install';
 
     /**
      * JSON value for the 'type' entry.
      */
-    const MOD_BONGO_REST_CALL_TYPE_UNINSTALL = 'uninstall';
+    const LOCAL_BONGO_REST_CALL_TYPE_UNINSTALL = 'uninstall';
 
     /**
      * JSON value for the 'bongoRegion' entry.
      */
-    const MOD_BONGO_REGION_NA = 'bongo-na';
+    const LOCAL_BONGO_REGION_NA = 'bongo-na';
 
     /**
      * JSON value for the 'bongoRegion' entry.
      */
-    const MOD_BONGO_REGION_SA = 'bongo-sa';
+    const LOCAL_BONGO_REGION_SA = 'bongo-sa';
 
     /**
      * JSON value for the 'bongoRegion' entry.
      */
-    const MOD_BONGO_REGION_CA = 'bongo-ca';
+    const LOCAL_BONGO_REGION_CA = 'bongo-ca';
 
     /**
      * JSON value for the 'bongoRegion' entry.
      */
-    const MOD_BONGO_REGION_EU = 'bongo-eu';
+    const LOCAL_BONGO_REGION_EU = 'bongo-eu';
 
     /**
      * JSON value for the 'bongoRegion' entry.
      */
-    const MOD_BONGO_REGION_AU = 'bongo-au';
+    const LOCAL_BONGO_REGION_AU = 'bongo-au';
 }

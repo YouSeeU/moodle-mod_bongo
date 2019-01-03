@@ -24,7 +24,7 @@
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
- * @package     mod_bongo
+ * @package     local_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -33,7 +33,7 @@ defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
 
-require_once($CFG->dirroot.'/mod/bongo/locallib.php');
+require_once($CFG->dirroot.'/local/bongo/locallib.php');
 
 /**
  * Tests the full parsing ability of the rest response parser.
@@ -42,12 +42,12 @@ require_once($CFG->dirroot.'/mod/bongo/locallib.php');
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class mod_bongo_rest_parser_testcase extends basic_testcase {
+class local_bongo_rest_parser_testcase extends basic_testcase {
 
     /**
      * Test the rest parser's ability to parse a normal message.
      */
-    public function mod_bongo_parse_rest_response() {
+    public function local_bongo_parse_rest_response() {
         $url = 'https://bongo-test-site.youseeu.com/lti/school-name/connect';
         $key = '1234567890';
         $secret = 'ABCDEFGHI';
@@ -61,7 +61,7 @@ class mod_bongo_rest_parser_testcase extends basic_testcase {
                 ' \"region\": \"' . $region . '\"'.
             '}"';
 
-        $parsedresponse = mod_bongo_parse_response($response);
+        $parsedresponse = local_bongo_parse_response($response);
 
         assert($parsedresponse->errorexists == false, 'Rest error exists in parsed object!' . var_dump($parsedresponse));
         assert(!is_null($parsedresponse->url), 'Rest URL does not exist!' . var_dump($parsedresponse));

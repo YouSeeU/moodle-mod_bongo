@@ -23,7 +23,7 @@
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
- * @package     mod_bongo
+ * @package     local_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -32,7 +32,7 @@
 require_once('../../config.php');
 global $CFG, $DB;
 require_once($CFG->libdir . '/adminlib.php');
-require_once($CFG->dirroot . '/mod/bongo/locallib.php');
+require_once($CFG->dirroot . '/local/bongo/locallib.php');
 
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
@@ -41,21 +41,21 @@ require_login();
 $context = context_system::instance();
 $PAGE->set_context($context);
 
-$PAGE->set_url('/mod/bongo/view.php');
-$PAGE->set_title(get_string('pluginname', 'mod_bongo'));
-$PAGE->set_heading(get_string('pluginname', 'mod_bongo'));
+$PAGE->set_url('/local/bongo/view.php');
+$PAGE->set_title(get_string('pluginname', 'local_bongo'));
+$PAGE->set_heading(get_string('pluginname', 'local_bongo'));
 
 // Moodle 2.2 and greater is required to use this.
 $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('standard');
 
 // Before we do anything, make sure the dummy version of the Bongo Activity plugin is disabled.
-mod_bongo_disable_dummy_plugin();
+local_bongo_disable_dummy_plugin();
 
-$config = get_config('mod_bongo');
-$form = new \mod_bongo\forms\bongoinformationform();
+$config = get_config('local_bongo');
+$form = new \local_bongo\forms\bongoinformationform();
 
-$bongoconfig = get_config('mod_bongo');
+$bongoconfig = get_config('local_bongo');
 $moduleid = null;
 if(!is_null($bongoconfig)){
     if(!is_null($bongoconfig->module_id)){
@@ -70,11 +70,11 @@ if ($form->is_cancelled()) {
         redirect(new moodle_url('/mod/lti/view.php?id=' . $moduleid));
     }
     else{
-        redirect(new moodle_url('/mod/bongo/view.php', get_string('bongopluginnotconfigured', 'mod_bongo')));
+        redirect(new moodle_url('/local/bongo/view.php', get_string('bongopluginnotconfigured', 'local_bongo')));
     }
 }
 
 echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('plugininformationpage', 'mod_bongo'));
+echo $OUTPUT->heading(get_string('plugininformationpage', 'local_bongo'));
 $form->display();
 echo $OUTPUT->footer();

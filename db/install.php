@@ -21,7 +21,7 @@
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
- * @package     mod_bongo
+ * @package     local_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -32,16 +32,16 @@ if (!defined('MOODLE_INTERNAL')) {
 }
 
 require_once($CFG->dirroot . '/mod/lti/locallib.php');
-require_once($CFG->dirroot . '/mod/bongo/locallib.php');
+require_once($CFG->dirroot . '/local/bongo/locallib.php');
 
 /**
  * Any custom actions that need to occur after the plugin has been installed go here.
  *
  * Overrides global function. Required for all plugins.
  */
-function xmldb_bongo_install() {
+function xmldb_local_bongo_install() {
     global $DB;
 
     // Before we do anything, make sure the dummy version of the Bongo Activity plugin is disabled.
-    mod_bongo_disable_dummy_plugin();
+    local_bongo_disable_dummy_plugin();
 }

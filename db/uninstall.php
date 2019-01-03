@@ -24,7 +24,7 @@
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
- * @package     mod_bongo
+ * @package     local_bongo
  * @author      Brian Kelly <brian.kelly@youseeu.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -36,11 +36,11 @@ if (!defined('MOODLE_INTERNAL')) {
 
 global $CFG, $DB;
 require_once($CFG->dirroot . '/mod/lti/locallib.php');
-require_once($CFG->dirroot . '/mod/bongo/locallib.php');
+require_once($CFG->dirroot . '/local/bongo/locallib.php');
 
 $bongorows = $DB->get_records('bongo', array());
 foreach ($bongorows as $bongorow) {
     $ltitype = $bongorow->lti_type_id;
     lti_delete_type($ltitype);
 }
-mod_bongo_unregister_bongo_integration();
+local_bongo_unregister_bongo_integration();
