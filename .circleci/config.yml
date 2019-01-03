@@ -50,8 +50,8 @@ jobs:
             sonar-scanner \
             -Dsonar.host.url=$SONAR_HOST \
             -Dsonar.login=$SONAR_LOGIN \
-            -Dsonar.projectKey=BONGO_UI \
-            -Dsonar.projectName="Bongo UI" \
+            -Dsonar.projectKey=MOODLE_PLUGIN \
+            -Dsonar.projectName="Moodle Plugin" \
             -Dsonar.projectVersion=1 \
             -Dsonar.links.ci=$CIRCLE_BUILD_URL \
             -Dsonar.links.scm=$CIRCLE_REPOSITORY_URL \
