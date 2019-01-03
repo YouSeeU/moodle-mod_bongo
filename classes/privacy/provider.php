@@ -17,7 +17,7 @@
 /**
  * Describes what private information is stored by the Bongo plugin.
  *
- * File         index.php
+ * File         provider.php
  * Encoding     UTF-8
  *
  * @copyright   YouSeeU
@@ -26,15 +26,19 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  */
+namespace local_bongo\privacy;
 
-function get_metadata(collection $collection) : collection {
+use core_privacy\local\metadata\collection;
 
-    // No user data is stored on the Moodle server.
-    // Any user data used by Bongo is stored remotely on the Bongo servers.
+class provider implements \core_privacy\local\metadata\provider, \core_privacy\local\request\data_provider {
+    public static function get_metadata(collection $collection) : collection {
+        // No user data is stored on the Moodle server.
+        // Any user data used by Bongo is stored remotely on the Bongo servers.
 
-    $collection->add_external_location_link('lti_client', [
-        'email' => 'privacy:metadata:email',
-    ], 'privacy:metadata:lti_client');
+        $collection->add_external_location_link('lti_client', [
+            'email' => 'privacy:metadata:email',
+        ], 'privacy:metadata:lti_client');
 
-    return $collection;
+        return $collection;
+    }
 }
