@@ -64,7 +64,7 @@ workflows:
   quality:
     jobs:
       - sonarqube:
-          context: org-global
+          context: sonarqube
   feature:
     jobs:
       - build-feature:
