@@ -52,16 +52,13 @@ if ($ADMIN->fulltree) {
     }
 }
 
-$url = new moodle_url('/local/bongo/index.php');
-$link = html_writer::link($url, get_string('pluginname', 'local_bongo'));
-//$settings->add(new admin_setting_heading('local_bongo', '', $link));
-
-// Add the Bongo configuration page to the main Admin Tree.
-$ADMIN->add('modsettings',
-    new admin_externalpage(
-        'local_bongo_settings',
-        get_string('pluginname', 'local_bongo'),
-        new moodle_url('/local/bongo/index.php'),
-        'moodle/course:create'
-    )
-);
+if ($hassiteconfig) { // needs this condition or there is error on login page
+    $ADMIN->add('localplugins',
+        new admin_externalpage(
+            'local_bongo_settings',
+            get_string('pluginname', 'local_bongo'),
+            new moodle_url('/local/bongo/index.php'),
+            'moodle/course:create'
+        )
+    );
+}

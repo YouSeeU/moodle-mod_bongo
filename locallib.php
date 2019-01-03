@@ -478,7 +478,7 @@ function local_bongo_unregister_bongo_integration() {
     $bongoconfig = get_config('local_bongo');
     $siteconfig = get_config('');
 
-    if (is_null($bongoconfig)) {
+    if (is_null($bongoconfig) || is_null($bongoconfig->name)) {
         return;
     }
 
