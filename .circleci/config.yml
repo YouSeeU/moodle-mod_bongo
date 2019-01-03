@@ -42,7 +42,8 @@ jobs:
           name: Sonar scan
           command: |-
             if [[ -n "$CIRCLE_PULL_REQUEST" ]] && [[ "$CIRCLE_BRANCH" =~ .+/.+ ]]; then
-              EXTRA_ARGS="-Dsonar.github.oauth=$SONAR_GITHUB_TOKEN \
+              EXTRA_ARGS="-Dsonar.analysis.mode=preview \
+                          -Dsonar.github.oauth=$SONAR_GITHUB_TOKEN \
                           -Dsonar.github.repository=$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME \
                           -Dsonar.github.pullRequest=$(echo $CIRCLE_PULL_REQUEST | cut -d / -f 7)"
             fi
