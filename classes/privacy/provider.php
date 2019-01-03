@@ -28,8 +28,6 @@
  */
 namespace local_bongo\privacy;
 
-use core_privacy\local\metadata\collection;
-
 class provider implements
     // This plugin does not store any personal user data.
     \core_privacy\local\metadata\null_provider {
