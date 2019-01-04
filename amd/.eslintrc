@@ -1,8 +1,10 @@
 {
   "env": {
     "browser": true,
-    "amd": true
+    "amd": true,
+    "node": true
   },
+  "extends": "eslint:recommended",
   "globals": {
     "M": true,
     "Y": true
