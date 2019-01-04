@@ -20,9 +20,9 @@
  * File         provider.php
  * Encoding     UTF-8
  *
- * @copyright   YouSeeU
+ * @copyright   Bongo
  * @package     local_bongo
- * @author      Brian Kelly <brian.kelly@youseeu.com>
+ * @author      Brian Kelly <brian.kelly@bongolearn.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  */
@@ -34,11 +34,24 @@ if (!defined('MOODLE_INTERNAL')) {
 
 use core_privacy\local\metadata\collection;
 
+/**
+ * Describes what private information is stored by the Bongo plugin.
+ *
+ * @copyright   Bongo
+ * @author      Brian Kelly <brian.kelly@bongolearn.com>
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
+ */
 class provider implements \core_privacy\local\metadata\provider, \core_privacy\local\request\data_provider {
-    public static function get_metadata(collection $collection) : collection {
-        // No user data is stored on the Moodle server.
-        // Any user data used by Bongo is stored remotely on the Bongo servers.
 
+    /**
+     * No user data is stored on the Moodle server.
+     * Any user data used by Bongo is stored remotely on the Bongo servers.
+     *
+     * @param collection $collection
+     * @return collection
+     */
+    public static function get_metadata(collection $collection) : collection {
         $collection->add_external_location_link('bongolearn.com', [
             'data' => 'privacy:metadata:data'
         ], 'privacy:metadata');

@@ -23,9 +23,9 @@
  * File         tool_bongo_rest_errors_test.php
  * Encoding     UTF-8
  *
- * @copyright   YouSeeU
+ * @copyright   Bongo
  * @package     local_bongo
- * @author      Brian Kelly <brian.kelly@youseeu.com>
+ * @author      Brian Kelly <brian.kelly@bongolearn.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -39,8 +39,8 @@ require_once($CFG->dirroot.'/local/bongo/locallib.php');
 /**
  * Tests rest response parsing ability to handle errors.
  *
- * @copyright   YouSeeU
- * @author      Brian Kelly <brian.kelly@youseeu.com>
+ * @copyright   Bongo
+ * @author      Brian Kelly <brian.kelly@bongolearn.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class local_bongo_parse_rest_errors_testcase extends basic_testcase {

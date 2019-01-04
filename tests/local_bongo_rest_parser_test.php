@@ -23,9 +23,9 @@
  * File         tool_bongo_rest_parser_test.php
  * Encoding     UTF-8
  *
- * @copyright   YouSeeU
+ * @copyright   Bongo
  * @package     local_bongo
- * @author      Brian Kelly <brian.kelly@youseeu.com>
+ * @author      Brian Kelly <brian.kelly@bongolearn.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -38,8 +38,8 @@ require_once($CFG->dirroot.'/local/bongo/locallib.php');
 /**
  * Tests the full parsing ability of the rest response parser.
  *
- * @copyright   YouSeeU
- * @author      Brian Kelly <brian.kelly@youseeu.com>
+ * @copyright   Bongo
+ * @author      Brian Kelly <brian.kelly@bongolearn.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class local_bongo_rest_parser_testcase extends basic_testcase {

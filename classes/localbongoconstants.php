@@ -20,9 +20,9 @@
  * File         constants.php
  * Encoding     UTF-8
  *
- * @copyright   YouSeeU
+ * @copyright   Bongo
  * @package     local_bongo
- * @author      Brian Kelly <brian.kelly@youseeu.com>
+ * @author      Brian Kelly <brian.kelly@bongolearn.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -33,8 +33,8 @@ if (!defined('MOODLE_INTERNAL')) {
 /**
  * Internal constants, never to be seen by a user
  *
- * @copyright   YouSeeU
- * @author      Brian Kelly <brian.kelly@youseeu.com>
+ * @copyright   Bongo
+ * @author      Brian Kelly <brian.kelly@bongolearn.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class localbongoconstants{

@@ -20,9 +20,9 @@
  * File         mod_form.php
  * Encoding     UTF-8
  *
- * @copyright   YouSeeU
+ * @copyright   Bongo
  * @package     local_bongo
- * @author      Brian Kelly <brian.kelly@youseeu.com>
+ * @author      Brian Kelly <brian.kelly@bongolearn.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -36,8 +36,8 @@ require_once($CFG->dirroot . '/local/bongo/locallib.php');
 /**
  * Landing page in case someone tries to use the Bongo Plugin dummy activity
  *
- * @copyright   YouSeeU
- * @author      Brian Kelly <brian.kelly@youseeu.com>
+ * @copyright   Bongo
+ * @author      Brian Kelly <brian.kelly@bongolearn.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class local_bongo_mod_form extends moodleform_mod {
