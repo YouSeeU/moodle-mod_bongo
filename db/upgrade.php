@@ -47,9 +47,6 @@ function xmldb_local_bongo_upgrade($oldversion) {
     $result = true;
 
     // Insert PHP code from XMLDB Editor here.
-    if ($oldversion < 2019010301) {
-
-    }
 
     return $result;
 }

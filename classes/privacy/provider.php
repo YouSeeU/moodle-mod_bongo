@@ -28,6 +28,10 @@
  */
 namespace local_bongo\privacy;
 
+if (!defined('MOODLE_INTERNAL')) {
+    die('Direct access to this script is forbidden.'); // It must be included from a Moodle page.
+}
+
 use core_privacy\local\metadata\collection;
 
 class provider implements \core_privacy\local\metadata\provider, \core_privacy\local\request\data_provider {

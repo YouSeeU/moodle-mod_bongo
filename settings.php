@@ -54,7 +54,7 @@ if ($ADMIN->fulltree) {
 }
 
 // Add settings page to the main admin tree.
-if ($hassiteconfig) { // needs this condition or there is error on login page
+if ($hassiteconfig) { // Needs this condition or there is error on login page.
     $ADMIN->add('localplugins',
         new admin_externalpage(
             'local_bongo_settings',

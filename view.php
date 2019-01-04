@@ -57,8 +57,8 @@ $form = new \local_bongo\forms\bongoinformationform();
 
 $bongoconfig = get_config('local_bongo');
 $moduleid = null;
-if(!is_null($bongoconfig)){
-    if(!is_null($bongoconfig->module_id)){
+if (!is_null($bongoconfig)) {
+    if (!is_null($bongoconfig->module_id)) {
         $moduleid = $bongoconfig->module_id;
     }
 }
@@ -66,10 +66,9 @@ if(!is_null($bongoconfig)){
 if ($form->is_cancelled()) {
     redirect(new moodle_url('/admin/search.php'));
 } else if ($data = $form->get_data()) {
-    if(!is_null($moduleid)){
+    if (!is_null($moduleid)) {
         redirect(new moodle_url('/mod/lti/view.php?id=' . $moduleid));
-    }
-    else{
+    } else {
         redirect(new moodle_url('/local/bongo/view.php', get_string('bongopluginnotconfigured', 'local_bongo')));
     }
 }
