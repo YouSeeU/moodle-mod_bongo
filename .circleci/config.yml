@@ -63,7 +63,8 @@ workflows:
   version: 2
   quality:
     jobs:
-      - sonarqube
+      - sonarqube:
+          context: sonarqube
   feature:
     jobs:
       - build-feature:
