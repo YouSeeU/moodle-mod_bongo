@@ -91,22 +91,7 @@ class bongosetupform extends \moodleform {
         );
         $mform->setType('bongo_access_code', PARAM_RAW);
 
-        // Bongo Region selection.
-//        $regions = local_bongo_regions();
-//        $radioarray = array();
-//        for ($i = 0; $i < count($regions); $i++) {
-//            $region = $regions[$i];
-//            $radioarray[] =& $mform->createElement('radio', 'bongo_region', '', $region->translated_name, $region->value);
-//            if ($region->is_default) {
-//                $mform->setDefault('bongo_region', $region->value);
-//            }
-//        }
-
-        // Add Bongo regions to form.
-
-//        $mform->addGroup($radioarray, 'bongo_region_radio_array', get_string('bongoregion', 'local_bongo'), array('</p>'), false);
-//        $mform->addHelpButton('bongo_region_radio_array', 'bongoregion', 'local_bongo');
-//        $mform->addRule('bongo_region_radio_array', null, 'required', null, 'client');
+        // Bongo Region selection to go here. Reference https://docs.moodle.org/dev/lib/formslib.php_Form_Definition#radio.
 
         $mform->addElement(
             'static',
