@@ -403,11 +403,13 @@ function local_bongo_create_course_object($categoryid) {
  */
 function local_bongo_get_course_section_id($courseid) {
     global $DB;
-    $sections = $DB->get_records('course_sections', array('course' => $courseid));
+    $sql = 'SELECT MAX(id) AS id FROM mdl_course_sections WHERE course = :courseid';
+    $recordset = $DB->get_recordset_sql($sql, array('courseid' => $courseid));
     $id = -1;
-    foreach ($sections as $section) {
+    foreach ($recordset as $section) {
         $id = $section->id;
     }
+    $recordset->close();
 
     return $id;
 }
