@@ -22,9 +22,9 @@
  * File         view.php
  * Encoding     UTF-8
  *
- * @copyright   YouSeeU
+ * @copyright   Bongo
  * @package     local_bongo
- * @author      Brian Kelly <brian.kelly@youseeu.com>
+ * @author      Brian Kelly <brian.kelly@bongolearn.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  */
@@ -57,8 +57,8 @@ $form = new \local_bongo\forms\bongoinformationform();
 
 $bongoconfig = get_config('local_bongo');
 $moduleid = null;
-if(!is_null($bongoconfig)){
-    if(!is_null($bongoconfig->module_id)){
+if (!is_null($bongoconfig)) {
+    if (!is_null($bongoconfig->module_id)) {
         $moduleid = $bongoconfig->module_id;
     }
 }
@@ -66,10 +66,9 @@ if(!is_null($bongoconfig)){
 if ($form->is_cancelled()) {
     redirect(new moodle_url('/admin/search.php'));
 } else if ($data = $form->get_data()) {
-    if(!is_null($moduleid)){
+    if (!is_null($moduleid)) {
         redirect(new moodle_url('/mod/lti/view.php?id=' . $moduleid));
-    }
-    else{
+    } else {
         redirect(new moodle_url('/local/bongo/view.php', get_string('bongopluginnotconfigured', 'local_bongo')));
     }
 }

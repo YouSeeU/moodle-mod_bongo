@@ -2,7 +2,7 @@
 <XMLDB
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         PATH="local/bongo/db"
-        VERSION="2019010301"
+        VERSION="2019010401"
         COMMENT="Tables for Bongo configurations."
         xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
@@ -11,16 +11,16 @@
             <FIELDS>
                 <FIELD NAME="id" TYPE="int" LENGTH="9" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
                 <FIELD NAME="name" TYPE="char" NOTNULL="false" SEQUENCE="false" COMMENT="Name of school"/>
-                <FIELD NAME="hostname" TYPE="char" NOTNULL="true" SEQUENCE="false" COMMENT="YouSeeU Server Url"/>
-                <FIELD NAME="ltikey" TYPE="char" NOTNULL="true" SEQUENCE="false" COMMENT="YouSeeU LTI Key"/>
-                <FIELD NAME="secret" TYPE="char" NOTNULL="true" SEQUENCE="false" COMMENT="YouSeeU Secret"/>
+                <FIELD NAME="hostname" TYPE="char" NOTNULL="true" SEQUENCE="false" COMMENT="Bongo Server Url"/>
+                <FIELD NAME="ltikey" TYPE="char" NOTNULL="true" SEQUENCE="false" COMMENT="Bongo LTI Key"/>
+                <FIELD NAME="secret" TYPE="char" NOTNULL="true" SEQUENCE="false" COMMENT="Bongo Secret"/>
                 <FIELD NAME="timezone" TYPE="char" NOTNULL="true" SEQUENCE="false"
                        COMMENT="Moodle installation timezone"/>
-                <FIELD NAME="region" TYPE="char" NOTNULL="true" SEQUENCE="false" COMMENT="YouSeeU Global Region"/>
+                <FIELD NAME="region" TYPE="char" NOTNULL="true" SEQUENCE="false" COMMENT="Bongo Global Region"/>
                 <FIELD NAME="lti_type_id" TYPE="int" LENGTH="9" NOTNULL="false" SEQUENCE="false"
-                       COMMENT="YouSeeU Bongo Configured Lti Type"/>
+                       COMMENT="Bongo Configured Lti Type"/>
                 <FIELD NAME="course" TYPE="int" LENGTH="9" NOTNULL="false" SEQUENCE="false"
-                       COMMENT="YouSeeU Bongo Example Course"/>
+                       COMMENT="Bongo Example Course"/>
             </FIELDS>
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id"

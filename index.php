@@ -20,9 +20,9 @@
  * File         index.php
  * Encoding     UTF-8
  *
- * @copyright   YouSeeU
+ * @copyright   Bongo
  * @package     local_bongo
- * @author      Brian Kelly <brian.kelly@youseeu.com>
+ * @author      Brian Kelly <brian.kelly@bongolearn.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  */
@@ -106,7 +106,11 @@ if ($form->is_cancelled()) {
     }
 
     // Trigger a bongo configured event.
-    \local_bongo\event\bongo_configured::create(array('context' => context_system::instance(), 'objectid' => $dbobject->course))->trigger();
+    \local_bongo\event\bongo_configured::create(
+        array(
+            'context' => context_system::instance(),
+            'objectid' => $dbobject->course)
+    )->trigger();
 
     redirect(
         new moodle_url('/local/bongo/view.php?moduleid=' . $registrationresponse->module_id),

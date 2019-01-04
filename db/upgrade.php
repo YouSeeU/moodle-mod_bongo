@@ -20,9 +20,9 @@
  * File         upgrade.php
  * Encoding     UTF-8
  *
- * @copyright   YouSeeU
+ * @copyright   Bongo
  * @package     local_bongo
- * @author      Brian Kelly <brian.kelly@youseeu.com>
+ * @author      Brian Kelly <brian.kelly@bongolearn.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  */
@@ -47,9 +47,6 @@ function xmldb_local_bongo_upgrade($oldversion) {
     $result = true;
 
     // Insert PHP code from XMLDB Editor here.
-    if ($oldversion < 2019010301) {
-
-    }
 
     return $result;
 }

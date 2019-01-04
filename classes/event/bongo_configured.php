@@ -29,7 +29,7 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * The bongo_configured event.
  *
- * @copyright  2018 onwards Brian Kelly <brian.kelly@youseeu.com>
+ * @copyright  2018 onwards Brian Kelly <brian.kelly@bongolearn.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class bongo_configured extends \core\event\base {

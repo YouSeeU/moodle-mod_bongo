@@ -26,9 +26,9 @@
  * File         settings.php
  * Encoding     UTF-8
  *
- * @copyright   YouSeeU
+ * @copyright   Bongo
  * @package     local_bongo
- * @author      Brian Kelly <brian.kelly@youseeu.com>
+ * @author      Brian Kelly <brian.kelly@bongolearn.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -54,7 +54,7 @@ if ($ADMIN->fulltree) {
 }
 
 // Add settings page to the main admin tree.
-if ($hassiteconfig) { // needs this condition or there is error on login page
+if ($hassiteconfig) { // Needs this condition or there is error on login page.
     $ADMIN->add('localplugins',
         new admin_externalpage(
             'local_bongo_settings',

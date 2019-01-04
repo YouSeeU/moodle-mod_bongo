@@ -21,9 +21,9 @@
  * File         version.php
  * Encoding     UTF-8
  *
- * @copyright   YouSeeU
+ * @copyright   Bongo
  * @package     local_bongo
- * @author      Brian Kelly <brian.kelly@youseeu.com>
+ * @author      Brian Kelly <brian.kelly@bongolearn.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  */
@@ -33,7 +33,7 @@ if (!defined('MOODLE_INTERNAL')) {
 }
 
 // YYYYMMDDXX where XX is an incremental counter for the given year.
-$plugin->version = 2019010301;
+$plugin->version = 2019010401;
 
 // Moodle 2.7.0 is required. This is because the mod_lti plugin was not available until 2.7.0.
 $plugin->requires = 2014051200;

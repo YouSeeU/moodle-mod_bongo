@@ -31,9 +31,9 @@
  * File         locallib.php
  * Encoding     UTF-8
  *
- * @copyright   YouSeeU
+ * @copyright   Bongo
  * @package     local_bongo
- * @author      Brian Kelly <brian.kelly@youseeu.com>
+ * @author      Brian Kelly <brian.kelly@bongolearn.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  */
@@ -199,12 +199,18 @@ function local_bongo_parse_response($jsonresult) {
 
     if ($dataexists) {
         $body = $jsonresponse['data'];
-        $code = (array_key_exists(localbongoconstants::LOCAL_BONGO_CODE, $body) ? $body[localbongoconstants::LOCAL_BONGO_CODE] : null);
-        $message = (array_key_exists(localbongoconstants::LOCAL_BONGO_MESSAGE, $body) ? $body[localbongoconstants::LOCAL_BONGO_MESSAGE] : null);
-        $secret = (array_key_exists(localbongoconstants::LOCAL_BONGO_SECRET, $body) ? $body[localbongoconstants::LOCAL_BONGO_SECRET] : null);
-        $ltikey = (array_key_exists(localbongoconstants::LOCAL_BONGO_KEY, $body) ? $body[localbongoconstants::LOCAL_BONGO_KEY] : null);
-        $url = (array_key_exists(localbongoconstants::LOCAL_BONGO_URL, $body) ? $body[localbongoconstants::LOCAL_BONGO_URL] : null);
-        $region = (array_key_exists(localbongoconstants::LOCAL_BONGO_REGION, $body) ? $body[localbongoconstants::LOCAL_BONGO_REGION] : null);
+        $code = (array_key_exists(
+            localbongoconstants::LOCAL_BONGO_CODE, $body) ? $body[localbongoconstants::LOCAL_BONGO_CODE] : null);
+        $message = (array_key_exists(
+            localbongoconstants::LOCAL_BONGO_MESSAGE, $body) ? $body[localbongoconstants::LOCAL_BONGO_MESSAGE] : null);
+        $secret = (array_key_exists(
+            localbongoconstants::LOCAL_BONGO_SECRET, $body) ? $body[localbongoconstants::LOCAL_BONGO_SECRET] : null);
+        $ltikey = (array_key_exists(
+            localbongoconstants::LOCAL_BONGO_KEY, $body) ? $body[localbongoconstants::LOCAL_BONGO_KEY] : null);
+        $url = (array_key_exists(
+            localbongoconstants::LOCAL_BONGO_URL, $body) ? $body[localbongoconstants::LOCAL_BONGO_URL] : null);
+        $region = (array_key_exists(
+            localbongoconstants::LOCAL_BONGO_REGION, $body) ? $body[localbongoconstants::LOCAL_BONGO_REGION] : null);
     }
     if ($errorsexist) {
         $message = $jsonresponse['errors'];
@@ -500,7 +506,10 @@ function local_bongo_unregister_bongo_integration() {
 
     // If the plugin was not configured, don't bother with a rest call.
     if (isset($bongoconfig->key)) {
-        $resultresponse = local_bongo_execute_rest_call(localbongoconstants::LOCAL_BONGO_MOODLE_LAMBDA_ADDRESS, json_encode($array));
+        $resultresponse = local_bongo_execute_rest_call(
+            localbongoconstants::LOCAL_BONGO_MOODLE_LAMBDA_ADDRESS,
+            json_encode($array)
+        );
     }
 }
 
