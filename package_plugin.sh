@@ -35,7 +35,7 @@ cp -r ./* bongo/
 rmdir ./bongo/bongo
 
 #Zip all folder contents of folder excluding the git, idea and circleci build folders.
-zip -r $MOODLE_NAME-$MODULE_VERSION.zip ./bongo -x *.git* *.idea* *.circleci* *.zip *.travis* *bongo
+zip -r $MOODLE_NAME-$MODULE_VERSION.zip ./bongo -x *.git* *.idea* *.circleci* *.zip *.travis* *bongo *.sh
 
 # Remove zip-able folder to clean up repo and build machine
 rm -rf ./bongo/

@@ -582,7 +582,7 @@ function local_bongo_insert_dummy_data($courseid) {
     $dbobject->lti_type_id = 0;
     $dbobject->course = $courseid;
 
-    $DB->insert_record('bongo', $dbobject);
+    $DB->insert_record('local_bongo', $dbobject);
 }
 
 /**

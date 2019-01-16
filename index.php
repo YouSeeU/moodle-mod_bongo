@@ -70,7 +70,7 @@ if ($form->is_cancelled()) {
     $dbobject->timezone = date_default_timezone_get();
     $dbobject->region = localbongoconstants::LOCAL_BONGO_REGION_NA;
 
-    $bongorecords = $DB->get_records('bongo', array());
+    $bongorecords = $DB->get_records('local_bongo', array());
     if (!empty($bongorecords)) {
         redirect(
             new moodle_url('/local/bongo/index.php'),
@@ -95,7 +95,7 @@ if ($form->is_cancelled()) {
     $dbobject->course = $registrationresponse->course_id;
     $dbobject->module_id = $registrationresponse->module_id;
 
-    $DB->insert_record('bongo', $dbobject);
+    $DB->insert_record('local_bongo', $dbobject);
 
     // Save plugin config.
     foreach ($dbobject as $name => $value) {

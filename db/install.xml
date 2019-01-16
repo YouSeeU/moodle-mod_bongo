@@ -7,7 +7,7 @@
         xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
     <TABLES>
-        <TABLE NAME="bongo" COMMENT="Storage for Bongo configurations">
+        <TABLE NAME="local_bongo" COMMENT="Storage for Bongo configurations">
             <FIELDS>
                 <FIELD NAME="id" TYPE="int" LENGTH="9" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
                 <FIELD NAME="name" TYPE="char" NOTNULL="false" SEQUENCE="false" COMMENT="Name of school"/>
