@@ -58,7 +58,7 @@ $string['pluginsettingscanceled'] = 'Bongo configuration canceled';
 // Form info.
 $string['bongochangessaved'] = 'Changes saved!';
 $string['bongopremiumkey'] = 'Bongo access code';
-$string['bongopremiumkey_help'] = ' If you do not have an access code please <a href="https://www.bongolearn.com/activation-code">visit our site</a>.';
+$string['bongopremiumkey_help'] = ' If you do not have an access code please <a href="https://www.bongolearn.com/access-code/">visit our site</a>.';
 $string['bongopremiumkeyformat'] = 'Please use only letters, numbers and dashes (-)';
 $string['bongoschoolname'] = 'Moodle institution';
 $string['bongoschoolname_help'] = 'Name of the school you are associated with.';

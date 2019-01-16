@@ -2,7 +2,7 @@
 <XMLDB
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         PATH="local/bongo/db"
-        VERSION="2019011601"
+        VERSION="2019011602"
         COMMENT="Tables for Bongo configurations."
         xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
