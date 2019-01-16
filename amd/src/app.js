@@ -1,6 +1,6 @@
-define(['jquery'], function ($) {
+define(['jquery'], function($) {
     return {
-        init: function () {
+        init: function() {
             $('<style type=\'text/css\'>@keyframes bongo-load { 0% { transform: translateX(-50%) translateY(-50%) rotate(0deg); }' +
               '100% { transform: translateX(-50%) translateY(-50%) rotate(360deg); } } </style>').appendTo('head');
 
@@ -31,7 +31,7 @@ define(['jquery'], function ($) {
                 height: '4em'
             });
 
-            form.submit(function () {
+            form.submit(function() {
                 submitButton.prop('disabled', true);
                 cancelButton.prop('disabled', true);
                 loadingDiv.css('display', 'block');
