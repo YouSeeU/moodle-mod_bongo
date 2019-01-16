@@ -43,11 +43,11 @@ require_once($CFG->dirroot . '/local/bongo/locallib.php');
 
 // If plugin was just installed, view the config page once.
 if ($ADMIN->fulltree) {
-    $bongoplugin = $DB->get_records('bongo', array());
+    $bongoplugin = $DB->get_records('local_bongo', array());
     if (empty($bongoplugin)) {
         // Only force viewing config if this is the first time they have seen the config.
         $viewed = local_bongo_get_bongo_config_viewed();
-        if (is_null($viewed)) {
+        if (!$viewed) {
             redirect(new moodle_url('/local/bongo/index.php'));
         }
     }

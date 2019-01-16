@@ -55,9 +55,6 @@ $PAGE->set_pagelayout('standard');
 
 admin_externalpage_setup('local_bongo_settings');
 
-// Before we do anything, make sure the dummy version of the Bongo Activity plugin is disabled.
-local_bongo_disable_dummy_plugin();
-
 // Log that we have seen the bongo config at least once.
 local_bongo_set_bongo_config_viewed();
 
@@ -73,7 +70,7 @@ if ($form->is_cancelled()) {
     $dbobject->timezone = date_default_timezone_get();
     $dbobject->region = localbongoconstants::LOCAL_BONGO_REGION_NA;
 
-    $bongorecords = $DB->get_records('bongo', array());
+    $bongorecords = $DB->get_records('local_bongo', array());
     if (!empty($bongorecords)) {
         redirect(
             new moodle_url('/local/bongo/index.php'),
@@ -98,7 +95,7 @@ if ($form->is_cancelled()) {
     $dbobject->course = $registrationresponse->course_id;
     $dbobject->module_id = $registrationresponse->module_id;
 
-    $DB->insert_record('bongo', $dbobject);
+    $DB->insert_record('local_bongo', $dbobject);
 
     // Save plugin config.
     foreach ($dbobject as $name => $value) {

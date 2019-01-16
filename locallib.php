@@ -562,25 +562,6 @@ function local_bongo_handle_rest_errors($parsedresponse) {
 }
 
 /**
- * Turn off Bongo activity modules in Moodle.
- *
- * This is never supposed to be on. This is the Bongo Activity plugin. The Bongo plugin creates an external tool,
- * which is the intended use case, rather than the Bongo Activity plugin. This should be called on every Bongo page to
- * make sure that the Activity plugin is always disabled.
- */
-function local_bongo_disable_dummy_plugin() {
-    global $DB;
-
-    $bongoplugin = $DB->get_records('modules', array('name' => 'bongo'));
-    if (!empty($bongoplugin)) {
-        foreach ($bongoplugin as $plugin) {
-            $plugin->visible = 0;
-            $DB->update_record('modules', $plugin);
-        }
-    }
-}
-
-/**
  * Failure case where the plugin failed to log its config data but correctly set up the lti information.
  *
  * @param int $courseid
@@ -601,7 +582,7 @@ function local_bongo_insert_dummy_data($courseid) {
     $dbobject->lti_type_id = 0;
     $dbobject->course = $courseid;
 
-    $DB->insert_record('bongo', $dbobject);
+    $DB->insert_record('local_bongo', $dbobject);
 }
 
 /**
@@ -610,28 +591,17 @@ function local_bongo_insert_dummy_data($courseid) {
  * @return int
  */
 function local_bongo_get_bongo_config_viewed() {
-    global $DB;
-    $sections = $DB->get_records('bongo_initial_view', array());
-    $id = null;
-    foreach ($sections as $section) {
-        $id = $section->id;
-    }
+    $bongoconfig = get_config('local_bongo');
 
-    return $id;
+    $value = $bongoconfig->config_viewed;
+
+    return $value == 1;
 }
 
 /**
  * Check whether the Bongo config has been viewed at least once.
  */
 function local_bongo_set_bongo_config_viewed() {
-    global $DB;
-    $views = $DB->get_records('bongo_initial_view', array());
-    $id = null;
-    foreach ($views as $section) {
-        return;
-    }
-
-    $view = new stdClass();
-    $view->bongo_viewed = 1;
-    $DB->insert_record('bongo_initial_view', $view);
+    // Save plugin config.
+    set_config('config_viewed', 1, 'local_bongo');
 }
