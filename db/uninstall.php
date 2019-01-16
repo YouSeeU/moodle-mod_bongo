@@ -38,7 +38,7 @@ global $CFG, $DB;
 require_once($CFG->dirroot . '/mod/lti/locallib.php');
 require_once($CFG->dirroot . '/local/bongo/locallib.php');
 
-$bongorows = $DB->get_records('bongo', array());
+$bongorows = $DB->get_records('local_bongo', array());
 foreach ($bongorows as $bongorow) {
     $ltitype = $bongorow->lti_type_id;
     lti_delete_type($ltitype);
