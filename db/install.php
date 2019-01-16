@@ -40,8 +40,5 @@ require_once($CFG->dirroot . '/local/bongo/locallib.php');
  * Overrides global function. Required for all plugins.
  */
 function xmldb_local_bongo_install() {
-    global $DB;
 
-    // Before we do anything, make sure the dummy version of the Bongo Activity plugin is disabled.
-    local_bongo_disable_dummy_plugin();
 }
