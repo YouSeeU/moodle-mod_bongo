@@ -27,14 +27,5 @@
                      COMMENT="It is convention to have the ID be the primary key"/>
             </KEYS>
         </TABLE>
-        <TABLE NAME="bongo_initial_view" COMMENT="Check whether initial view of Bongo config was reached">
-            <FIELDS>
-                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-                <FIELD NAME="bongo_viewed" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="Was Bongo config viewed at least once"/>
-            </FIELDS>
-            <KEYS>
-                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-            </KEYS>
-        </TABLE>
     </TABLES>
 </XMLDB>

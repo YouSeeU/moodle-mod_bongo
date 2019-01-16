@@ -47,7 +47,7 @@ if ($ADMIN->fulltree) {
     if (empty($bongoplugin)) {
         // Only force viewing config if this is the first time they have seen the config.
         $viewed = local_bongo_get_bongo_config_viewed();
-        if (is_null($viewed)) {
+        if (!$viewed) {
             redirect(new moodle_url('/local/bongo/index.php'));
         }
     }
