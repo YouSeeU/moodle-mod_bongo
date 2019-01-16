@@ -49,9 +49,6 @@ $PAGE->set_heading(get_string('pluginname', 'local_bongo'));
 $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('standard');
 
-// Before we do anything, make sure the dummy version of the Bongo Activity plugin is disabled.
-local_bongo_disable_dummy_plugin();
-
 $config = get_config('local_bongo');
 $form = new \local_bongo\forms\bongoinformationform();
 

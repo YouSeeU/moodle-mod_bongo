@@ -55,9 +55,6 @@ $PAGE->set_pagelayout('standard');
 
 admin_externalpage_setup('local_bongo_settings');
 
-// Before we do anything, make sure the dummy version of the Bongo Activity plugin is disabled.
-local_bongo_disable_dummy_plugin();
-
 // Log that we have seen the bongo config at least once.
 local_bongo_set_bongo_config_viewed();
 
