@@ -591,28 +591,17 @@ function local_bongo_insert_dummy_data($courseid) {
  * @return int
  */
 function local_bongo_get_bongo_config_viewed() {
-    global $DB;
-    $sections = $DB->get_records('bongo_initial_view', array());
-    $id = null;
-    foreach ($sections as $section) {
-        $id = $section->id;
-    }
+    $bongoconfig = get_config('local_bongo');
 
-    return $id;
+    $value = $bongoconfig->config_viewed;
+
+    return $value == 1;
 }
 
 /**
  * Check whether the Bongo config has been viewed at least once.
  */
 function local_bongo_set_bongo_config_viewed() {
-    global $DB;
-    $views = $DB->get_records('bongo_initial_view', array());
-    $id = null;
-    foreach ($views as $section) {
-        return;
-    }
-
-    $view = new stdClass();
-    $view->bongo_viewed = 1;
-    $DB->insert_record('bongo_initial_view', $view);
+    // Save plugin config.
+    set_config('config_viewed', 1, 'local_bongo');
 }
