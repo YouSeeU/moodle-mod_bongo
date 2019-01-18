@@ -339,13 +339,10 @@ function local_bongo_create_mod_course() {
 function local_bongo_get_bongo_course() {
     global $DB;
 
-    $courses = $DB->get_records('course', array('summary' => localbongoconstants::LOCAL_BONGO_MAIN_URL));
-    if (!empty($courses)) {
-        $id = -1;
-        foreach ($courses as $course) {
-            $id = $course->id;
-        }
-        return $id;
+    $where = $DB->sql_compare_text('summary') ." = ?";
+    $course = $DB->get_record_select('course', $where, array(localbongoconstants::LOCAL_BONGO_MAIN_URL));
+    if (!empty($course)) {
+        return $course->id;
     }
 
     return null;
