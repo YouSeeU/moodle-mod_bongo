@@ -39,6 +39,11 @@ if (!defined('MOODLE_INTERNAL')) {
  */
 class localbongoconstants{
     /**
+     * The main URL for the Bongo website.
+     */
+    const LOCAL_BONGO_MAIN_URL = 'https://www.bongolearn.com';
+
+    /**
      * The address of the REST Url endpoint in Bongo.
      */
     const LOCAL_BONGO_MOODLE_LAMBDA_ADDRESS = 'https://bongo-gss.youseeu.com/api/provision';
