@@ -53,7 +53,9 @@ class provider implements \core_privacy\local\metadata\provider, \core_privacy\l
      */
     public static function get_metadata(collection $collection) : collection {
         $collection->add_external_location_link('bongolearn.com', [
-            'data' => 'privacy:metadata:data'
+            'userid' => 'privacy:metadata:userid',
+            'fullname' => 'privacy:metadata:fullname',
+            'email' => 'privacy:metadata:email'
         ], 'privacy:metadata');
 
         return $collection;

@@ -96,5 +96,7 @@ $string['bongoconfiguredevent'] = 'Bongo has been configured and is ready to use
 
 // GDPR Notice.
 $string['privacy:metadata'] = 'This plugin sends data externally to Bongo. It does not store data locally.';
-$string['privacy:metadata:data'] = 'Bongo does not store any personal information on Moodle.';
+$string['privacy:metadata:userid'] = 'Bongo uses the userid to uniquely identify a user from Moodle.';
+$string['privacy:metadata:fullname'] = 'Your full name is used to personalize your experience in Bongo.';
+$string['privacy:metadata:email'] = 'Your email is used in case of user collisions to allow you access to Bongo.';
 
