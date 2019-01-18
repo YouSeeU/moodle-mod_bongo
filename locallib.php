@@ -335,7 +335,7 @@ function local_bongo_create_mod_course() {
 function local_bongo_get_bongo_course() {
     global $DB;
 
-    $courses = $DB->get_records('course', array('fullname' => get_string('bongoexamplecourse', 'local_bongo')));
+    $courses = $DB->get_records('course', array('summary' => localbongoconstants::LOCAL_BONGO_MAIN_URL));
     if (!empty($courses)) {
         $id = -1;
         foreach ($courses as $course) {
@@ -392,7 +392,7 @@ function local_bongo_create_course_object($categoryid) {
     $config = new stdClass();
     $config->fullname = get_string('bongoexamplecourse', 'local_bongo');
     $config->shortname = get_string('bongoexamplecourse', 'local_bongo');
-    $config->summary = get_string('bongoexamplecourse', 'local_bongo');
+    $config->summary = localbongoconstants::LOCAL_BONGO_MAIN_URL;
     $config->category = $categoryid;
     $config->startdate = time();
     $config->timecreated = time();
