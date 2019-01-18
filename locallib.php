@@ -239,7 +239,7 @@ function local_bongo_create_lti_tool($secret, $key, $url) {
     global $DB;
 
     // If the lti tool has already been inserted, use the previous one.
-    $ltitypes = $DB->get_records('lti_types', array('name' => get_string('pluginname', 'local_bongo')));
+    $ltitypes = $DB->get_records('lti_types', array('lti_icon' => localbongoconstants::LOCAL_BONGO_FAVICON_URL));
     if (!empty($ltitypes)) {
         $id = -1;
         foreach ($ltitypes as $type) {
@@ -256,7 +256,7 @@ function local_bongo_create_lti_tool($secret, $key, $url) {
     $type->state = LTI_TOOL_STATE_CONFIGURED;
 
     lti_add_type($type, $config);
-    $ltitype = $DB->get_record('lti_types', array('name' => get_string('pluginname', 'local_bongo')));
+    $ltitype = $DB->get_record('lti_types', array('lti_icon' => localbongoconstants::LOCAL_BONGO_FAVICON_URL));
     $id = $ltitype->id;
 
     return $id;
