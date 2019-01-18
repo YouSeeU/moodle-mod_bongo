@@ -238,15 +238,19 @@ function local_bongo_parse_response($jsonresult) {
 function local_bongo_create_lti_tool($secret, $key, $url) {
     global $DB;
 
+    //If the tool exists in bongo config, use it.
+    $bongo_config = get_config('lti_type_id', 'local_bongo');
+    if($bongo_config != NULL){
+        return $bongo_config;
+    }
+
     // If the lti tool has already been inserted, use the previous one.
-    $ltitypes = $DB->get_records('lti_types', array('lti_icon' => localbongoconstants::LOCAL_BONGO_FAVICON_URL));
-    if (!empty($ltitypes)) {
-        $id = -1;
-        foreach ($ltitypes as $type) {
-            $type->lti_resourcekey = $key;
-            $type->lti_password = $secret;
-            $id = $DB->update_record('lti_types', $type);
-        }
+    $where = $DB->sql_compare_text('icon') ." = ?";
+    $ltitype = $DB->get_record_select('lti_types', $where, array(localbongoconstants::LOCAL_BONGO_FAVICON_URL));
+    if (!empty($ltitype)) {
+        $ltitype->lti_resourcekey = $key;
+        $ltitype->lti_password = $secret;
+        $id = $DB->update_record('lti_types', $ltitype);
         return $id;
     }
 
@@ -256,7 +260,7 @@ function local_bongo_create_lti_tool($secret, $key, $url) {
     $type->state = LTI_TOOL_STATE_CONFIGURED;
 
     lti_add_type($type, $config);
-    $ltitype = $DB->get_record('lti_types', array('lti_icon' => localbongoconstants::LOCAL_BONGO_FAVICON_URL));
+    $ltitype = $DB->get_record_select('lti_types', $where, array(localbongoconstants::LOCAL_BONGO_FAVICON_URL));
     $id = $ltitype->id;
 
     return $id;
