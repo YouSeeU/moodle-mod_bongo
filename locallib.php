@@ -411,7 +411,7 @@ function local_bongo_create_course_object($categoryid) {
 function local_bongo_get_course_section_id($courseid) {
     global $DB;
 
-    $id = $DB->get_field_select('course_sections', 'MAX(id) as id', 'course= ?', [$courseid]);;
+    $id = $DB->get_field_select('course_sections', 'MAX(id) as id', 'course= ?', [$courseid]);
     if (!$id) {
         $id = -1;
     }
