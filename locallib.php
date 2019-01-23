@@ -485,7 +485,7 @@ function local_bongo_unregister_bongo_integration() {
     $bongoconfig = get_config('local_bongo');
     $siteconfig = get_config('');
 
-    if (is_null($bongoconfig) || is_null($bongoconfig->name)) {
+    if ($bongoconfig == NULL || is_null($bongoconfig) || is_null($bongoconfig->name)) {
         return;
     }
 
@@ -591,6 +591,10 @@ function local_bongo_insert_dummy_data($courseid) {
  */
 function local_bongo_get_bongo_config_viewed() {
     $bongoconfig = get_config('local_bongo');
+
+    if ($bongoconfig == NULL) {
+        return FALSE;
+    }
 
     $value = $bongoconfig->config_viewed;
 
