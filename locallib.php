@@ -238,10 +238,10 @@ function local_bongo_parse_response($jsonresult) {
 function local_bongo_create_lti_tool($secret, $key, $url) {
     global $DB;
 
-    //If the tool exists in bongo config, use it.
-    $bongo_config = get_config('lti_type_id', 'local_bongo');
-    if($bongo_config != NULL){
-        return $bongo_config;
+    // If the tool exists in bongo config, use it.
+    $bongoconfig = get_config('lti_type_id', 'local_bongo');
+    if ($bongoconfig != null) {
+        return $bongoconfig;
     }
 
     // If the lti tool has already been inserted, use the previous one.
@@ -485,7 +485,7 @@ function local_bongo_unregister_bongo_integration() {
     $bongoconfig = get_config('local_bongo');
     $siteconfig = get_config('');
 
-    if ($bongoconfig == NULL || is_null($bongoconfig) || is_null($bongoconfig->name)) {
+    if ($bongoconfig == null || is_null($bongoconfig) || !isset($bongoconfig->name)) {
         return;
     }
 
@@ -592,8 +592,8 @@ function local_bongo_insert_dummy_data($courseid) {
 function local_bongo_get_bongo_config_viewed() {
     $bongoconfig = get_config('local_bongo');
 
-    if ($bongoconfig == NULL) {
-        return FALSE;
+    if ($bongoconfig == null || !isset($bongoconfig->config_viewed)) {
+        return false;
     }
 
     $value = $bongoconfig->config_viewed;
