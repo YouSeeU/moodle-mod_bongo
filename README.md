@@ -60,7 +60,7 @@ Then zip the new 'bongo' folder.
 * If no unmet dependencies, click 'Upgrade Moodle database now'
 * If no errors, 'Success' is shown, click 'Continue'
 * Configure Bongo on Moodle
-    * Navigate to '/admin/tool/bongo/index.php' on the moodle server (ex: http://localhost/admin/tool/bongo/index.php)
+    * Navigate to '/local/bongo/index.php' on the moodle server (ex: http://localhost/local/bongo/index.php)
     * Add Moodle School Name
     * Add Bongo Premium Key
     * Select Bongo Region
@@ -79,5 +79,5 @@ Then zip the new 'bongo' folder.
 * After installation, the user and any administrators can use the Bongo application from the 'Add Activity/Resource' in any course to add Bongo as an activity to any course.
 
 ## Potential issues
-* Write access needs to be allowed on <Moodle root>/admin/tool for installation from zip file
+* Write access needs to be allowed on <Moodle root>/local for installation from zip file
 * Access to the internet so the plugin can call the Bongo REST API
