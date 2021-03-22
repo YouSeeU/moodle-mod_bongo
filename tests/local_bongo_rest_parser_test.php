@@ -71,7 +71,7 @@ class local_bongo_rest_parser_testcase extends basic_testcase {
 
         assert($parsedresponse->url == $url, 'Rest URL was not parsed correctly!' . var_dump($parsedresponse));
         assert($parsedresponse->key == $key, 'Rest Key was not parsed correctly!' . var_dump($parsedresponse));
-        assert($parsedresponse->secret == $secret, 'Rest secret was not parsed correctly!' . var_dump($parsedresponse));
+        assert($parsedresponse->secret === $secret, 'Rest secret was not parsed correctly!' . var_dump($parsedresponse));
         assert($parsedresponse->region == $region, 'Rest region was not parsed correctly!' . var_dump($parsedresponse));
 
     }
